@@ -1,0 +1,68 @@
+<defun name="two2one">
+    <in name="implementation" type="string" place="implementation"/>
+    <in name="julia_impl" type="string" place="julia_impl"/>
+    <in name="fname" type="string" place="fname"/>
+    
+    <in name="input_file1" type="string" place="input_file1"/>
+    <in name="input_file2" type="string" place="input_file2"/>
+   
+    <out name="output_file1" type="string" place="output_file1"/>
+    <!-- <out name="output_file2" type="string" place="output_file2"/> -->
+    
+    <net>
+      <place name="input_file1" type="string"/>
+      <place name="input_file2" type="string"/>
+   
+      <place name="output_file1" type="string"/>
+      <!-- <place name="output_file2" type="string"/> -->
+   
+      <place name="implementation" type="string"/>
+      <place name="julia_impl" type="string"/>
+      <place name="fname" type="string"/>
+  
+  
+      <transition name="hello_jl">
+        <defun>
+          <in name="in_file1" type="string"/>
+          <in name="in_file2" type="string"/>
+  
+          <out name="out_file1" type="string"/>
+          <!-- <out name="out_file2" type="string"/> -->
+          
+          <in name="implementation" type="string"/>
+          <in name="julia_impl" type="string"/>
+          <in name="fname" type="string"/>
+          
+          <module name="hello_julia" function="operation (in_file1, in_file2, out_file1, implementation, julia_impl, fname)" require_function_unloads_without_rest="false">
+            <cinclude href="interface.hpp"/>
+            <cinclude href="util-generic/dynamic_linking.hpp"/>
+            <cinclude href="iostream"/>
+            <code><![CDATA[
+              std::cout << "TESTING PETRI NET" << std::endl;
+              auto out_vector = fhg::util::scoped_dlhandle (implementation)
+                  .sym<decltype (jl_executor)> ("jl_executor")
+                  (
+                    julia_impl,
+                    fname,
+                    {in_file1, in_file2},
+                    1
+                  );
+              out_file1 = out_vector[0][0];
+            ]]></code>
+          </module>
+        </defun>
+  
+        <connect-in port="in_file1" place="input_file1"/>
+        <connect-in port="in_file2" place="input_file2"/>
+        
+        <connect-out port="out_file1" place="output_file1"/>
+        <!-- <connect-out port="out_file2" place="output_file2"/> -->
+  
+        <connect-in port="implementation" place="implementation"/>
+        <connect-in port="julia_impl" place="julia_impl"/>
+        <connect-in port="fname" place="fname"/>
+  
+      </transition>
+    </net>
+  </defun>
+  

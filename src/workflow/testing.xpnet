@@ -1,0 +1,78 @@
+<defun name="testing">
+    <in name="implementation" type="string" place="implementation"/>
+    <in name="julia_impl" type="string" place="julia_impl"/>
+    <in name="fname" type="string" place="fname"/>
+    
+    <in name="input_file0" type="string" place="input_file0"/>
+    <in name="input_file1" type="string" place="input_file1"/>
+    <in name="input_file2" type="string" place="input_file2"/>
+    <in name="input_file3" type="string" place="input_file3"/>
+    <in name="input_file4" type="string" place="input_file4"/>
+   
+    <out name="output_file1" type="string" place="output_file1"/>
+    <out name="output_file2" type="string" place="output_file2"/>
+    
+    <net>
+      <place name="input_file0" type="string"/>
+      <place name="input_file1" type="string"/>
+      <place name="input_file2" type="string"/>
+      <place name="input_file3" type="string"/>
+      <place name="input_file4" type="string"/>
+   
+      <place name="output_file1" type="string"/>
+      <place name="output_file2" type="string"/>
+   
+      <place name="implementation" type="string"/>
+      <place name="julia_impl" type="string"/>
+      <place name="fname" type="string"/>
+  
+  
+      <transition name="test">
+        <defun>
+          <in name="in_file0" type="string"/>
+          <in name="in_file1" type="string"/>
+          <in name="in_file2" type="string"/>
+          <in name="in_file3" type="string"/>
+          <in name="in_file4" type="string"/>
+  
+          <out name="out_file1" type="string"/>
+          <out name="out_file2" type="string"/>
+          
+          <in name="implementation" type="string"/>
+          <in name="julia_impl" type="string"/>
+          <in name="fname" type="string"/>
+          
+          <module name="test" function="operation (in_file0, in_file1, in_file2, in_file3, in_file4, out_file1, out_file2, implementation, julia_impl, fname)" require_function_unloads_without_rest="false">
+            <cinclude href="executor.hpp"/>
+            <cinclude href="iostream"/>
+            <cinclude href="string"/>
+            <cinclude href="vector"/>
+            <code><![CDATA[
+              std::cerr << "#================================================#" << std::endl;
+              std::cerr << "IMPLEMENTATION IS: " << implementation << std::endl;
+              std::cerr << "JULIA IMPLEMENTATIOn IS: " << julia_impl << std::endl;
+              std::cerr << "FNAME IS: " << fname << std::endl;
+              std::vector<std::vector<std::string>> output = execute(implementation, julia_impl, fname, {in_file0, in_file1, in_file2, in_file3, in_file4}, 2);
+              out_file1 = output[0][0];
+              out_file2 = output[1][0];
+            ]]></code>
+          </module>
+        </defun>
+  
+        <connect-in port="in_file0" place="input_file0"/>
+        <connect-in port="in_file1" place="input_file1"/>
+        <connect-in port="in_file2" place="input_file2"/>
+        <connect-in port="in_file3" place="input_file3"/>
+        <connect-in port="in_file4" place="input_file4"/>
+        
+        <connect-out port="out_file1" place="output_file1"/>
+        <connect-out port="out_file2" place="output_file2"/>
+  
+        <connect-in port="implementation" place="implementation"/>
+        <connect-in port="julia_impl" place="julia_impl"/>
+        <connect-in port="fname" place="fname"/>
+  
+      </transition>
+    </net>
+  </defun>
+  

@@ -1,0 +1,117 @@
+<defun name="hello_julia">
+    <in name="implementation0" type="string" place="implementation0"/>
+    <in name="julia_impl0" type="string" place="julia_impl0"/>
+    <in name="fname0" type="string" place="fname0"/>
+
+    <in name="implementation1" type="string" place="implementation1"/>
+    <in name="julia_impl1" type="string" place="julia_impl1"/>
+    <in name="fname1" type="string" place="fname1"/>
+    
+    <in name="input_file" type="string" place="input_file"/>
+
+    <out name="output_file0" type="string" place="output_file0"/>   
+    <out name="output_file1" type="string" place="output_file1"/>
+    <out name="output_file2" type="string" place="output_file2"/>
+    
+    <net>
+      <place name="input_file" type="string"/>
+
+      <place name="output_file0" type="string"/>
+      <place name="output_file1" type="string"/>
+      <place name="output_file2" type="string"/>
+
+      <place name="mid_point" type="string"/>
+        
+      <place name="implementation0" type="string"/>
+      <place name="julia_impl0" type="string"/>
+      <place name="fname0" type="string"/>
+
+      <place name="implementation1" type="string"/>
+      <place name="julia_impl1" type="string"/>
+      <place name="fname1" type="string"/>
+  
+  
+      <transition name="transition1">
+        <defun>
+          <in name="in_file" type="string"/>
+  
+          <out name="midpoint" type="string"/>
+          <out name="out_file0" type="string"/>
+          
+          <in name="implementation" type="string"/>
+          <in name="julia_impl" type="string"/>
+          <in name="fname" type="string"/>
+          
+          <module name="hello_julia" function="operation (in_file, midpoint, out_file0, implementation, julia_impl, fname)" require_function_unloads_without_rest="false">
+            <cinclude href="executor.hpp"/>
+            <cinclude href="iostream"/>
+            <cinclude href="string"/>
+            <cinclude href="vector"/>
+            <code><![CDATA[
+              std::cerr << "TESTING PETRI NET Once Again" << std::endl;
+              std::cerr << "IMPLEMENTATION IS: " << implementation << std::endl;
+              std::cerr << "JULIA IMPLEMENTATIOn IS: " << julia_impl << std::endl;
+              std::cerr << "FNAME IS: " << fname << std::endl;
+              std::cerr << "INFILE 1 IS: " << in_file << std::endl;
+              std::cerr << "INFILE 2 IS: " << midpoint << std::endl;
+              std::vector<std::vector<std::string>> output = execute(implementation, julia_impl, fname, {in_file}, 2);
+              out_file0 = output[0][0];
+              midpoint = output[1][0];
+              std::cerr << "TRNSITION #1 ENDS HERE..." << "\n";
+            ]]></code>
+          </module>
+        </defun>
+  
+        <connect-in port="in_file" place="input_file"/>
+        
+        <connect-out port="out_file0" place="output_file0"/>
+        <connect-out port="midpoint" place="mid_point"/>
+  
+        <connect-read port="implementation" place="implementation0"/>
+        <connect-in port="julia_impl" place="julia_impl0"/>
+        <connect-in port="fname" place="fname0"/>
+      </transition>
+
+      <transition name="transition2">
+        <defun>
+          <in name="in_file" type="string"/>
+  
+          <out name="out_file1" type="string"/>
+          <out name="out_file2" type="string"/>
+          
+          <in name="implementation" type="string"/>
+          <in name="julia_impl" type="string"/>
+          <in name="fname" type="string"/>
+          
+          <module name="hello_julia_again" function="operation (in_file, out_file1, out_file2, implementation, julia_impl, fname)"    require_function_unloads_without_rest="false">
+            <cinclude href="executor.hpp"/>
+            <cinclude href="iostream"/>
+            <cinclude href="string"/>
+            <cinclude href="vector"/>
+            <code><![CDATA[
+              std::cerr << "TESTING PETRI NET Once Again" << std::endl;
+              std::cerr << "IMPLEMENTATION IS: " << implementation << std::endl;
+              std::cerr << "JULIA IMPLEMENTATIOn IS: " << julia_impl << std::endl;
+              std::cerr << "FNAME IS: " << fname << std::endl;
+              std::cerr << "INFILE 1 IS: " << in_file << std::endl;
+              std::vector<std::vector<std::string>> output = execute(implementation, julia_impl, fname, {in_file}, 2);
+              out_file1 = output[0][0];
+              out_file2 = output[1][0];
+              std::cerr << "TRANSITION #2 ENDS HERE..." << "\n";
+            ]]></code>
+          </module>
+        </defun>
+  
+        <connect-in port="in_file" place="mid_point"/>
+        <connect-out port="out_file1" place="output_file1"/>
+
+        <!-- <connect-in port="out_file2" place="output_file0"/> -->
+        <connect-out port="out_file2" place="output_file2"/>
+  
+        <connect-read port="implementation" place="implementation1"/>
+        <connect-in port="julia_impl" place="julia_impl1"/>
+        <connect-in port="fname" place="fname1"/>
+      </transition>
+    </net>
+  </defun>
+  

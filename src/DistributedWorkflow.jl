@@ -1,7 +1,8 @@
 module DistributedWorkflow
-using CxxWrap
+using CxxWrap, Formatting, Serialization
+  # export # functions from the driver file
+  export initiate_connection
 
-greet() = print("Hello World!")
-
-include("foo.jl")
+#   include("cxxwrap_calls.jl")
+  include("wrapper.jl")
 end # module
