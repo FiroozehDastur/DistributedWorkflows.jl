@@ -1,5 +1,5 @@
 # ================================================================
-# two-two Petri net
+# hello julia Petri net
 # ================================================================
 using DistributedWorkflow
 initiate_connection()
