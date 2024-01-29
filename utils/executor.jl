@@ -1,7 +1,6 @@
 using Serialization
 
-# reading command line arguments
-@assert length(ARGS) >= 3 "There should be 3 or more configuration parameters"
+@assert length(ARGS) >= 3 "There should be 3 or more command line arguments"
 julia_impl = ARGS[1]
 fname = ARGS[2]
 output_dir = ARGS[3]
@@ -13,7 +12,6 @@ if length(ARGS) > 3
     end
 end
 
-# executor
 include(julia_impl)
 const f = getfield(Main, Symbol(fname))
 
