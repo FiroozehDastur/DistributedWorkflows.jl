@@ -20,6 +20,7 @@ Please cite this package as follows if you use it in your work:
 ```
 
 ## Installation
+* Install 
 * spack
   - Spack - Getting Started
   - Spack - Basic Usage
@@ -28,6 +29,23 @@ Please cite this package as follows if you use it in your work:
   - add instructions to install this package
 
 ## How to use DistributedWorkflow.jl
+Before starting a Julia session, please set the following environment variable:
+```export GSPC_APPLICATION_SEARCH_PATH=$HOME/.distributedworkflow/workflows```
+
+Next, when testing the application locally set the hostname as follows:
+```hostname > <path-to-a-nodefile>```
+
+Start a Julia session and load the package with ```using DistributedWorkflow``` and initiate the connection by using the following function:
+```initiate_connection()```
+
+Assuming that you have a workflow Petri net stored in an accessible location, use ```compile_workflow(<workflow-name>.xpnet, "/path/to/build/location")``` function to compile the workflow.
+
+Next, start the client using ```client(<number-of-workers>, "/path/to/nodefile", "rif-strategy")```
+
+As a next step, it is advisible to create a script with your workflow configuration (see the executor files in the examples folder), and submit your application using the ```submit_workflow()``` function.
+
+Once your application runs through, the output files will be stored in your desired output location.
+
 
 ## See also
 * [More Examples]( ./examples)
@@ -35,7 +53,9 @@ Please cite this package as follows if you use it in your work:
 * [GPI-Space database on Petri nets](https://github.com/cc-hpc-itwm/gpispace/tree/v23.06/share/doc/example)
 
 ## ToDo...
-
+* Add example for a cluster run
+* Improve UI
+* Extend the interface 
 
 
 # Appendix

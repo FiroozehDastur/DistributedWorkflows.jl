@@ -5,7 +5,7 @@ using DistributedWorkflow
 initiate_connection()
 
 compile_workflow("/path/to/zeda-examples/multi_module/multi_module.xpnet", "/path/to/build_dir")
-client = DistributedWorkflow.client(1, "/path/to/nodefile", "local")
+client = client(1, "/path/to/nodefile", "local")
 
 impl_path = "/path/to/DistributedWorkflow/utils/executor.jl"
 impl0 = implementation("implementation0", impl_path)
