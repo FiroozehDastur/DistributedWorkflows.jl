@@ -67,12 +67,4 @@ Once your application runs through, the output files will be stored in your desi
 # Appendix
 The underlying workflow management system is called (GPI-Space)[https://www.gpi-space.de/] which is a a task-based workflow management system for parallel applications developed at Fraunhofer ITWM by the CC-HPC group.
 # References
-```
-@misc {GSPC,
-  author = {Fraunhofer ITWM, Competence Center High Performance Computing},
-  title = {{GPI}-Space},
-  year = {2020},
-  month = {September},
-  howpublished = {https://www.gpi-space.de},
-}
-```
+* (GPI-Space)[https://www.gpi-space.de/]
