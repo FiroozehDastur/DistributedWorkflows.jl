@@ -20,6 +20,9 @@ Please cite this package as follows if you use it in your work:
 ```
 
 ## Installation
+> **Note**
+Detailed instructions on the installation will follow soon.
+
 * Install 
 * spack
   - Spack - Getting Started
@@ -29,6 +32,9 @@ Please cite this package as follows if you use it in your work:
   - add instructions to install this package
 
 ## How to use DistributedWorkflow.jl
+> **Note**
+Detailed instructions on the usage, as well as more examples, will follow soon.
+
 Before starting a Julia session, please set the following environment variable:
 ```export GSPC_APPLICATION_SEARCH_PATH=$HOME/.distributedworkflow/workflows```
 
@@ -59,3 +65,14 @@ Once your application runs through, the output files will be stored in your desi
 
 
 # Appendix
+The underlying workflow management system is called (GPI-Space)[https://www.gpi-space.de/] which is a a task-based workflow management system for parallel applications developed at Fraunhofer ITWM by the CC-HPC group.
+# References
+```
+@misc {GSPC,
+  author = {Fraunhofer ITWM, Competence Center High Performance Computing},
+  title = {{GPI}-Space},
+  year = {2020},
+  month = {September},
+  howpublished = {https://www.gpi-space.de},
+}
+```
