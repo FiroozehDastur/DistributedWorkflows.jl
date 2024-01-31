@@ -20,8 +20,10 @@ Please cite this package as follows if you use it in your work:
 ```
 
 ## Installation
+```
 > **Note**
 Detailed instructions on the installation will follow soon.
+```
 
 * Install 
 * spack
@@ -32,8 +34,10 @@ Detailed instructions on the installation will follow soon.
   - add instructions to install this package
 
 ## How to use DistributedWorkflow.jl
+```
 > **Note**
 Detailed instructions on the usage, as well as more examples, will follow soon.
+```
 
 Before starting a Julia session, please set the following environment variable:
 ```export GSPC_APPLICATION_SEARCH_PATH=$HOME/.distributedworkflow/workflows```
