@@ -1,5 +1,6 @@
 using Serialization
 
+# reading command line arguments
 @assert length(ARGS) >= 3 "There should be 3 or more command line arguments"
 julia_impl = ARGS[1]
 fname = ARGS[2]
@@ -12,6 +13,7 @@ if length(ARGS) > 3
     end
 end
 
+# jl_executor
 include(julia_impl)
 const f = getfield(Main, Symbol(fname))
 
@@ -20,9 +22,11 @@ for i in 1:length(input_file)
    push!(In, deserialize(input_file[i]))
 end
 
+# execute file
 output = f(In...)
 multiplicity = map(x -> length(x), output)
 
+# create output files and store data in serialised form
 out_file_list = Vector{Vector{String}}()
 for i in 1:length(output)
     push!(out_file_list, [])
