@@ -11,5 +11,5 @@ function compile_workflow(workflow::String, build_dir::String)
   run(`cmake --install $build_dir --prefix $install_dir`)
   # cleanup
   run(`rm -rf $build_dir`)
-  println("Success: Workflow complied")
+  println("Success: Workflow compiled")
 end

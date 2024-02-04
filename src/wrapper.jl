@@ -39,12 +39,19 @@ function output_dir(port_name::String, path::String)
   KeyValuePair(port_name, path)
 end
 
-function submit_workflow(client,workflow,input_params)
-  output = DistributedWorkflow.submit(client, workflow, input_params)
+function submit_workflow(client, workflow, input_params::Vector)
+  input_vec = StdVector(input_params)
+  output = DistributedWorkflow.submit(client, workflow, input_vec)
   output_list = String[]
   for val in output
     _, deref_val = DistributedWorkflow.port_info(val)
     push!(output_list, deref_val) 
   end
   return output_list
+end
+
+function workflow_config(workflow::String, workflow_config::Vector)
+  workflow_config = StdVector(workflow_config)
+  workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)
+  DistributedWorkflow.Workflow(workflow_path, workflow_config)
 end
