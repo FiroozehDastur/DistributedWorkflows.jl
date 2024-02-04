@@ -2,7 +2,7 @@
 # build_dir -> path to build directory
 function compile_workflow(workflow::String, build_dir::String)
   source_dir = joinpath(readchomp(`spack location -i gspcdriver`), "share/zeda-gspcdriver/utils")
-  install_dir = ENV["GSPC_APPLICATION_SEARCH_PATH"]
+  install_dir = DistributedWorkflow.config["workflow_path"]
   # compile
   run(`cmake -D WORKFLOW=$workflow -B $build_dir -S $source_dir`)
   # build
@@ -11,4 +11,5 @@ function compile_workflow(workflow::String, build_dir::String)
   run(`cmake --install $build_dir --prefix $install_dir`)
   # cleanup
   run(`rm -rf $build_dir`)
+  println("Success: Workflow complied")
 end

@@ -1,8 +1,8 @@
 module DistributedWorkflow
-  using CxxWrap, Serialization
-  import .CxxWrap: StdVector
-  export compile_workflow, client_init, function_name, implementation, initiate_connection, input_pair, julia_implementation, output_dir, port_info, submit_workflow, value_info, Workflow
+  using CxxWrap, Serialization, TOML
+  export set_workflow_env, client, function_name, input_pair, implementation, julia_implementation, output_dir, submit_workflow, compile_workflow
 
+  include("config.jl")
   include("cxxwrap_calls.jl")
   include("workflow_compiler.jl")
   include("wrapper.jl")
