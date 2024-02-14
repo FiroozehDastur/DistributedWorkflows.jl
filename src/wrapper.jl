@@ -1,5 +1,18 @@
-# using Formatting
-# include("./cxxwrap_calls.jl")
+# TODO: Add documentation.
+struct Application_config
+  port::String
+  impl::String
+  fname::String
+end
+
+struct Application_config_many
+  ports::Vector{String}
+  impl::String
+  fnames::Vector{String}
+end
+ 
+application_config(port::String, impl::String, fname::String) = Application_config(port, impl, fname)
+application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
 
 function client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
   worker = string("worker:", workers)
@@ -26,18 +39,9 @@ function client(workers::Int, nodefile::String, rif_strategy::String)
   DistributedWorkflow.Client(worker, client_config)
 end
 
-function_name(port_name::String, path::String) = KeyValuePair(port_name, path)
-
 input_pair(port_name::String, path::String) = KeyValuePair(port_name, path)
 
 implementation(port_name::String, path::String) = KeyValuePair(port_name, path)
-
-julia_implementation(port_name::String, path::String) = KeyValuePair(port_name, path)
-
-function output_dir(port_name::String, path::String)
-  run(`mkdir -p $path`) 
-  KeyValuePair(port_name, path)
-end
 
 function submit_workflow(client, workflow, input_params::Vector)
   input_vec = StdVector(input_params)
@@ -50,8 +54,43 @@ function submit_workflow(client, workflow, input_params::Vector)
   return output_list
 end
 
-function workflow_config(workflow::String, workflow_config::Vector)
-  workflow_config = StdVector(workflow_config)
+function workflow_config(workflow::String, output_dir::String, app_config::Application_config)
+  run(`mkdir -p $output_dir`)
+  portname = app_config.port
+  executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")
+  workflow_cfg = [DistributedWorkflow.implementation(portname, "julia $executor_file $(app_config.impl) $(app_config.fname) $output_dir")]
+  workflow_config = StdVector(workflow_cfg)
+  workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)
+  DistributedWorkflow.Workflow(workflow_path, workflow_config)
+end
+
+function workflow_config(workflow::String, output_dir::String, app_config::Vector{Application_config})
+  run(`mkdir -p $output_dir`)
+  executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")
+  n = length(app_config)
+  workflow_cfg = Vector(undef, n)
+  for i in 1:n
+    portname = app_config[i].port
+    workflow_cfg[i] = DistributedWorkflow.implementation(portname, "julia $executor_file $(app_config[i].impl) $(app_config[i].fname) $output_dir")
+  end
+  workflow_config = StdVector(workflow_cfg)
+  workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)
+  DistributedWorkflow.Workflow(workflow_path, workflow_config)
+end
+
+function workflow_config(workflow::String, output_dir::String, app_config::Application_config_many)
+  run(`mkdir -p $output_dir`)
+  executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")
+  n = length(app_config.ports)
+  m = length(app_config.fnames)
+  @assert n == m "The number of $(app_config.ports) should match the number of $(app_config.fnames), since each port gets a function name in the order they occur in the struct."
+  workflow_cfg = Vector(undef, n)
+  for i in 1:n
+    portname = app_config.ports[i]
+    fname = app_config.fnames[i]
+    workflow_cfg[i] = DistributedWorkflow.implementation(portname, "julia $executor_file $(app_config.impl) $fname $output_dir")
+  end
+  workflow_config = StdVector(workflow_cfg)
   workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)
   DistributedWorkflow.Workflow(workflow_path, workflow_config)
 end
