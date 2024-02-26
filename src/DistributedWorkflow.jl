@@ -1,22 +1,21 @@
 module DistributedWorkflow
-  using CxxWrap, Serialization, TOML
-  export set_workflow_env, 
-         client, 
+  using CxxWrap, Markdown, Serialization, TOML
+  export arc,
+         client,
+         compile_workflow, 
+         connect,
+         create_xpnet,
          function_name, 
-         input_pair, 
          implementation, 
+         input_pair, 
          julia_implementation, 
          output_dir, 
-         submit_workflow, 
-         compile_workflow, 
-         workflow_config,
-         arc,
          place,
-         net,
+         set_workflow_env, 
+         submit_workflow, 
          transition,
-         Petri_net
-        #  generate_xml
-
+         workflow_config
+  
   include("config.jl")
   include("cxxwrap_calls.jl")
   include("petri_net.jl")
