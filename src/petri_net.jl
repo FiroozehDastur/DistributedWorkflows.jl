@@ -2,9 +2,9 @@
 # =============================================================================
 # Creation of type Place for Petri nets
 # =============================================================================
-struct Place{T <: Union{AbstractString, Symbol}}
+struct Place
   name::String
-  type::T
+  type
 end
 
 """
@@ -106,14 +106,40 @@ function Base.show(io::IO, A::Arc)
 end
 
 # =============================================================================
+# Creating ports for Petri nets
+# =============================================================================
+struct Port
+  name::String
+  type::Symbol# in, out, or inout
+  place::Place
+end
+
+function port(name::String, type::Symbol, place::Place)
+  possible_ports = [:in, :out, :inout]
+  if !(type in possible_ports)
+    error("The port type should match one of the following types:\n :in, :out, or :inout.")
+  end
+  if !(typeof(place.type) <: AbstractString)
+    error("Invalid place type. Place needs to be of type AbstractString.")
+  end
+  
+  Port(name, type, place)
+end
+
+function Base.show(io::IO, x::Port)
+  return println(io,"A port of type \"$(x.type)\", connected to place $(x.place.name).")
+end
+
+# =============================================================================
 # Creating Petri nets
 # =============================================================================
 struct PetriNet
   places::Vector{Place}
   transitions::Vector{Transition}
   arcs::Vector{Arc}
-  
-  PetriNet() = new([], [], [])
+  ports::Vector{Port}
+
+  PetriNet() = new([], [], [], [])
 end
 
 """
@@ -298,28 +324,117 @@ function connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, tran
   for (p, a) in places_arcs
     connect(pnet, p, transition, a)
   end
+  return pnet
 end
 
+"""
+    connect(pnet::PetriNet, place::Place, port::Port)
+Given a Petri net, connects the given place to the given port. 
+
+# Examples
+```julia-repl
+# initiating an empty Petri net.
+julia> net = PetriNet()
+A Petri net with 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("place1", "input_place")
+Place place1 created.
+
+
+julia> p2 = place("place2", "output_place")
+Place place2 created.
+
+
+julia> t1 = transition("transition1")
+Transition transition1 created.
+
+
+julia> connect(net, [(p1,:in), (p2,:out)], t1)
+A Petri net with 0 ports, 2 places, and 1 transitions.
+
+
+julia> pt = port("place2", :out, p2)
+A port of type "out", connected to place place2.
+
+julia> connect(net, p2, pt)
+A Petri net with 2 ports, 2 places, and 1 transitions.
+
+```
+"""
+function connect(pnet::PetriNet, place::Place, port::Port)
+  if !(place in pnet.places)
+    push!(pnet.places, place)
+  end
+  if !(port in pnet.ports)
+    push!(pnet.ports, port)
+  end
+  pnet
+end
+
+"""
+    connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Place)
+Given a Petri net, connects the given place to a port of name port_name and type port_type. 
+
+# Examples
+```julia-repl
+# initiating an empty Petri net.
+julia> net = PetriNet()
+A Petri net with 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("place1", "input_place")
+Place place1 created.
+
+
+julia> p2 = place("place2", "output_place")
+Place place2 created.
+
+
+julia> t1 = transition("transition1")
+Transition transition1 created.
+
+
+julia> connect(net, [(p1,:in), (p2,:out)], t1)
+A Petri net with 0 ports, 2 places, and 1 transitions.
+
+
+julia> connect(net,"place1", :in, p1)
+A Petri net with 1 ports, 2 places, and 1 transitions.
+
+```
+"""
+function connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Place)
+  if !(port_name == place.name)
+    error("Name mismatch: port name needs to match the place name.")
+  end
+
+  pt = port(port_name, port_type, place)
+  connect(pnet, place, pt)
+end
+
+
 function Base.show(io::IO, Pnet::PetriNet)
+  k = length(Pnet.ports)
   n = length(Pnet.places)
   m = length(Pnet.transitions)
-  return println(io,"A Petri net with $n places and $m transitions.")
+  return println(io,"A Petri net with $k ports, $n places, and $m transitions.")
 end
 
 # =============================================================================
 # Generate xml file from the Petri net 
 # =============================================================================
-"""
-    create_xpnet(filename::String, pnet::PetriNet)
-Given a Petri net anda path to an accessible location, creates and stores an xml Petri net.
+# """
+#     create_xpnet(filename::String, pnet::PetriNet)
+# Given a Petri net anda path to an accessible location, creates and stores an xml Petri net.
 
-# Examples
-```julia-repl
-julia> 
+# # Examples
+# ```julia-repl
+# julia> 
 
 
-```
-"""
+# ```
+# """
 # function create_xpnet(filename::String, pnet::PetriNet)
 
 
