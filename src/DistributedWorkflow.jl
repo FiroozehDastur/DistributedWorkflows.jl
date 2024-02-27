@@ -1,5 +1,5 @@
 module DistributedWorkflow
-  using CxxWrap, Markdown, Serialization, TOML
+  using CxxWrap, Markdown, Serialization, TOML, LightXML
   export arc,
          client,
          compile_workflow, 
@@ -9,8 +9,10 @@ module DistributedWorkflow
          implementation, 
          input_pair, 
          julia_implementation, 
-         output_dir, 
+         output_dir,
+         PetriNet, 
          place,
+         port,
          set_workflow_env, 
          submit_workflow, 
          transition,
@@ -21,4 +23,5 @@ module DistributedWorkflow
   include("petri_net.jl")
   include("workflow_compiler.jl")
   include("wrapper.jl")
+  include("xml_generator.jl")
 end

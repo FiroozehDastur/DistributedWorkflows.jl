@@ -4,25 +4,26 @@
 # =============================================================================
 struct Place
   name::String
-  type
+  type::Symbol
 end
 
 """
-    place(name::String, token::Union{AbstractString, Symbol})
+    place(name::String, type::Symbol)
 Creates an object of type Place for the Petri net.
 
 # Examples
 ```julia-repl
-julia> place("new_place", "input_place")
+julia> place("new_place", :string)
 Place new_place created.
 
 julia> place("place3",:control)
 Place place3 with control token created.
 ```
 """
-function place(name::String, token_type::Union{AbstractString, Symbol})
-  if typeof(token_type) == Symbol && !(token_type == :control)
-    error("A place with control token cannot be created. Please make sure your token type is the symbol :control.")
+function place(name::String, token_type::Symbol)
+  possible_tokens = [:string, :control]
+  if !(token_type in possible_tokens)
+    error("Token type \":$(token_type)\" invalid. Please provide either :string, or :control as a token type.")
   end
   Place(name, token_type)
 end
@@ -134,12 +135,17 @@ end
 # Creating Petri nets
 # =============================================================================
 struct PetriNet
+  name::String
   places::Vector{Place}
   transitions::Vector{Transition}
   arcs::Vector{Arc}
   ports::Vector{Port}
-
-  PetriNet() = new([], [], [], [])
+  function PetriNet(name)
+    if isempty(name)
+      error("An empty string as Petri net name is not allowed. Please provide a name for the Petri net.")
+    end
+    new(name, [], [], [], [])
+  end
 end
 
 """
@@ -149,9 +155,8 @@ Given a Petri net connects the place to the transition with the given arc type.
 # Examples
 ```julia-repl
 # initiating an empty Petri net.
-julia> net = PetriNet()
-A Petri net with 0 places and 0 transitions.
-
+julia> net = PetriNet("new_net")
+A Petri net with name "new_net", having 0 ports, 0 places, and 0 transitions.
 
 julia> p1 = place("place1", "input_place")
 Place place1 created.
@@ -172,6 +177,8 @@ A Petri net with 1 places and 1 transitions.
 julia> connect(net, p2, t1, :out)
 A Petri net with 2 places and 1 transitions.
 
+julia> net.name
+"new_net"
 
 julia> net.places
 2-element Vector{Place}:
@@ -415,10 +422,13 @@ end
 
 
 function Base.show(io::IO, Pnet::PetriNet)
+  if isempty(Pnet.name)
+    error("Please provide a name for the Petri net.")
+  end
   k = length(Pnet.ports)
   n = length(Pnet.places)
   m = length(Pnet.transitions)
-  return println(io,"A Petri net with $k ports, $n places, and $m transitions.")
+  return println(io,"A Petri net with name \"$(Pnet.name)\", having $k ports, $n places, and $m transitions.")
 end
 
 # =============================================================================
