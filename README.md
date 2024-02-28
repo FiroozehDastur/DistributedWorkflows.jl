@@ -21,13 +21,13 @@ Please cite this package as follows if you use it in your work:
 }
 ```
 
-## Installation
+# Installation
 ```
 > **Note**
 Detailed instructions on the installation will follow soon.
 ```
 
-* Install 
+## Installation process:
 * spack
   - Spack - Getting Started
   - Spack - Basic Usage
@@ -35,7 +35,7 @@ Detailed instructions on the installation will follow soon.
 * DistributedWorkflow.jl
   - add instructions to install this package
 
-## How to use DistributedWorkflow.jl
+# How to use DistributedWorkflow.jl
 ```
 > **Note**
 Detailed instructions on the usage, as well as more examples, will follow soon.
@@ -58,19 +58,47 @@ As a next step, it is advisible to create a script with your workflow configurat
 
 Once your application runs through, the output files will be stored in your desired output location.
 
+## A simple example
+* A small example to create a Petri net, compile it, start agent and run the application locally.
 
-## See also
+# API Functions
+* A list of all the api functions plus the description in a table.
+
+# Features
+* Serializer agnostic, for details see (add the file in the docs that explains the serialiser part).
+* Reduced complexity in deploying your parallel application.
+* Localised testing of workflow, before launching expensive cluster resources.
+* Write your own `xpnet` file and compile your workflow using the `compile_workflow()` function. 
+* You could also, generate a Petri net in Julia using `PetriNet()` and generate the `xpnet` file from the Petri net using `workflow_generator()` before compiling it.
+
+# Shortcomings
+* At the moment, this package is only efficient and recommended for long running processes.
+* Due to the limitations of the underlying workflow manager, this package is limited to the following operating systems:
+```
+* Centos 7
+* Oracle Linux 8
+* Ubuntu 18.04 LTS
+* Ubuntu 20.04 LTS
+```
+
+# See also
 * [More Examples]( ./examples)
 * [XPNET Format Schema](https://github.com/cc-hpc-itwm/gpispace/blob/v23.06/share/xml/xsd/pnet.xsd)
 * [GPI-Space database on Petri nets](https://github.com/cc-hpc-itwm/gpispace/tree/v23.06/share/doc/example)
 
-## ToDo...
-* Add example for a cluster run
-* Improve UI
-* Extend the interface 
+# ToDo...
+* Add examples for a cluster run.
+* Improve UI by adding documentation and examples.
+* Extend the interface to add more features.
 
 
 # Appendix
 The underlying workflow management system is called [GPI-Space](https://www.gpi-space.de/) which is a a task-based workflow management system for parallel applications developed at Fraunhofer ITWM by the CC-HPC group.
-# References
+
+# Package Dependency
+* [CxxWrap](https://docs.juliahub.com/General/CxxWrap/stable/)
 * [GPI-Space](https://www.gpi-space.de/)
+* [LightXML](https://juliapackages.com/p/lightxml)
+* [Markdown](https://docs.julialang.org/en/v1/stdlib/Markdown/)
+* [Serialization](https://docs.julialang.org/en/v1/stdlib/Serialization/)
+* [TOML](https://docs.julialang.org/en/v1/stdlib/TOML/)

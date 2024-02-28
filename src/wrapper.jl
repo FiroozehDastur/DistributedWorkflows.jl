@@ -10,10 +10,41 @@ struct Application_config_many
   impl::String
   fnames::Vector{String}
 end
- 
+
+"""
+    application_config(port::String, impl::String, fname::String)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+""" 
 application_config(port::String, impl::String, fname::String) = Application_config(port, impl, fname)
+
+"""
+    application_config(ports::Vector{String}, impl::String, fnames::Vector{String})
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
 
+"""
+    client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
   worker = string("worker:", workers)
   gspc_home = string("--gspc-home=", readchomp(`spack location -i gpi-space`))
@@ -27,6 +58,16 @@ function client(workers::Int, nodefile::String, rif_strategy::String, log_host::
   DistributedWorkflow.Client(worker, client_config)
 end
 
+"""
+    client(workers::Int, nodefile::String, rif_strategy::String)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function client(workers::Int, nodefile::String, rif_strategy::String)
   worker = string("worker:", workers)
   gspc_home = string("--gspc-home=", readchomp(`spack location -i gpi-space`))
@@ -39,10 +80,40 @@ function client(workers::Int, nodefile::String, rif_strategy::String)
   DistributedWorkflow.Client(worker, client_config)
 end
 
+"""
+    input_pair(port_name::String, path::String)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 input_pair(port_name::String, path::String) = KeyValuePair(port_name, path)
 
+"""
+    implementation(port_name::String, path::String)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 implementation(port_name::String, path::String) = KeyValuePair(port_name, path)
 
+"""
+    submit_workflow(client, workflow, input_params::Vector)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function submit_workflow(client, workflow, input_params::Vector)
   input_vec = StdVector(input_params)
   output = DistributedWorkflow.submit(client, workflow, input_vec)
@@ -54,6 +125,16 @@ function submit_workflow(client, workflow, input_params::Vector)
   return output_list
 end
 
+"""
+    workflow_config(workflow::String, output_dir::String, app_config::Application_config)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function workflow_config(workflow::String, output_dir::String, app_config::Application_config)
   run(`mkdir -p $output_dir`)
   portname = app_config.port
@@ -64,6 +145,16 @@ function workflow_config(workflow::String, output_dir::String, app_config::Appli
   DistributedWorkflow.Workflow(workflow_path, workflow_config)
 end
 
+"""
+    workflow_config(workflow::String, output_dir::String, app_config::Vector{Application_config})
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function workflow_config(workflow::String, output_dir::String, app_config::Vector{Application_config})
   run(`mkdir -p $output_dir`)
   executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")
@@ -78,6 +169,16 @@ function workflow_config(workflow::String, output_dir::String, app_config::Vecto
   DistributedWorkflow.Workflow(workflow_path, workflow_config)
 end
 
+"""
+    workflow_config(workflow::String, output_dir::String, app_config::Application_config_many)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function workflow_config(workflow::String, output_dir::String, app_config::Application_config_many)
   run(`mkdir -p $output_dir`)
   executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")

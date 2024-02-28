@@ -1,4 +1,4 @@
-using TOML
+# using TOML
 
 function __init__()
   path = joinpath(ENV["HOME"], ".distributedworkflow")
@@ -24,6 +24,17 @@ function __init__()
   @initcxx
 end
 
+# add documentation
+"""
+    port_info(KV)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
 function port_info(KV)
   port = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_port(KV))
   value = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_value(KV))

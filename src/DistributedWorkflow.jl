@@ -1,6 +1,7 @@
 module DistributedWorkflow
-  using CxxWrap, Markdown, Serialization, TOML, LightXML
-  export arc,
+  using CxxWrap, LightXML, Markdown, Serialization, TOML
+  export application_config,
+         arc,
          client,
          compile_workflow, 
          connect,
@@ -13,6 +14,7 @@ module DistributedWorkflow
          PetriNet, 
          place,
          port,
+         port_info,
          set_workflow_env, 
          submit_workflow, 
          transition,

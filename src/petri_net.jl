@@ -1,4 +1,5 @@
 # a wrapper to create and compile Petri nets for managing workflow
+# ToDo: Add special transitions like counter, reduce, or map-reduce
 # =============================================================================
 # Creation of type Place for Petri nets
 # =============================================================================
@@ -134,18 +135,64 @@ end
 # =============================================================================
 # Creating Petri nets
 # =============================================================================
+"""
+    PetriNet(workflow_name::String)
+A struct creating an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.
+
+Use the connect() function to populate the Petri net.
+
+
+# Examples
+```julia-repl
+julia> PetriNet("new_workflow")
+A Petri net with name "new_workflow", having 0 ports, 0 places, and 0 transitions.
+
+# A Petri name needs to have a name defined at initiation
+julia> PetriNet()
+ERROR: MethodError: no method matching PetriNet()
+
+Closest candidates are:
+  PetriNet(::String)
+   @ Main ~/DistributedWorkflow.jl/src/petri_net.jl:148
+
+Stacktrace:
+ [1] top-level scope
+   @ REPL[2]:1
+
+julia> PetriNet("")
+ERROR: An empty string as Petri net name is not allowed. Please provide a name for the Petri net.
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:35
+ [2] PetriNet(name::String)
+   @ Main ~/DistributedWorkflow.jl/src/petri_net.jl:150
+ [3] top-level scope
+   @ REPL[3]:1
+
+```
+
+See also [`connect`](@ref).
+"""
 struct PetriNet
   name::String
   places::Vector{Place}
   transitions::Vector{Transition}
   arcs::Vector{Arc}
   ports::Vector{Port}
-  function PetriNet(name)
+  function PetriNet(name::String)
     if isempty(name)
       error("An empty string as Petri net name is not allowed. Please provide a name for the Petri net.")
     end
     new(name, [], [], [], [])
   end
+end
+
+
+function Base.show(io::IO, Pnet::PetriNet)
+  k = length(Pnet.ports)
+  n = length(Pnet.places)
+  m = length(Pnet.transitions)
+  return println(io,"A Petri net with name \"$(Pnet.name)\", having $k ports, $n places, and $m transitions.")
 end
 
 """
@@ -419,33 +466,3 @@ function connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Pl
   pt = port(port_name, port_type, place)
   connect(pnet, place, pt)
 end
-
-
-function Base.show(io::IO, Pnet::PetriNet)
-  if isempty(Pnet.name)
-    error("Please provide a name for the Petri net.")
-  end
-  k = length(Pnet.ports)
-  n = length(Pnet.places)
-  m = length(Pnet.transitions)
-  return println(io,"A Petri net with name \"$(Pnet.name)\", having $k ports, $n places, and $m transitions.")
-end
-
-# =============================================================================
-# Generate xml file from the Petri net 
-# =============================================================================
-# """
-#     create_xpnet(filename::String, pnet::PetriNet)
-# Given a Petri net anda path to an accessible location, creates and stores an xml Petri net.
-
-# # Examples
-# ```julia-repl
-# julia> 
-
-
-# ```
-# """
-# function create_xpnet(filename::String, pnet::PetriNet)
-
-
-# end
