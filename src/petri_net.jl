@@ -121,8 +121,8 @@ function port(name::String, type::Symbol, place::Place)
   if !(type in possible_ports)
     error("The port type should match one of the following types:\n :in, :out, or :inout.")
   end
-  if !(typeof(place.type) <: AbstractString)
-    error("Invalid place type. Place needs to be of type AbstractString.")
+  if !(place.type == :string)
+    error("Invalid place type. Place needs to be of type :string.")
   end
   
   Port(name, type, place)
@@ -423,7 +423,7 @@ function connect(pnet::PetriNet, place::Place, port::Port)
   if !(port in pnet.ports)
     push!(pnet.ports, port)
   end
-  pnet
+  return pnet
 end
 
 """
@@ -465,4 +465,87 @@ function connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Pl
 
   pt = port(port_name, port_type, place)
   connect(pnet, place, pt)
+end
+
+"""
+    remove_connection(pnet::PetriNet, place::Place)
+Remove the place from the given Petri net.  
+
+# Examples
+```julia-repl
+julia>
+
+```
+"""
+function remove_connection(pnet::PetriNet, place::Place)
+  if place in pnet.places
+    deleteat!(pnet.places, findall(x->x==place, pnet.places))
+  end
+  for i in 1:length(pnet.arcs)
+    if place in pnet.arcs[i].place
+      deleteat!(pnet.arcs, i)
+    end
+  end
+  for i in 1:length(ports)
+    if place in pnet.ports[i].place
+      deleteat!(pnet.ports, i)
+    end
+  end
+  return pnet
+end
+
+"""
+    remove_connection(pnet::PetriNet,  transition::Transition)
+Remove the transition from the given Petri net.  
+
+# Examples
+```julia-repl
+julia>
+
+```
+"""
+function remove_connection(pnet::PetriNet, transition::Transition)
+  if transition in pnet.transitions
+    deleteat!(pnet.transitions, findall(x->x==transition, pnet.transitions))
+  end
+  for i in 1:length(pnet.arcs)
+    if transition in pnet.arcs[i].transition
+      deleteat!(pnet.arcs, i)
+    end
+  end
+  return pnet
+end
+
+"""
+    remove_connection(pnet::PetriNet,  arc::Arc)
+Remove the arc from the given Petri net.  
+
+# Examples
+```julia-repl
+julia>
+
+```
+"""
+function remove_connection(pnet::PetriNet, arc::Arc)
+  if arc in pnet.arcs
+    deleteat!(pnet.arcs, findall(x->x==arc, pnet.arcs))
+  end
+  return pnet
+end
+
+"""
+    remove_connection(pnet::PetriNet,  port::Port)
+Remove the port from the given Petri net.  
+
+# Examples
+```julia-repl
+julia>
+
+```
+"""
+function remove_connection(pnet::PetriNet, port::Port)
+  if port in pnet.ports
+    deleteat!(pnet.ports, findall(x->x==port, pnet.ports))
+  end
+  return pnet
 end
