@@ -1,4 +1,3 @@
-# using TOML
 # Add documentation
 """
     set_workflow_env(path::String)
@@ -9,6 +8,8 @@ Description of function here...
 
 
 ```
+
+See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
 """
 function set_workflow_env(path::String)
   DistributedWorkflow.config["workflow_path"] = path

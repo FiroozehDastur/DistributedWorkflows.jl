@@ -1,5 +1,3 @@
-# using TOML
-
 function __init__()
   path = joinpath(ENV["HOME"], ".distributedworkflow")
   run(`mkdir -p $path`)

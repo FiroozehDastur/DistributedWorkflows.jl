@@ -1,5 +1,4 @@
-# a wrapper to create and compile Petri nets for managing workflow
-# ToDo: Add special transitions like counter, reduce, or map-reduce
+# Creates Petri net for distributed workflow
 # =============================================================================
 # Creation of type Place for Petri nets
 # =============================================================================
@@ -20,6 +19,8 @@ Place new_place created.
 julia> place("place3",:control)
 Place place3 with control token created.
 ```
+
+See also [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function place(name::String, token_type::Symbol)
   possible_tokens = [:string, :control]
@@ -40,6 +41,7 @@ end
 # =============================================================================
 # Creation of type Transtion for Petri nets
 # =============================================================================
+# ToDo: Add special transitions with counter, reduce, or map-reduce, map
 struct Transition
   name::String
   condition::String
@@ -54,6 +56,8 @@ Creates an object of type Transition for the Petri net.
 julia> transition("transition1")
 Transition transition1 created.
 ```
+
+See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function transition(name::String, condition::String="")
   Transition(name, condition)
@@ -94,6 +98,8 @@ julia> arc(p1,t1,:in)
 An arc of type "in", connecting the place: place1 to the transition: transition1.
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function arc(place::Place, transition::Transition, arc_type::Symbol)
   possible_arcs = [:in, :read, :inout, :out, :out_many]
@@ -116,6 +122,18 @@ struct Port
   place::Place
 end
 
+"""
+    port(name::String, type::Symbol, place::Place)
+Creates a port connecting to the given place with respect to the arc type.
+
+# Examples
+```julia-repl
+julia>
+
+```
+
+See also [`place`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
+"""
 function port(name::String, type::Symbol, place::Place)
   possible_ports = [:in, :out, :inout]
   if !(type in possible_ports)
@@ -171,7 +189,7 @@ Stacktrace:
 
 ```
 
-See also [`connect`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`connect`](@ref), [`remove`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
 """
 struct PetriNet
   name::String
@@ -247,6 +265,8 @@ julia> net.arcs
 
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
 """
 function connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)
   connect_arc = arc(place, transition, arc_type)
@@ -314,6 +334,8 @@ julia> net.arcs
 
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
 """
 function connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol)
   return connect(pnet, place, transition, arc_type)
@@ -372,6 +394,8 @@ julia> net.arcs
 
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
 """
 function connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
   connect_list = Vector{Arc}()
@@ -415,6 +439,8 @@ julia> connect(net, p2, pt)
 A Petri net with 2 ports, 2 places, and 1 transitions.
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
 """
 function connect(pnet::PetriNet, place::Place, port::Port)
   if !(place in pnet.places)
@@ -457,6 +483,8 @@ julia> connect(net,"place1", :in, p1)
 A Petri net with 1 ports, 2 places, and 1 transitions.
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
 """
 function connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Place)
   if !(port_name == place.name)
@@ -468,7 +496,7 @@ function connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Pl
 end
 
 """
-    remove_connection(pnet::PetriNet, place::Place)
+    remove(pnet::PetriNet, place::Place)
 Remove the place from the given Petri net.  
 
 # Examples
@@ -476,8 +504,10 @@ Remove the place from the given Petri net.
 julia>
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
 """
-function remove_connection(pnet::PetriNet, place::Place)
+function remove(pnet::PetriNet, place::Place)
   if place in pnet.places
     deleteat!(pnet.places, findall(x->x==place, pnet.places))
   end
@@ -495,7 +525,7 @@ function remove_connection(pnet::PetriNet, place::Place)
 end
 
 """
-    remove_connection(pnet::PetriNet,  transition::Transition)
+    remove(pnet::PetriNet,  transition::Transition)
 Remove the transition from the given Petri net.  
 
 # Examples
@@ -503,8 +533,10 @@ Remove the transition from the given Petri net.
 julia>
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
 """
-function remove_connection(pnet::PetriNet, transition::Transition)
+function remove(pnet::PetriNet, transition::Transition)
   if transition in pnet.transitions
     deleteat!(pnet.transitions, findall(x->x==transition, pnet.transitions))
   end
@@ -517,7 +549,7 @@ function remove_connection(pnet::PetriNet, transition::Transition)
 end
 
 """
-    remove_connection(pnet::PetriNet,  arc::Arc)
+    remove(pnet::PetriNet,  arc::Arc)
 Remove the arc from the given Petri net.  
 
 # Examples
@@ -525,8 +557,10 @@ Remove the arc from the given Petri net.
 julia>
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
 """
-function remove_connection(pnet::PetriNet, arc::Arc)
+function remove(pnet::PetriNet, arc::Arc)
   if arc in pnet.arcs
     deleteat!(pnet.arcs, findall(x->x==arc, pnet.arcs))
   end
@@ -534,7 +568,7 @@ function remove_connection(pnet::PetriNet, arc::Arc)
 end
 
 """
-    remove_connection(pnet::PetriNet,  port::Port)
+    remove(pnet::PetriNet,  port::Port)
 Remove the port from the given Petri net.  
 
 # Examples
@@ -542,8 +576,10 @@ Remove the port from the given Petri net.
 julia>
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
 """
-function remove_connection(pnet::PetriNet, port::Port)
+function remove(pnet::PetriNet, port::Port)
   if port in pnet.ports
     deleteat!(pnet.ports, findall(x->x==port, pnet.ports))
   end

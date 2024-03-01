@@ -1,4 +1,3 @@
-# using LightXML
 function _xpnet_generator(pnet::PetriNet)
   # create an xml doc
   xpnet = XMLDocument()
@@ -111,6 +110,12 @@ function _xpnet_generator(pnet::PetriNet)
     code = new_child(mod, "code")
     add_cdata(xpnet, code, string("std::vector<std::vector<std::string>> output = zeda::execute(implementation_$i, {$(in_str)}, $(num_outs));\n", out_port_list))
 
+    # conditional part of the transition
+    if !isempty(pnet.transitions[i].condition)
+      cond = new_child(trans, "condition")
+      add_text(cond, pnet.transitions[i].condition)
+    end
+
     for j in 1:length(pnet.arcs)
       if pnet.arcs[j].transition == pnet.transitions[i]
         # transition child connection in/out ports
@@ -135,6 +140,8 @@ Given a Petri net description, creates an XML workflow and writes it to a file i
 julia>
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref).
 """
 function workflow_generator(pnet::PetriNet, path::String="")
   xpnet = _xpnet_generator(pnet)
@@ -149,3 +156,12 @@ function workflow_generator(pnet::PetriNet, path::String="")
   free(xpnet)
   return string("An XML workflow ", pnet.name, " has been written to the location: $(dir)."
 end
+
+# transition reduce
+
+# transition map
+
+# transition map-reduce
+
+# transition counter
+

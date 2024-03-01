@@ -9,6 +9,8 @@ Given a path for the workflow and an accessible location for the build directory
 julia> 
 
 ```
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`workflow_generator`](@ref).
 """
 function compile_workflow(workflow::String, build_dir::String="")
   source_dir = joinpath(readchomp(`spack location -i gspcdriver`), "share/zeda-gspcdriver/utils")
