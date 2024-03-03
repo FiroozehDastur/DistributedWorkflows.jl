@@ -18,7 +18,8 @@ module DistributedWorkflow
          set_workflow_env, 
          submit_workflow, 
          transition,
-         workflow_config
+         workflow_config,
+         workflow_generator
   
   include("config.jl")
   include("cxxwrap_calls.jl")

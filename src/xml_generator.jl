@@ -52,20 +52,30 @@ function _xpnet_generator(pnet::PetriNet)
     set_attributes(impl, Dict("name"=>"implementation_$i", "type"=>"string"))
 
     # transition child with in/out ports
-    in_place_list = Vector{Place}()
-    out_place_list = Vector{Place}()
-    inout_place_list = Vector{Place}()
+    in_place_list = Vector{Tuple{Place,Symbol}}()
+    out_place_list = Vector{Tuple{Place,Symbol}}()
+    inout_place_list = Vector{Tuple{Place,Symbol}}()
     for j in 1:length(pnet.arcs)
       if pnet.arcs[j].transition == pnet.transitions[i]
-        # defun child in/out/inout ports and module child
-        prt = new_child(def, string(pnet.arcs[j].type))
-        set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>string(pnet.arcs[j].place.type)))
-        if pnet.arcs[j].type in [:in, :read]
-          push!(in_place_list, pnet.arcs[j].place)
-        elseif pnet.arcs[j].type in [:out, :out_many]
-          push!(out_place_list, pnet.arcs[j].place)
+        if pnet.arcs[j].type == :out_many
+          # defun child out-many ports and module child
+          prt = new_child(def, "out")
+          set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>"list"))
+        elseif pnet.arcs[j].type == :read
+          # defun child read ports and module child
+          prt = new_child(def, "in")
+          set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>string(pnet.arcs[j].place.type)))
         else
-          push!(inout_place_list, pnet.arcs[j].place)
+          # defun child in/out/inout ports and module child
+          prt = new_child(def, string(pnet.arcs[j].type))
+          set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>string(pnet.arcs[j].place.type)))
+        end
+        if pnet.arcs[j].type in [:in, :read]
+          push!(in_place_list, (pnet.arcs[j].place, pnet.arcs[j].type))
+        elseif pnet.arcs[j].type in [:out, :out_many]
+          push!(out_place_list, (pnet.arcs[j].place, pnet.arcs[j].type))
+        else
+          push!(inout_place_list, (pnet.arcs[j].place, pnet.arcs[j].type))
         end
       end
     end
@@ -74,17 +84,17 @@ function _xpnet_generator(pnet::PetriNet)
       push!(out_place_list, pl)
     end
 
-    in_str = in_place_list[1].name
-    out_str = out_place_list[1].name
+    in_str = in_place_list[1][1].name
+    out_str = out_place_list[1][1].name
     # module with cinclude childs
     for j in 2:length(in_place_list)
-      in_str = in_str * ", " * in_place_list[j].name
+      in_str = in_str * ", " * in_place_list[j][1].name
     end
     for j in 2:length(out_place_list)
-      out_str = out_str * ", " * out_place_list[j].name
+      out_str = out_str * ", " * out_place_list[j][1].name
     end
     mod = new_child(def, "module")
-    set_attributes(mod, Dict("name"=>string(t_name, "_mod"), "function"=>"operation ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
+    set_attributes(mod, Dict("name"=>pnet.name, "function"=>"operation ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
     
     # module children cincludes
     cin1 = new_child(mod, "cinclude")
@@ -101,14 +111,19 @@ function _xpnet_generator(pnet::PetriNet)
     
     # module child CDATA
     num_outs = length(out_place_list)
-    out_port_list = string(out_place_list[1].name, " = output[0][0];\n")
-    for j in 2:length(out_place_list)
+    out_port_list = ""
+    for j in 1:length(out_place_list)
       k = j-1
-      str = string(out_place_list[j].name, " = output[$k][0];\n") 
-      out_port_list = out_port_list * str
+      if out_place_list[j][2] == :out_many
+        str = string(out_place_list[j][1].name, ".assign(__output[$k].begin(), __output[$k].end());")
+        out_port_list = out_port_list * str
+      else
+        str = string(out_place_list[j][1].name, " = __output[$k][0];\n") 
+        out_port_list = out_port_list * str
+      end
     end
     code = new_child(mod, "code")
-    add_cdata(xpnet, code, string("std::vector<std::vector<std::string>> output = zeda::execute(implementation_$i, {$(in_str)}, $(num_outs));\n", out_port_list))
+    add_cdata(xpnet, code, string("std::vector<std::vector<std::string>> __output = zeda::execute(implementation_$i, {$(in_str)}, $(num_outs));\n", out_port_list))
 
     # conditional part of the transition
     if !isempty(pnet.transitions[i].condition)
@@ -118,9 +133,15 @@ function _xpnet_generator(pnet::PetriNet)
 
     for j in 1:length(pnet.arcs)
       if pnet.arcs[j].transition == pnet.transitions[i]
-        # transition child connection in/out ports
-        connect_prt = new_child(trans, string("connect-", pnet.arcs[j].type))
-        set_attributes(connect_prt, Dict("port"=>pnet.arcs[j].place.name, "place"=>string(pnet.arcs[j].place.name)))
+        if pnet.arcs[j].type == :out_many
+          # transition child connection out_many ports
+          connect_prt = new_child(trans, "connect-out-many")
+          set_attributes(connect_prt, Dict("port"=>pnet.arcs[j].place.name, "place"=>string(pnet.arcs[j].place.name)))
+        else
+          # transition child connection in/out ports
+          connect_prt = new_child(trans, string("connect-", pnet.arcs[j].type))
+          set_attributes(connect_prt, Dict("port"=>pnet.arcs[j].place.name, "place"=>string(pnet.arcs[j].place.name)))
+        end
       end
     end
 
@@ -150,11 +171,12 @@ function workflow_generator(pnet::PetriNet, path::String="")
     save_file(xpnet, joinpath(path,"$(pnet.name).xpnet"))
     dir = path
   else
-    save_file(xpnet, joinpath(ENV["HOME"],"tmp/$(pnet.name).xpnet"))
     dir = joinpath(ENV["HOME"],"tmp")
+    run(`mkdir -p $dir`)
+    save_file(xpnet, joinpath(ENV["HOME"],"tmp/$(pnet.name).xpnet"))
   end
   free(xpnet)
-  return string("An XML workflow ", pnet.name, " has been written to the location: $(dir)."
+  return string("An XML workflow \"", pnet.name, "\" has been written to the location: $(dir).")
 end
 
 # transition reduce

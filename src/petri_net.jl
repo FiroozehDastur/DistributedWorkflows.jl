@@ -210,7 +210,7 @@ struct Port
 end
 
 """
-    port(name::String, type::Symbol, place::Place)
+    port(type::Symbol, place::Place)
 Creates a port connecting to the given place with respect to the arc type.
 
 # Examples
@@ -221,7 +221,7 @@ julia>
 
 See also [`place`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
-function port(name::String, type::Symbol, place::Place)
+function port(type::Symbol, place::Place)
   possible_ports = [:in, :out, :inout]
   if !(type in possible_ports)
     error("The port type should match one of the following types:\n :in, :out, or :inout.")
@@ -230,7 +230,7 @@ function port(name::String, type::Symbol, place::Place)
     error("Invalid place type. Place needs to be of type :string.")
   end
   
-  Port(name, type, place)
+  Port(place.name, type, place)
 end
 
 function Base.show(io::IO, x::Port)
@@ -494,6 +494,7 @@ end
 
 """
     connect(pnet::PetriNet, place::Place, port::Port)
+    connect(pnet::PetriNet, port::Port, place::Place)
 Given a Petri net, connects the given place to the given port. 
 
 # Examples
@@ -539,8 +540,11 @@ function connect(pnet::PetriNet, place::Place, port::Port)
   return pnet
 end
 
+connect(pnet::PetriNet, port::Port, place::Place) = connect(pnet, place, port) 
+
 """
-    connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Place)
+    connect(pnet::PetriNet, port_type::Symbol, place::Place)
+    connect(pnet::PetriNet, place::Place, port_type::Symbol)
 Given a Petri net, connects the given place to a port of name port_name and type port_type. 
 
 # Examples
@@ -573,14 +577,12 @@ A Petri net with 1 ports, 2 places, and 1 transitions.
 
 See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
 """
-function connect(pnet::PetriNet, port_name::String, port_type::Symbol, place::Place)
-  if !(port_name == place.name)
-    error("Name mismatch: port name needs to match the place name.")
-  end
-
-  pt = port(port_name, port_type, place)
-  connect(pnet, place, pt)
+function connect(pnet::PetriNet, port_type::Symbol, place::Place)
+  pt = port(port_type, place)
+  return connect(pnet, place, pt)
 end
+
+connect(pnet::PetriNet, place::Place, port_type::Symbol) = connect(pnet, port_type, place)
 
 """
     remove(pnet::PetriNet, place::Place)
