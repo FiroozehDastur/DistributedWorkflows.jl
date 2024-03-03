@@ -19,7 +19,7 @@ Also, note that an input or output place cannot be of type :control.
 julia> place("new_place", :string)
 Place "new_place" created.
 
-julia> place("in_place",:control)
+julia> place("in_place", :control)
 Place "in_place" with control token created.
 ```
 
@@ -161,7 +161,7 @@ julia> t1 = transition("transition1")
 Transition "transition1" created.
 
 
-julia> arc(p1,t1,:in)
+julia> arc(p1, t1, :in)
 An arc of type "in", connecting the place: place1 to the transition: transition1.
 
 ```
@@ -202,7 +202,7 @@ Place "input1" created.
 
 
 julia> port(:in, p1)
-A port of type "in", connected to place "input1".
+A port of type "in" connected to place "input1".
 
 ```
 
@@ -221,7 +221,7 @@ function port(type::Symbol, place::Place)
 end
 
 function Base.show(io::IO, x::Port)
-  return println(io,"A port of type \"$(x.type)\", connected to place \"$(x.place.name)\".")
+  return println(io,"A port of type \"$(x.type)\" connected to place \"$(x.place.name)\".")
 end
 
 # =============================================================================
@@ -231,7 +231,7 @@ end
     PetriNet(workflow_name::String)
 A struct creating an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.
 
-Use the connect() function to populate the Petri net, and remove() function to remove Petri net components.
+Use the `connect()` function to populate the Petri net, and `remove()` function to remove Petri net components.
 
 
 # Examples
@@ -241,30 +241,30 @@ A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions
 
 
 julia> p1 = place("input1", :string)
-Place input1 with control token created.
+Place "input1" created.
 
 
 julia> p2 = place("input2",:string)
-Place input2 with control token created.
+Place "input2" created.
 
 
 julia> p3 = place("output",:string)
-Place output with control token created.
+Place "output" created.
 
 
 julia> t = transition("trans")
 Transition trans created.
 
 
-julia> connect(pn, p1,t, :in)
+julia> connect(pn, p1, t, :in)
 A Petri net with name "hello_julia", having 0 ports, 1 places, and 1 transitions.
 
 
-julia> connect(pn, p2,t, :read)
+julia> connect(pn, p2, t, :read)
 A Petri net with name "hello_julia", having 0 ports, 2 places, and 1 transitions.
 
 
-julia> connect(pn, p3,t, :out_many)
+julia> connect(pn, p3, t, :out_many)
 A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
 
 
@@ -329,8 +329,8 @@ julia> p3 = place("output",:string)
 Place "output" created.
 
 
-julia> t = transition("trans")
-Transition "trans" created.
+julia> t = transition("transition1")
+Transition "transition1" created.
 
 
 julia> connect(pn, p1,t, :in)
@@ -385,7 +385,29 @@ Given a Petri net, connects the vector of tuples (places, arc_types) to the give
 
 # Examples
 ```julia-repl
-julia> 
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("input1", :string)
+Place "input1" created.
+
+
+julia> p2 = place("input2", :string)
+Place "input2" created.
+
+
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
+
+
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
+
+
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
 
 ```
 
@@ -409,32 +431,40 @@ Given a Petri net, connects the given place to the given port.
 
 # Examples
 ```julia-repl
-# initiating an empty Petri net.
-julia> net = PetriNet()
-A Petri net with 0 ports, 0 places, and 0 transitions.
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
-julia> p1 = place("place1", "input_place")
-Place place1 created.
+julia> p1 = place("input1", :string)
+Place "input1" created.
 
 
-julia> p2 = place("place2", "output_place")
-Place place2 created.
+julia> p2 = place("input2", :string)
+Place "input2" created.
 
 
-julia> t1 = transition("transition1")
-Transition transition1 created.
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
 
 
-julia> connect(net, [(p1,:in), (p2,:out)], t1)
-A Petri net with 0 ports, 2 places, and 1 transitions.
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
 
 
-julia> pt = port("place2", :out, p2)
-A port of type "out", connected to place place2.
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
 
-julia> connect(net, p2, pt)
-A Petri net with 2 ports, 2 places, and 1 transitions.
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p2, :in)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p3, :out)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
 
 ```
 
@@ -459,29 +489,36 @@ Given a Petri net, connects the given place to a port of name port_name and type
 
 # Examples
 ```julia-repl
-# initiating an empty Petri net.
-julia> net = PetriNet()
-A Petri net with 0 ports, 0 places, and 0 transitions.
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
-julia> p1 = place("place1", "input_place")
-Place place1 created.
+julia> p1 = place("input1", :string)
+Place "input1" created.
 
 
-julia> p2 = place("place2", "output_place")
-Place place2 created.
+julia> p2 = place("input2", :string)
+Place "input2" created.
 
 
-julia> t1 = transition("transition1")
-Transition transition1 created.
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
 
 
-julia> connect(net, [(p1,:in), (p2,:out)], t1)
-A Petri net with 0 ports, 2 places, and 1 transitions.
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
 
 
-julia> connect(net,"place1", :in, p1)
-A Petri net with 1 ports, 2 places, and 1 transitions.
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+julia> prt = port(:in, p1)
+A port of type "in", connected to place "input1".
+
+
+julia> connect(pn, p1, prt)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
 
 ```
 
@@ -500,7 +537,61 @@ Remove the place from the given Petri net.
 
 # Examples
 ```julia-repl
-julia>
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("input1", :string)
+Place "input1" created.
+
+
+julia> p2 = place("input2", :string)
+Place "input2" created.
+
+
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
+
+
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
+
+
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p2, :in)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p3, :out)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
+
+
+julia> pn.places
+3-element Vector{DistributedWorkflow.Place}:
+ Place "input1" created.
+
+ Place "input2" created.
+
+ Place "output_result" created.
+
+
+julia> remove(pn, p1)
+A Petri net with name "hello_julia", having 2 ports, 2 places, and 1 transitions.
+
+
+julia> pn.places
+2-element Vector{DistributedWorkflow.Place}:
+ Place "input2" created.
+
+ Place "output_result" created.
+
 
 ```
 
@@ -510,15 +601,25 @@ function remove(pnet::PetriNet, place::Place)
   if place in pnet.places
     deleteat!(pnet.places, findall(x->x==place, pnet.places))
   end
+  arc_list = []
   for i in 1:length(pnet.arcs)
-    if place in pnet.arcs[i].place
-      deleteat!(pnet.arcs, i)
+    arc = pnet.arcs[i]
+    if place == arc.place
+      push!(arc_list, arc)
     end
   end
-  for i in 1:length(ports)
-    if place in pnet.ports[i].place
-      deleteat!(pnet.ports, i)
+  for a in arc_list
+    deleteat!(pnet.arcs, findall(x->x==a, pnet.arcs))
+  end
+  port_list = []
+  for i in 1:length(pnet.ports)
+    prt = pnet.ports[i]
+    if place == pnet.ports[i].place
+      push!(port_list, prt)
     end
+  end
+  for pt in port_list
+    deleteat!(pnet.ports, findall(x->x==pt, pnet.ports))
   end
   return pnet
 end
@@ -529,7 +630,54 @@ Remove the transition from the given Petri net.
 
 # Examples
 ```julia-repl
-julia>
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("input1", :string)
+Place "input1" created.
+
+
+julia> p2 = place("input2", :string)
+Place "input2" created.
+
+
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
+
+
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
+
+
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p2, :in)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p3, :out)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
+
+
+julia> pn.transitions
+1-element Vector{DistributedWorkflow.Transition}:
+ Transition "initial_transition" created.
+
+
+julia> remove(pn, t)
+A Petri net with name "hello_julia", having 2 ports, 2 places, and 0 transitions.
+
+
+julia> pn.transitions
+DistributedWorkflow.Transition[]
+
 
 ```
 
@@ -539,10 +687,15 @@ function remove(pnet::PetriNet, transition::Transition)
   if transition in pnet.transitions
     deleteat!(pnet.transitions, findall(x->x==transition, pnet.transitions))
   end
+  arc_list = []
   for i in 1:length(pnet.arcs)
-    if transition in pnet.arcs[i].transition
-      deleteat!(pnet.arcs, i)
+    arc = pnet.arcs[i]
+    if transition == arc.transition
+      push!(arc_list, arc)
     end
+  end
+  for a in arc_list
+    deleteat!(pnet.arcs, findall(x->x==a, pnet.arcs))
   end
   return pnet
 end
@@ -553,7 +706,65 @@ Remove the arc from the given Petri net.
 
 # Examples
 ```julia-repl
-julia>
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("input1", :string)
+Place "input1" created.
+
+
+julia> p2 = place("input2", :string)
+Place "input2" created.
+
+
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
+
+
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
+
+
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p2, :in)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p3, :out)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
+
+
+julia> a1 = arc(p1,t,:in)
+An arc of type "in", connecting the place: input1 to the transition: initial_transition.
+
+
+julia> pn.arcs
+3-element Vector{DistributedWorkflow.Arc}:
+ An arc of type "in", connecting the place: input1 to the transition: initial_transition.
+
+ An arc of type "read", connecting the place: input2 to the transition: initial_transition.
+
+ An arc of type "out_many", connecting the place: output_result to the transition: initial_transition.
+
+
+julia> remove(pn, a1)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
+
+
+julia> pn.arcs
+2-element Vector{DistributedWorkflow.Arc}:
+ An arc of type "read", connecting the place: input2 to the transition: initial_transition.
+
+ An arc of type "out_many", connecting the place: output_result to the transition: initial_transition.
+
 
 ```
 
@@ -572,7 +783,65 @@ Remove the port from the given Petri net.
 
 # Examples
 ```julia-repl
-julia>
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
+
+
+julia> p1 = place("input1", :string)
+Place "input1" created.
+
+
+julia> p2 = place("input2", :string)
+Place "input2" created.
+
+
+julia> p3 = place("output_result", :string)
+Place "output_result" created.
+
+
+julia> t = transition("initial_transition")
+Transition "initial_transition" created.
+
+
+julia> connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p2, :in)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p3, :out)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
+
+
+julia> pn.ports
+3-element Vector{DistributedWorkflow.Port}:
+ A port of type "in" connected to place "input1".
+
+ A port of type "in" connected to place "input2".
+
+ A port of type "out" connected to place "output_result".
+
+
+julia> prt = port(:in, p1)
+A port of type "in" connected to place "input1".
+
+
+julia> remove(pn, prt)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> pn.ports
+2-element Vector{DistributedWorkflow.Port}:
+ A port of type "in" connected to place "input2".
+
+ A port of type "out" connected to place "output_result".
+
 
 ```
 

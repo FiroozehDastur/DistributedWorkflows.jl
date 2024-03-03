@@ -182,7 +182,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> workflow_generator(pn)
-"An XML workflow \"hello_julia\" has been written to the location: /root/tmp."
+"An XML workflow "hello_julia" has been written to the location: /root/tmp."
 
 
 ```

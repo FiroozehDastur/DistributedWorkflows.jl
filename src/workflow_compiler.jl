@@ -1,8 +1,10 @@
 """
     compile_workflow(workflow::String, build_dir::String)
 Given a path for the workflow and an accessible location for the build directory, this function compiles the XML workflow.
-  # workflow -> absolute path to the xpnet file
-  # build_dir -> path to build directory
+
+Note:
+  workflow => absolute path to the xpnet file
+  build_dir => path to build directory
   
 # Examples
 ```julia-repl

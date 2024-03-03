@@ -15,6 +15,7 @@ module DistributedWorkflow
          place,
          port,
          port_info,
+         remove,
          set_workflow_env, 
          submit_workflow, 
          transition,
