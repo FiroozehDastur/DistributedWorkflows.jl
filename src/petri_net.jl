@@ -1,4 +1,3 @@
-# Creates Petri net for distributed workflow
 # =============================================================================
 # Creation of type Place for Petri nets
 # =============================================================================
@@ -9,15 +8,19 @@ end
 
 """
     place(name::String, type::Symbol)
-Creates an object of type Place for the Petri net.
+Creates an object of type Place for the Petri net object.
+Note: acceptable place types are:
+  :string, :control
+
+Also, note that an input or output place cannot be of type :control.
 
 # Examples
 ```julia-repl
 julia> place("new_place", :string)
-Place new_place created.
+Place "new_place" created.
 
-julia> place("place3",:control)
-Place place3 with control token created.
+julia> place("in_place",:control)
+Place "in_place" with control token created.
 ```
 
 See also [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
@@ -31,15 +34,15 @@ function place(name::String, token_type::Symbol)
 end
 
 function Base.show(io::IO, P::Place)
-  if typeof(P.type)==Symbol
-    return println(io,"Place $(P.name) with control token created.")
+  if P.type == :control
+    return println(io,"Place \"$(P.name)\" with control token created.")
   else
-    return println(io,"Place $(P.name) created.")
+    return println(io,"Place \"$(P.name)\" created.")
   end
 end
 
 # =============================================================================
-# Creation of type Transtion for Petri nets
+# Creation of type Transition for Petri nets
 # =============================================================================
 struct Transition
   name::String
@@ -48,13 +51,21 @@ struct Transition
 end
 
 """
+    transition(name::String)
     transition(name::String, condition::String)
-Creates an object of type Transition for the Petri net.
+Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.
+
+Note: the condition string should be a regex.
+
 
 # Examples
 ```julia-repl
 julia> transition("transition1")
-Transition transition1 created.
+Transition "transition1" created.
+
+julia> transition("do_stuff", "counter :eq: 0UL")
+A conditional transition "do_stuff" created.
+
 ```
 
 See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
@@ -67,54 +78,21 @@ function transition(name::String, condition::String="", type::Symbol=:mod)
   end
 end
 
-# ToDo: Add special transitions with counter, reduce, or map-reduce, map
+# ToDo: Add special transitions with counter, parallel-reduce, and weighted transitions
 """
-    map_transition(name::String, condition::String)
+    parallel_reduce_transition(name::String, condition::String)
 Creates an object of type Transition for the Petri net.
 
 # Examples
 ```julia-repl
 julia> transition("transition1")
-Transition transition1 created.
-```
-
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
-"""
-# function map_transition(name::String, condition::String="")
-#   type = :map
-
-# end
-
-"""
-    reduce_transition(name::String, condition::String)
-Creates an object of type Transition for the Petri net.
-
-# Examples
-```julia-repl
-julia> transition("transition1")
-Transition transition1 created.
+Transition "transition1" created.
 ```
 
 See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
 """
-# function reduce_transition(name::String, condition::String="")
+# function parallel_reduce_transition(name::String, condition::String="")
 #   type = :reduce
-# end
-
-"""
-    mapreduce_transition(name::String, condition::String)
-Creates an object of type Transition for the Petri net.
-
-# Examples
-```julia-repl
-julia> transition("transition1")
-Transition transition1 created.
-```
-
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`transition`](@ref), [`counter_transition`](@ref).
-"""
-# function mapreduce_transition(name::String, condition::String="")
-#   type = :mapreduce
 # end
 
 """
@@ -124,7 +102,7 @@ Creates an object of type Transition for the Petri net.
 # Examples
 ```julia-repl
 julia> transition("transition1")
-Transition transition1 created.
+Transition "transition1" created.
 ```
 
 See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`transition`](@ref).
@@ -141,7 +119,7 @@ Creates an object of type Transition for the Petri net.
 # Examples
 ```julia-repl
 julia> transition("transition1")
-Transition transition1 created.
+Transition "transition1" created.
 ```
 
 See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`transition`](@ref).
@@ -152,9 +130,9 @@ See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), 
 
 function Base.show(io::IO, T::Transition)
   if isempty(T.condition)
-    return println(io,"Transition $(T.name) created.")
+    return println(io,"Transition \"$(T.name)\" created.")
   else
-    return println(io,"A conditional transition $(T.name) created.")
+    return println(io,"A conditional transition \"$(T.name)\" created.")
   end
 end
 
@@ -170,15 +148,17 @@ end
 """
     arc(place::Place, transition::Transition, type::Symbol)
 Creates an object of type Arc that joins a place to a transition in a Petri net.
+Note: acceptable arcs are one of the following:
+    :in, :read, :inout, :out, :out_many
 
 # Examples
 ```julia-repl
 julia> p1 = place("place1", "input_place")
-Place place1 created.
+Place "place1" created.
 
 
 julia> t1 = transition("transition1")
-Transition transition1 created.
+Transition "transition1" created.
 
 
 julia> arc(p1,t1,:in)
@@ -205,17 +185,24 @@ end
 # =============================================================================
 struct Port
   name::String
-  type::Symbol# in, out, or inout
+  type::Symbol
   place::Place
 end
 
 """
     port(type::Symbol, place::Place)
 Creates a port connecting to the given place with respect to the arc type.
+Note: the allowed port types are one of the following:
+    :in, :out, :inout
 
 # Examples
 ```julia-repl
-julia>
+julia> p1 = place("input1", :string)
+Place "input1" created.
+
+
+julia> port(:in, p1)
+A port of type "in", connected to place "input1".
 
 ```
 
@@ -234,7 +221,7 @@ function port(type::Symbol, place::Place)
 end
 
 function Base.show(io::IO, x::Port)
-  return println(io,"A port of type \"$(x.type)\", connected to place $(x.place.name).")
+  return println(io,"A port of type \"$(x.type)\", connected to place \"$(x.place.name)\".")
 end
 
 # =============================================================================
@@ -244,35 +231,53 @@ end
     PetriNet(workflow_name::String)
 A struct creating an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.
 
-Use the connect() function to populate the Petri net.
+Use the connect() function to populate the Petri net, and remove() function to remove Petri net components.
 
 
 # Examples
 ```julia-repl
-julia> PetriNet("new_workflow")
-A Petri net with name "new_workflow", having 0 ports, 0 places, and 0 transitions.
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
-# A Petri name needs to have a name defined at initiation
-julia> PetriNet()
-ERROR: MethodError: no method matching PetriNet()
 
-Closest candidates are:
-  PetriNet(::String)
-   @ Main ~/DistributedWorkflow.jl/src/petri_net.jl:148
+julia> p1 = place("input1", :string)
+Place input1 with control token created.
 
-Stacktrace:
- [1] top-level scope
-   @ REPL[2]:1
 
-julia> PetriNet("")
-ERROR: An empty string as Petri net name is not allowed. Please provide a name for the Petri net.
-Stacktrace:
- [1] error(s::String)
-   @ Base ./error.jl:35
- [2] PetriNet(name::String)
-   @ Main ~/DistributedWorkflow.jl/src/petri_net.jl:150
- [3] top-level scope
-   @ REPL[3]:1
+julia> p2 = place("input2",:string)
+Place input2 with control token created.
+
+
+julia> p3 = place("output",:string)
+Place output with control token created.
+
+
+julia> t = transition("trans")
+Transition trans created.
+
+
+julia> connect(pn, p1,t, :in)
+A Petri net with name "hello_julia", having 0 ports, 1 places, and 1 transitions.
+
+
+julia> connect(pn, p2,t, :read)
+A Petri net with name "hello_julia", having 0 ports, 2 places, and 1 transitions.
+
+
+julia> connect(pn, p3,t, :out_many)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, :in, p2)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, :out, p3)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
 
 ```
 
@@ -301,55 +306,55 @@ function Base.show(io::IO, Pnet::PetriNet)
 end
 
 """
-connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)
+    connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)
+    connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol)
 Given a Petri net connects the place to the transition with the given arc type. 
 
 # Examples
 ```julia-repl
 # initiating an empty Petri net.
-julia> net = PetriNet("new_net")
-A Petri net with name "new_net", having 0 ports, 0 places, and 0 transitions.
-
-julia> p1 = place("place1", "input_place")
-Place place1 created.
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
-julia> p2 = place("place2", "output_place")
-Place place2 created.
+julia> p1 = place("input1", :string)
+Place "input1" created.
 
 
-julia> t1 = transition("transition1")
-Transition transition1 created.
+julia> p2 = place("input2",:string)
+Place "input2" created.
 
 
-julia> connect(net, p1, t1, :in)
-A Petri net with 1 places and 1 transitions.
+julia> p3 = place("output",:string)
+Place "output" created.
 
 
-julia> connect(net, p2, t1, :out)
-A Petri net with 2 places and 1 transitions.
-
-julia> net.name
-"new_net"
-
-julia> net.places
-2-element Vector{Place}:
- Place place1 created.
-
- Place place2 created.
+julia> t = transition("trans")
+Transition "trans" created.
 
 
-julia> net.transitions
-1-element Vector{Transition}:
- Transition transition1 created.
+julia> connect(pn, p1,t, :in)
+A Petri net with name "hello_julia", having 0 ports, 1 places, and 1 transitions.
 
 
-julia> net.arcs
-2-element Vector{Arc}:
- An arc of type "in", connecting the place: place1 to the transition: transition1.
+julia> connect(pn, p2,t, :read)
+A Petri net with name "hello_julia", having 0 ports, 2 places, and 1 transitions.
 
- An arc of type "out", connecting the place: place2 to the transition: transition1.
 
+julia> connect(pn, p3,t, :out_many)
+A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, :in, p2)
+A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions.
+
+
+julia> connect(pn, :out, p3)
+A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
 
 ```
 
@@ -370,115 +375,17 @@ function connect(pnet::PetriNet, place::Place, transition::Transition, arc_type:
   return pnet
 end
 
-"""
-    connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol)
-Given a Petri net connects the place to the transition with the given arc type. 
+connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol) = connect(pnet, place, transition, arc_type)
 
-# Examples
-```julia-repl
-# initiating an empty Petri net.
-julia> net = PetriNet()
-A Petri net with 0 places and 0 transitions.
-
-
-julia> p1 = place("place1", "input_place")
-Place place1 created.
-
-
-julia> p2 = place("place2", "output_place")
-Place place2 created.
-
-
-julia> t1 = transition("transition1")
-Transition transition1 created.
-
-
-julia> connect(net, t1, p1, :in)
-A Petri net with 1 places and 1 transitions.
-
-
-julia> connect(net, t1, p2, :out)
-A Petri net with 2 places and 1 transitions.
-
-
-julia> net.places
-2-element Vector{Place}:
- Place place1 created.
-
- Place place2 created.
-
-
-julia> net.transitions
-1-element Vector{Transition}:
- Transition transition1 created.
-
-
-julia> net.arcs
-2-element Vector{Arc}:
- An arc of type "in", connecting the place: place1 to the transition: transition1.
-
- An arc of type "out", connecting the place: place2 to the transition: transition1.
-
-
-```
-
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
-"""
-function connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol)
-  return connect(pnet, place, transition, arc_type)
-end
 
 """
     connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
-Given a Petri net, connects the vector of tuples (places, arc types) to the given transition. 
+    connect(pnet::PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}})
+Given a Petri net, connects the vector of tuples (places, arc_types) to the given transition. 
 
 # Examples
 ```julia-repl
-# initiating an empty Petri net.
-julia> net = PetriNet()
-A Petri net with 0 places and 0 transitions.
-
-
-julia> p1 = place("place1", "input_place")
-Place place1 created.
-
-
-julia> p2 = place("place2", "output_place")
-Place place2 created.
-
-
-julia> p3 = place("place3",:control)
-Place place3 with control token created.
-
-
-julia> t1 = transition("transition1")
-Transition transition1 created.
-
-
-julia> connect(net, [(p1,:in), (p2,:out_many), (p3, :read)], t1)
-
-julia> net.places
-3-element Vector{Place}:
- Place place1 created.
-
- Place place2 created.
-
- Place place3 with control token created.
-
-
-julia> net.transitions
-1-element Vector{Transition}:
- Transition transition1 created.
-
-
-julia> net.arcs
-3-element Vector{Arc}:
- An arc of type "in", connecting the place: place1 to the transition: transition1.
-
- An arc of type "out_many", connecting the place: place2 to the transition: transition1.
-
- An arc of type "read", connecting the place: place3 to the transition: transition1.
-
+julia> 
 
 ```
 
@@ -491,6 +398,9 @@ function connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, tran
   end
   return pnet
 end
+
+connect(pnet::PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}}) = connect(pnet, places_arcs, transition)
+
 
 """
     connect(pnet::PetriNet, place::Place, port::Port)
@@ -638,7 +548,7 @@ function remove(pnet::PetriNet, transition::Transition)
 end
 
 """
-    remove(pnet::PetriNet,  arc::Arc)
+    remove(pnet::PetriNet, arc::Arc)
 Remove the arc from the given Petri net.  
 
 # Examples
@@ -657,7 +567,7 @@ function remove(pnet::PetriNet, arc::Arc)
 end
 
 """
-    remove(pnet::PetriNet,  port::Port)
+    remove(pnet::PetriNet, port::Port)
 Remove the port from the given Petri net.  
 
 # Examples

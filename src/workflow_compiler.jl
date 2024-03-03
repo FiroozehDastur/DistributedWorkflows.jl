@@ -6,7 +6,9 @@ Given a path for the workflow and an accessible location for the build directory
   
 # Examples
 ```julia-repl
-julia> 
+julia> compile_workflow("/root/tmp/hello_julia.xpnet")
+...
+Success: Workflow compiled
 
 ```
 
