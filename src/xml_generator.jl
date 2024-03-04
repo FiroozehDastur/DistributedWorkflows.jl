@@ -69,13 +69,25 @@ function _xpnet_generator(pnet::PetriNet)
       push!(out_place_list, pl)
     end
 
-    in_str = in_place_list[1][1].name
-    out_str = out_place_list[1][1].name
-    for j in 2:length(in_place_list)
-      in_str = in_str * ", " * in_place_list[j][1].name
+    in_str_vec = []
+    out_str_vec = []
+    for j in 1:length(in_place_list)
+      if in_place_list[j][1].type == :string
+        push!(in_str_vec, in_place_list[j][1])
+      end
     end
-    for j in 2:length(out_place_list)
-      out_str = out_str * ", " * out_place_list[j][1].name
+    in_str = in_str_vec[1].name
+    for k in 2:length(in_str_vec)
+      in_str = in_str * ", " * in_str_vec[k].name
+    end
+    for j in 1:length(out_place_list)
+      if out_place_list[j][1].type == :string
+        push!(out_str_vec, out_place_list[j][1])
+      end
+    end
+    out_str = out_str_vec[1].name
+    for k in 2:length(out_str_vec)
+      out_str = out_str * ", " * out_str_vec[k].name
     end
     mod = new_child(def, "module")
     set_attributes(mod, Dict("name"=>pnet.name, "function"=>"operation_$i ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
