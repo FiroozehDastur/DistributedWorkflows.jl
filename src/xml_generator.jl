@@ -78,7 +78,7 @@ function _xpnet_generator(pnet::PetriNet)
       out_str = out_str * ", " * out_place_list[j][1].name
     end
     mod = new_child(def, "module")
-    set_attributes(mod, Dict("name"=>pnet.name, "function"=>"operation ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
+    set_attributes(mod, Dict("name"=>pnet.name, "function"=>"operation_$i ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
     
     cin1 = new_child(mod, "cinclude")
     set_attribute(cin1, "href", "zeda/executor.hpp")
@@ -193,8 +193,9 @@ function workflow_generator(pnet::PetriNet, path::String="")
   xpnet = _xpnet_generator(pnet)
   dir = ""
   if !isempty(path)
-    save_file(xpnet, joinpath(path,"$(pnet.name).xpnet"))
     dir = path
+    run(`mkdir -p $dir`)
+    save_file(xpnet, joinpath(dir,"$(pnet.name).xpnet"))
   else
     dir = joinpath(ENV["HOME"],"tmp")
     run(`mkdir -p $dir`)
