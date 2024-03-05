@@ -7,10 +7,11 @@ struct Place
 end
 
 """
+    place(name::String)
     place(name::String, type::Symbol)
 Creates an object of type Place for the Petri net object.
 Note: acceptable place types are:
-  :string, :control
+  :string, :control, :counter
 
 Also, note that an input or output place cannot be of type :control.
 
@@ -25,8 +26,8 @@ Place "in_place" with control token created.
 
 See also [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
-function place(name::String, token_type::Symbol)
-  possible_tokens = [:string, :control]
+function place(name::String, token_type::Symbol=:string)
+  possible_tokens = [:string, :control, :counter]
   if !(token_type in possible_tokens)
     error("Token type \":$(token_type)\" invalid. Please provide either :string, or :control as a token type.")
   end
@@ -36,6 +37,8 @@ end
 function Base.show(io::IO, P::Place)
   if P.type == :control
     return println(io,"Place \"$(P.name)\" with control token created.")
+  elseif P.type == :counter
+    return println(io,"Place \"$(P.name)\" with counter created.")
   else
     return println(io,"Place \"$(P.name)\" created.")
   end

@@ -26,6 +26,9 @@ function _xpnet_generator(pnet::PetriNet)
       tk = new_child(pl, "token")
       vl = new_child(tk, "value")
       add_text(vl,"[]")
+    elseif pnet.places[i].type == :counter
+      pl = new_child(net, "place")
+      set_attributes(pl, Dict("name"=>pnet.places[i].name, "type"=>"unsigned long"))
     else
       pl = new_child(net, "place")
       set_attributes(pl, Dict("name"=>pnet.places[i].name, "type"=>string(pnet.places[i].type)))
@@ -35,6 +38,8 @@ function _xpnet_generator(pnet::PetriNet)
   for i in 1:length(pnet.transitions)
     trans = new_child(net, "transition")
     t_name = pnet.transitions[i].name
+    cond = pnet.transitions[i].condition
+    # str_cond = pnet.transitions[i].out_connection
     set_attribute(trans, "name", t_name)
     def = new_child(trans, "defun")
     impl = new_child(def, "in")
@@ -51,6 +56,12 @@ function _xpnet_generator(pnet::PetriNet)
         elseif pnet.arcs[j].type == :read
           prt = new_child(def, "in")
           set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>string(pnet.arcs[j].place.type)))
+        elseif !isempty(cond) && pnet.arcs[j].place.type == :counter
+          prt = new_child(def, string(pnet.arcs[j].type))
+          set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>"unsigned long"))
+        elseif pnet.arcs[j].place.type == :counter
+          prt = new_child(def, string(pnet.arcs[j].type))
+          set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>"unsigned long"))
         else
           prt = new_child(def, string(pnet.arcs[j].type))
           set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>string(pnet.arcs[j].place.type)))
@@ -81,7 +92,7 @@ function _xpnet_generator(pnet::PetriNet)
       in_str = in_str * ", " * in_str_vec[k].name
     end
     for j in 1:length(out_place_list)
-      if out_place_list[j][1].type == :string
+      if out_place_list[j][1].type in [:string, :counter]
         push!(out_str_vec, out_place_list[j][1])
       end
     end
@@ -109,7 +120,11 @@ function _xpnet_generator(pnet::PetriNet)
     for j in 1:length(out_place_list)
       k = j-1
       if out_place_list[j][2] == :out_many
-        str = string(out_place_list[j][1].name, ".assign(__output[$k].begin(), __output[$k].end());")
+        str = string(out_place_list[j][1].name, ".assign(__output[$k].begin(), __output[$k].end());\n")
+        out_port_list = out_port_list * str
+      elseif out_place_list[j][1].type == :counter
+        str_cond = pnet.transitions[i].condition
+        str = string(out_place_list[j][1].name, " = $(str_cond);\n") 
         out_port_list = out_port_list * str
       else
         str = string(out_place_list[j][1].name, " = __output[$k][0];\n") 
