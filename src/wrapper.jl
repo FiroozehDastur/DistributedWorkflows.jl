@@ -52,6 +52,11 @@ Description of function here...
 See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
 """
 function client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
+  run(`touch $nodefile`)
+  if rif_strategy=="local"
+    write(nodefile, gethostname())
+    # ToDo: add an else condition for the nodefile
+  end
   worker = string("worker:", workers)
   gspc_home = string("--gspc-home=", readchomp(`spack location -i gpi-space`))
   nodefile = string("--nodefile=", nodefile)
@@ -77,6 +82,11 @@ Description of function here...
 See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
 """
 function client(workers::Int, nodefile::String, rif_strategy::String)
+  run(`touch $nodefile`)
+  if rif_strategy=="local"
+    write(nodefile, gethostname())
+    # ToDo: add an else condition for the nodefile
+  end
   worker = string("worker:", workers)
   gspc_home = string("--gspc-home=", readchomp(`spack location -i gpi-space`))
   nodefile = string("--nodefile=", nodefile)

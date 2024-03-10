@@ -23,6 +23,7 @@ function compile_workflow(workflow::String, build_dir::String="")
   if isempty(build_dir)
     build_dir = joinpath(ENV["HOME"], "tmp/build")
   end
+  run(`mkdir -p $(build_dir)`)
   run(`cmake -D WORKFLOW=$workflow -B $build_dir -S $source_dir`)
   # build
   run(`cmake --build $build_dir -j 8`)

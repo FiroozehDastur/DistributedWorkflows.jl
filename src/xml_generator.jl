@@ -229,7 +229,7 @@ function workflow_generator(pnet::PetriNet, path::String="")
     save_file(xpnet, joinpath(ENV["HOME"],"tmp/$(pnet.name).xpnet"))
   end
   free(xpnet)
-  return "An XML workflow \"$(pnet.name)\" has been written to the location: $(dir)."
+  return "An XML workflow called: $(pnet.name) has been written to the location: $(dir)."
 end
 
 # transition parallel-reduce
