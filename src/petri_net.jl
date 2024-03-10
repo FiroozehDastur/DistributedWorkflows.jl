@@ -11,7 +11,7 @@ end
     place(name::String, type::Symbol)
 Creates an object of type Place for the Petri net object.
 Note: acceptable place types are:
-  :string, :control, :counter
+  :string, :control, :control_init, :counter
 
 Also, note that an input or output place cannot be of type :control.
 
@@ -27,17 +27,17 @@ Place "in_place" with control token created.
 See also [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function place(name::String, token_type::Symbol=:string)
-  possible_tokens = [:string, :control, :counter]
+  possible_tokens = [:string, :control, :counter, :control_init]
   if !(token_type in possible_tokens)
-    error("Token type \":$(token_type)\" invalid. Please provide either :string, or :control as a token type.")
+    error("Token type \":$(token_type)\" invalid. Please provide either :string, :control, :control_init, or :counter as a token type.")
   end
   Place(name, token_type)
 end
 
 function Base.show(io::IO, P::Place)
-  if P.type == :control
+  if P.type in [:control, :control_init]
     return println(io,"Place \"$(P.name)\" with control token created.")
-  elseif P.type == :counter
+  elseif P.type == :counter 
     return println(io,"Place \"$(P.name)\" with counter created.")
   else
     return println(io,"Place \"$(P.name)\" created.")
@@ -533,6 +533,28 @@ function connect(pnet::PetriNet, port_type::Symbol, place::Place)
 end
 
 connect(pnet::PetriNet, place::Place, port_type::Symbol) = connect(pnet, port_type, place)
+
+"""
+    connect(pnet::PetriNet, place_port::Vector{Tuple{Place, Symbol}})
+    connect(pnet::PetriNet, port_place::Vector{Tuple{Symbol, Place}})
+Given a Petri net, connects the given places to a port of name port_name and type port_type. 
+
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
+"""
+function connect(pnet::PetriNet, place_port::Vector{Tuple{Place, Symbol}})
+  for (p, s) in place_port
+    connect(pnet, p, s)
+  end
+  return pnet
+end
+
+function connect(pnet::PetriNet, port_place::Vector{Tuple{Symbol, Place}})
+  for (s, p) in place_port
+    connect(pnet, p, s)
+  end
+  return pnet
+end
+
 
 """
     remove(pnet::PetriNet, place::Place)

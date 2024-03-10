@@ -7,7 +7,7 @@ end
 
 struct Application_config_many
   ports::Vector{String}
-  impl::String
+  impl::Vector{String}
   fnames::Vector{String}
 end
 
@@ -37,7 +37,9 @@ Description of function here...
 
 See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
 """
-application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
+application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
+
+application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) = Application_config_many(ports, [impl], fnames)
 
 """
     client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
@@ -217,9 +219,15 @@ function workflow_config(workflow::String, output_dir::String, app_config::Appli
   @assert n == m "The number of $(app_config.ports) should match the number of $(app_config.fnames), since each port gets a function name in the order they occur in the struct."
   workflow_cfg = Vector(undef, n)
   for i in 1:n
+    impl = ""
+    if length(app_config.impl) == 1
+      impl = app_config.impl[1]
+    else
+     impl = app_config.impl[i]
+    end
     portname = app_config.ports[i]
     fname = app_config.fnames[i]
-    workflow_cfg[i] = DistributedWorkflow.implementation(portname, "julia $executor_file $(app_config.impl) $fname $output_dir")
+    workflow_cfg[i] = DistributedWorkflow.implementation(portname, "julia $executor_file $(impl) $fname $output_dir")
   end
   workflow_config = StdVector(workflow_cfg)
   workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)

@@ -20,12 +20,14 @@ function _xpnet_generator(pnet::PetriNet)
   end
 
   for i in 1:length(pnet.places)
-    if pnet.places[i].type == :control
+    if pnet.places[i].type in [:control, :control_init]
       pl = new_child(net, "place")
       set_attributes(pl, Dict("name"=>pnet.places[i].name, "type"=>"control"))
-      tk = new_child(pl, "token")
-      vl = new_child(tk, "value")
-      add_text(vl,"[]")
+      if pnet.places[i].type == :control_init
+        tk = new_child(pl, "token")
+        vl = new_child(tk, "value")
+        add_text(vl,"[]")
+      end
     elseif pnet.places[i].type == :counter
       pl = new_child(net, "place")
       set_attributes(pl, Dict("name"=>pnet.places[i].name, "type"=>"unsigned long"))
