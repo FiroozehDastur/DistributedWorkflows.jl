@@ -1,5 +1,6 @@
 module DistributedWorkflow
   using CxxWrap, LightXML, Markdown, Serialization, TOML
+  import Pkg
   export application_config,
          arc,
          client,
@@ -28,4 +29,27 @@ module DistributedWorkflow
   include("workflow_compiler.jl")
   include("wrapper.jl")
   include("xml_generator.jl")
+
+  # version number determined at compile time
+  function _get_version()
+    return VersionNumber(Pkg.TOML.parsefile(joinpath(dirname(@__DIR__), "Project.toml"))["version"])
+  end
+  const pkg_version = _get_version()
+
+  # Respect the -q and --banner flag
+  allowbanner = Base.JLOptions().banner
+  if !(allowbanner == 0)
+    function print_banner()
+      println("                _          ___      | DistributedWorkflow - a task-based distributed")
+      println("               | |        /   \\     | workflow management system.")
+      println("   ___         | |<----->(  \e[34mo\e[0m  )    |")
+      println("  / \e[32mo\e[0m \\        | |        \\___/     | Version $(pkg_version) ...")
+      println(" ( \e[31mo\e[0m \e[35mo\e[0m )------>| |         ___      | ... which comes with absolutely no warranty whatsoever.")
+      println("  \\___/        | |        /   \\     |")
+      println("               | |======>(     )    | by Firoozeh Dastur, Max Zeyen, and Mirko Rahn.")
+      println("               |_|        \\___/     |")
+    end
+    print_banner()
+  end
+
 end
