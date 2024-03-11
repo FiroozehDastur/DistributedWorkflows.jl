@@ -55,7 +55,7 @@ end
 
 """
     transition(name::String)
-    transition(name::String, condition::String)
+    transition(name::String, type::Symbol, condition::String)
 Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.
 
 Note: the condition string should be a regex.
@@ -73,13 +73,17 @@ A conditional transition "do_stuff" created.
 
 See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
 """
-function transition(name::String, condition::String="", type::Symbol=:mod)
+function transition(name::String, type::Symbol=:mod, condition::String="")
   if type == :mod
     Transition(name, condition, type)
+  elseif type == :exp
+    Transition(name, condition, type)
   else
-    error("Please use one of the specialised transition methods.")
+    error("Possible transition types are :exp or :mod")
   end
 end
+
+
 
 # ToDo: Add special transitions with counter, parallel-reduce, and weighted transitions
 """

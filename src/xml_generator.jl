@@ -102,41 +102,49 @@ function _xpnet_generator(pnet::PetriNet)
     for k in 2:length(out_str_vec)
       out_str = out_str * ", " * out_str_vec[k].name
     end
-    mod = new_child(def, "module")
-    set_attributes(mod, Dict("name"=>pnet.name, "function"=>"operation_$i ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
-    
-    cin1 = new_child(mod, "cinclude")
-    set_attribute(cin1, "href", "zeda/executor.hpp")
-    
-    cin2 = new_child(mod, "cinclude")
-    set_attribute(cin2, "href", "iostream")
-    
-    cin3 = new_child(mod, "cinclude")
-    set_attribute(cin3, "href", "string")
-    
-    cin4 = new_child(mod, "cinclude")
-    set_attribute(cin4, "href", "vector")
-    
-    num_outs = length(out_place_list)
-    out_port_list = ""
-    for j in 1:length(out_place_list)
-      k = j-1
-      if out_place_list[j][2] == :out_many
-        str = string(out_place_list[j][1].name, ".assign(__output[$k].begin(), __output[$k].end());\n")
-        out_port_list = out_port_list * str
-      elseif out_place_list[j][1].type == :counter
-        str_cond = pnet.transitions[i].condition
-        str = string(out_place_list[j][1].name, " = $(str_cond);\n") 
-        out_port_list = out_port_list * str
-      else
-        str = string(out_place_list[j][1].name, " = __output[$k][0];\n") 
-        out_port_list = out_port_list * str
-      end
-    end
-    code = new_child(mod, "code")
-    add_cdata(xpnet, code, string("std::vector<std::vector<std::string>> __output = zeda::execute(implementation_$i, {$(in_str)}, $(num_outs));\n", out_port_list))
 
-    if !isempty(pnet.transitions[i].condition)
+    if pnet.transitions[i].type == :exp
+      expr = new_child(def, "expression")
+      if !isempty(pnet.transitions[i].condition)
+        add_text(expr, pnet.transitions[i].condition)
+      end
+    else
+      mod = new_child(def, "module")
+      set_attributes(mod, Dict("name"=>pnet.name, "function"=>"operation_$i ($(in_str), $(out_str), implementation_$i)", "require_function_unloads_without_rest"=>"false"))
+    
+      cin1 = new_child(mod, "cinclude")
+      set_attribute(cin1, "href", "zeda/executor.hpp")
+    
+      cin2 = new_child(mod, "cinclude")
+      set_attribute(cin2, "href", "iostream")
+    
+      cin3 = new_child(mod, "cinclude")
+      set_attribute(cin3, "href", "string")
+    
+      cin4 = new_child(mod, "cinclude")
+      set_attribute(cin4, "href", "vector")
+    
+      num_outs = length(out_place_list)
+      out_port_list = ""
+      for j in 1:length(out_place_list)
+        k = j-1
+        if out_place_list[j][2] == :out_many
+          str = string(out_place_list[j][1].name, ".assign(__output[$k].begin(), __output[$k].end());\n")
+          out_port_list = out_port_list * str
+        elseif out_place_list[j][1].type == :counter
+          str_cond = pnet.transitions[i].condition
+          str = string(out_place_list[j][1].name, " = $(str_cond);\n") 
+          out_port_list = out_port_list * str
+        else
+          str = string(out_place_list[j][1].name, " = __output[$k][0];\n") 
+          out_port_list = out_port_list * str
+        end
+      end
+      code = new_child(mod, "code")
+      add_cdata(xpnet, code, string("std::vector<std::vector<std::string>> __output = zeda::execute(implementation_$i, {$(in_str)}, $(num_outs));\n", out_port_list))
+    end
+
+    if !isempty(pnet.transitions[i].condition) && pnet.transitions[i].type==:mod
       cond = new_child(trans, "condition")
       add_text(cond, pnet.transitions[i].condition)
     end
