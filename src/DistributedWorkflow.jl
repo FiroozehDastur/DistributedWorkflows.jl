@@ -30,13 +30,13 @@ module DistributedWorkflow
   include("wrapper.jl")
   include("xml_generator.jl")
 
-  # version number determined at compile time
+  # function to determine version number at compile time
   function _get_version()
     return VersionNumber(Pkg.TOML.parsefile(joinpath(dirname(@__DIR__), "Project.toml"))["version"])
   end
   const pkg_version = _get_version()
 
-  # Respect the -q and --banner flag
+  # Banner printing that respects the -q and --banner flag
   allowbanner = Base.JLOptions().banner
   if !(allowbanner == 0)
     function print_banner()
