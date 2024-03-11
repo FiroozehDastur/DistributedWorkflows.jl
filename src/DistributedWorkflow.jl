@@ -39,6 +39,7 @@ module DistributedWorkflow
   # Banner printing that respects the -q and --banner flag
   allowbanner = Base.JLOptions().banner
   if !(allowbanner == 0)
+    # package banner
     function print_banner()
       println("                _          ___      | DistributedWorkflow - a task-based distributed")
       println("               | |        /   \\     | workflow management system.")

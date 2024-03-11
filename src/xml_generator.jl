@@ -167,6 +167,12 @@ function _xpnet_generator(pnet::PetriNet)
   return xpnet
 end
 
+struct XML_workflow
+  name::String
+  path::String
+end
+
+
 """
     workflow_generator(pnet::PetriNet)
     workflow_generator(pnet::PetriNet, path::String)
@@ -239,8 +245,14 @@ function workflow_generator(pnet::PetriNet, path::String="")
     save_file(xpnet, joinpath(ENV["HOME"],"tmp/$(pnet.name).xpnet"))
   end
   free(xpnet)
-  return "An XML workflow called: $(pnet.name) has been written to the location: $(dir)."
+  w_name = string(pnet.name, ".xpnet")
+  return XML_workflow(w_name, dir)
 end
+
+function Base.show(io::IO, xml::XML_workflow)
+  return println(io, "An XML workflow called: $(xml.name) has been written to the location: $(xml.path).")
+end
+
 
 # transition parallel-reduce
 

@@ -12,4 +12,4 @@ connect(pn, p2, :in)
 connect(pn, p3, :out)
 connect(pn, p4, :out)
 
-workflow_generator(pn)
+wf = workflow_generator(pn)

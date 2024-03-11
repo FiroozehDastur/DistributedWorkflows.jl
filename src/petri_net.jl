@@ -882,3 +882,44 @@ function remove(pnet::PetriNet, port::Port)
   end
   return pnet
 end
+
+# =============================================================================
+# Petri net viewer using GraphViz
+# =============================================================================
+"""
+    workflow_viewer(pnet::PetriNet, file_format::Symbol=:png, path::String="")
+By default this method generates a png file after compiling the Petri net into an XML workflow and compiling the workflow.
+If path is not given then the workflow image is stored in your home directory in \"tmp\" folder.
+Note: supported file formats: :png, :svg
+
+
+# Examples
+```julia-repl
+
+
+```
+"""
+# function workflow_viewer(pnet::PetriNet, file_format::Symbol=:png, path::String="")
+#   install_dir = DistributedWorkflow.config["workflow_path"]
+#   xml_wf = workflow_generator(pn, path)
+#   xml_location = joinpath(xml_wf.path, xml_wf.name)
+#   compile_workflow(xml_location, path)
+#   Graphviz.load()
+#   pnet2dot /root/.distributedworkflow/workflows/hello_julia.pnet --signature=OFF | dot -Tjpg > /root/tmp/hello_julia.jpg
+# end
+
+# required packages GraphViz, FileIO, Cairo
+# Make this optional dependency
+# types required for Graphviz
+# net shape => box
+# transition => box but light blue
+# places = ellipse
+# inside transition ports and outside net ports:
+#   in ports => house
+#   out ports =>invhouse
+#   inout ports => diamond
+# arrow/arc styles:
+#   in arc => normal
+#   out arc => normal
+#   inout arc => arrow head and arrow tail. If not possible then add one arrow in and one arrow out
+#   read arc => dashed
