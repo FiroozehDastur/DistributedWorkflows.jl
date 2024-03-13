@@ -35,22 +35,4 @@ module DistributedWorkflow
     return VersionNumber(Pkg.TOML.parsefile(joinpath(dirname(@__DIR__), "Project.toml"))["version"])
   end
   const pkg_version = _get_version()
-
-  # Banner printing that respects the -q and --banner flag
-  allowbanner = Base.JLOptions().banner
-  if !(allowbanner == 0)
-    # package banner
-    function print_banner()
-      println("                _          ___      | DistributedWorkflow - a task-based distributed")
-      println("               | |        /   \\     | workflow management system.")
-      println("   ___         | |<----->(  \e[34mo\e[0m  )    |")
-      println("  / \e[32mo\e[0m \\        | |        \\___/     | Version $(pkg_version) ...")
-      println(" ( \e[31mo\e[0m \e[35mo\e[0m )------>| |         ___      | ... which comes with absolutely no warranty whatsoever.")
-      println("  \\___/        | |        /   \\     |")
-      println("               | |======>(     )    | by Firoozeh Dastur, Max Zeyen, and Mirko Rahn.")
-      println("               |_|        \\___/     |")
-    end
-    print_banner()
-  end
-
 end

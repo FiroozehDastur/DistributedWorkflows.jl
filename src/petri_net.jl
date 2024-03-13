@@ -914,12 +914,110 @@ Note: supported file formats: :png, :svg
 # net shape => box
 # transition => box but light blue
 # places = ellipse
-# inside transition ports and outside net ports:
-#   in ports => house
-#   out ports =>invhouse
-#   inout ports => diamond
 # arrow/arc styles:
 #   in arc => normal
 #   out arc => normal
 #   inout arc => arrow head and arrow tail. If not possible then add one arrow in and one arrow out
 #   read arc => dashed
+
+struct XML_renderer
+  net::PetriNet
+  port::Dict
+  place::Dict
+  transition::Dict
+  arc::Dict
+  location::String
+end
+
+function render_net(pnet::PetriNet)
+  # label: place.name, transition.name, port.name
+  # nodes: place, transition, ports
+  # shapes: places,transitions. ports
+  # arrowhead styles: all arc styles
+  labels = Dict{Symbol, String}()
+  prt_nodes = Dict{}()
+  # for p in pnet.ports
+    
+  p_nodes = Dict{}()
+  t_nodes = Dict{}()
+  shapes = Dict{}()
+  arrows = Dict{}()
+  for p in pnet.ports
+    port_dict[p.name]
+  end
+
+  port_dict = Dict{String, Symbol}()
+  for p in pnet.ports
+    if p.type == :in
+      port_dict[p] = :house
+    elseif p.type == :out
+      port_dict[p] = :invhouse
+    else
+      port_dict[p] = :diamond
+    end
+  end
+
+  place_dict = Dict{Place, Symbol}()
+  for p in pnet.places
+    place_dict[p] = :ellipse
+  end
+
+  transition_dict = Dict{Transition, Symbol}()
+  for t in pnet.transitions
+    transition_dict[t] = :box
+  end
+
+  arc_dict = Dict{Arc, Symbol}()
+  for a in pnet.arcs
+    if a.type == :read
+      arc_dict[a] = :dashed
+    else
+      arc_dict[a] = a.type
+    end
+  end
+
+  return XML_renderer(pnet, port_dict, place_dict, transition_dict, arc_dict, "")
+end
+
+# using GraphViz
+
+# gv = dot"""
+# digraph G {
+#     // Define nodes with different shapes and colors
+#     node [shape=ellipse, style=filled, color=lightblue]
+#     A [shape=box, color=lightpink]
+#     B [shape=diamond, color=lightgreen]
+#     C [shape=triangle, color=lightyellow]
+
+#     // Define edges
+#     A -> B
+#     B -> C
+#     C -> A
+# }
+# """
+# FileIO.save("filename.png", gv)
+
+# # Define your graph
+# g = SimpleGraph(5)
+
+# # Add some edges
+# add_edge!(g, 1, 2)
+# add_edge!(g, 2, 3)
+# add_edge!(g, 3, 4)
+# add_edge!(g, 4, 5)
+# add_edge!(g, 5, 1)
+
+# # Define node shapes and colors
+# node_shapes = Dict(1 => "box", 2 => "ellipse", 3 => "diamond", 4 => "parallelogram", 5 => "triangle")
+# node_colors = Dict(1 => "red", 2 => "green", 3 => "blue", 4 => "orange", 5 => "purple")
+
+# # Generate DOT code
+# dot_code = GraphViz.dot(g, node_attrs=Dict("shape" => node_shapes, "color" => node_colors))
+
+# # Write DOT code to a file
+# open("graph.dot", "w") do io
+#     println(io, dot_code)
+# end
+
+# # Convert DOT code to an image
+# run(`dot -Tpng -o graph.png graph.dot`)
