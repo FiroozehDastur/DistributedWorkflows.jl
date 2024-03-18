@@ -59,8 +59,12 @@ end
     transition(name::String, condition::String)
 Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.
 
-Note: the condition string should be a regex.
-
+  Note: the condition and/or expression follows Fortran style expression. The following are possible expressions that can be wrapped in a string:
+  Comparison expressions:  :lt: :le: :gt: :ge: :ne: :eq:
+  Boolean expressions:  :or: :and: :not:
+  Operations:  +, -, *, /, :=
+  
+  See the example on how to use.
 
 # Examples
 ```julia-repl
@@ -83,8 +87,12 @@ end
     transition(name::String, exp::Vector{String}, condition::String)
 Creates an object of type Transition for the Petri net object containing an expression. If a condition string is given, the the transition is a condiational transition.
 
-Note: the condition string should be a one of the following:
+Note: the condition and/or expression follows Fortran style expression. The following are possible expressions that can be wrapped in a string:
+Comparison expressions:  :lt: :le: :gt: :ge: :ne: :eq:
+Boolean expressions:  :or: :and: :not:
+Operations:  +, -, *, /, :=
 
+See the example on how to use.
 
 # Examples
 ```julia-repl
