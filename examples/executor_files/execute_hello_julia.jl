@@ -3,7 +3,8 @@
 # ================================================================
 using DistributedWorkflow, CxxWrap
 
-include(/root/DistributedWorkflow.jl/examples/petri_nets/hello_julia_net.jl)
+# Change the paths to locate the files according to system settings
+include("/root/DistributedWorkflow.jl/examples/petri_nets/hello_julia_net.jl")
 
 DistributedWorkflow.compile_workflow("/root/tmp/hello_julia.xpnet")
 client = DistributedWorkflow.client(1, "/root/tmp/nodefile", "local", "localhost", 6789)
