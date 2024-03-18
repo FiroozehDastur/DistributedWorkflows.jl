@@ -52,9 +52,9 @@ function view_workflow(pnet::PetriNet, path::String="")
     p = pnet.places[i]
     if p.type == :control_init
       b = "\u2022"
-      P_st = """Pl_$(p.name) [label = "$(b)", xlabel = "$(p.name)"]\n"""
+      P_st = """Pl_$(p.name) [label = "$(b)\n $(p.name)"]\n"""
     elseif p.type == :control
-      P_st = """Pl_$(p.name) [xlabel = "$(p.name)"]\n"""
+      P_st = """Pl_$(p.name) [label = "$(p.name)"]\n"""
     else
       P_st = """Pl_$(p.name) [label = "$(p.name)"]\n"""
     end
@@ -62,7 +62,7 @@ function view_workflow(pnet::PetriNet, path::String="")
   end
 
   # create a string list that has information for the transition nodes
-  nd_tr = """node [shape=box3d, style=filled, fillcolor=lightblue]\n"""
+  nd_tr = """node [shape=box3d, style=filled, fillcolor=lightblue, margin=0.3, padding=0.2]\n"""
   trstr_list = [nd_tr]
   for t in pnet.transitions
     T_str = """Tr_$(t.name) [label="$(t.name)"]\n"""
@@ -107,7 +107,7 @@ function view_workflow(pnet::PetriNet, path::String="")
     in_ports_string = in_ports_string * instr_port_list[i]
   end
   out_ports_string = ""
-  for i in 1:length(instr_port_list)
+  for i in 1:length(outstr_port_list)
     out_ports_string = out_ports_string * outstr_port_list[i]
   end
 
@@ -197,10 +197,9 @@ end_gen = """
     path_dir = joinpath(ENV["HOME"], "tmp")
     run(`mkdir -p $(path_dir)`)
   else
-    store_location = joinpath(path, "tmp/$(pnet.name).png")
-    path_dir = joinpath(path, "tmp")
-    run(`mkdir -p $(path_dir)`)
+    store_location = joinpath(path, "$(pnet.name).png")
+    run(`mkdir -p $(path)`)
   end
   graph_gen = FileIO.save(store_location, graph_viz)
-  return store_location
+  return "An image of the workflow Petri net could be found in $(store_location)"
 end

@@ -21,18 +21,19 @@ Please cite this package as follows if you use it in your work:
 }
 ```
 
-# Installation
+# Installing dependencies
 ```
 > **Note**
 Detailed instructions on the installation will follow soon.
 ```
 
-## Installation process:
-* spack
+## spack
   - Spack - Getting Started
   - Spack - Basic Usage
 
-* DistributedWorkflow.jl
+## Related binaries
+
+## DistributedWorkflow.jl
   - add instructions to install this package
 
 # How to use DistributedWorkflow.jl
@@ -63,6 +64,7 @@ Once your application runs through, the output files will be stored in your desi
 
 # API Functions
 * A list of all the api functions plus the description in a table.
+<!-- insert table of methods available to the user with a short description of what they do -->
 
 # Features
 * Serializer agnostic, for details see (add the file in the docs that explains the serialiser part).
@@ -70,6 +72,7 @@ Once your application runs through, the output files will be stored in your desi
 * Localised testing of workflow, before launching expensive cluster resources.
 * Write your own `xpnet` file and compile your workflow using the `compile_workflow()` function. 
 * You could also, generate a Petri net in Julia using `PetriNet()` and generate the `xpnet` file from the Petri net using `workflow_generator()` before compiling it.
+* Visualise Petri net within the Julia REPL.
 
 # Shortcomings
 * At the moment, this package is only efficient and recommended for long running processes.
@@ -77,8 +80,8 @@ Once your application runs through, the output files will be stored in your desi
 ```
 * Centos 7
 * Oracle Linux 8
-* Ubuntu 18.04 LTS
 * Ubuntu 20.04 LTS
+* Ubuntu 22.04 LTS
 ```
 
 # See also
@@ -96,7 +99,10 @@ Once your application runs through, the output files will be stored in your desi
 The underlying workflow management system is called [GPI-Space](https://www.gpi-space.de/) which is a a task-based workflow management system for parallel applications developed at Fraunhofer ITWM by the CC-HPC group.
 
 # Package Dependency
+* [Cairo]()
 * [CxxWrap](https://docs.juliahub.com/General/CxxWrap/stable/)
+* [FileIO](https://juliaio.github.io/FileIO.jl/stable/)
+* [GraphViz](https://graphviz.org/)
 * [GPI-Space](https://www.gpi-space.de/)
 * [LightXML](https://juliapackages.com/p/lightxml)
 * [Markdown](https://docs.julialang.org/en/v1/stdlib/Markdown/)

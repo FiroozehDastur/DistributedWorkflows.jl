@@ -105,8 +105,12 @@ function _xpnet_generator(pnet::PetriNet)
 
     if pnet.transitions[i].type == :exp
       expr = new_child(def, "expression")
-      if !isempty(pnet.transitions[i].condition)
-        add_text(expr, pnet.transitions[i].condition)
+      if !isempty(pnet.transitions[i].exp)
+        exp_str = ""
+        for e in pnet.transitions[i].exp
+          exp_str = exp_str * e * "\n"
+        end
+        add_text(expr, exp_str)
       end
     else
       mod = new_child(def, "module")
@@ -144,7 +148,7 @@ function _xpnet_generator(pnet::PetriNet)
       add_cdata(xpnet, code, string("std::vector<std::vector<std::string>> __output = zeda::execute(implementation_$i, {$(in_str)}, $(num_outs));\n", out_port_list))
     end
 
-    if !isempty(pnet.transitions[i].condition) && pnet.transitions[i].type==:mod
+    if !isempty(pnet.transitions[i].condition)
       cond = new_child(trans, "condition")
       add_text(cond, pnet.transitions[i].condition)
     end

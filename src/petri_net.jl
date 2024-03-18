@@ -51,11 +51,12 @@ struct Transition
   name::String
   condition::String
   type::Symbol
+  exp::Vector
 end
 
 """
     transition(name::String)
-    transition(name::String, type::Symbol, condition::String)
+    transition(name::String, condition::String)
 Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.
 
 Note: the condition string should be a regex.
@@ -73,16 +74,37 @@ A conditional transition "do_stuff" created.
 
 See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
 """
-function transition(name::String, type::Symbol=:mod, condition::String="")
-  if type == :mod
-    Transition(name, condition, type)
-  elseif type == :exp
-    Transition(name, condition, type)
-  else
-    error("Possible transition types are :exp or :mod")
-  end
+function transition(name::String, condition::String="")
+  Transition(name, condition, :mod, [])
 end
 
+"""
+    transition(name::String, exp::Vector{String})
+    transition(name::String, exp::Vector{String}, condition::String)
+Creates an object of type Transition for the Petri net object containing an expression. If a condition string is given, the the transition is a condiational transition.
+
+Note: the condition string should be a one of the following:
+
+
+# Examples
+```julia-repl
+julia> transition("transition1")
+Transition "transition1" created.
+
+julia> transition("do_stuff", "counter :eq: 0UL")
+A conditional transition "do_stuff" created.
+
+```
+
+See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
+"""
+function transition(name::String, type::Symbol, exp_str::Vector=[], condition::String="")
+  if type != :exp
+    error("Wrong function signature for a module transition. Please use one of the other function signature(s) to create a module transition.")
+  else
+    Transition(name, condition, :exp, exp_str)
+  end
+end
 
 
 # ToDo: Add special transitions with counter, parallel-reduce, and weighted transitions
@@ -135,11 +157,42 @@ See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), 
 #   return Transition(name, condition, Symbol(weight))
 # end
 
+"""
+    conditional_transition(name::String, condition::String)
+    conditional_transition(name::String, exp::Vector, condition::String)
+Creates an object of type Transition for the Petri net.
+
+# Examples
+```julia-repl
+julia> transition("transition1")
+Transition "transition1" created.
+```
+
+See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`transition`](@ref).
+"""
+# function conditional_transition(name::String, condition::String="")
+# t1 = Transition(name, condition, :mod, [])
+# neg_cond = string(":not: ", condition)
+# t2 = Transition(name, ne_cond, :mod, [])
+# return t1, t2
+# end
+
+# function conditional_transition(name::String, exp::Vector=[], condition::String="")
+# t1 = Transition(name, condition, :exp, exp)
+# neg_cond = string(":not: ", condition)
+# t2 = Transition(name, ne_cond, :exp, exp)
+# return t1, t2
+# end
+
 function Base.show(io::IO, T::Transition)
-  if isempty(T.condition)
+  if isempty(T.condition) && T.type == :mod
     return println(io,"Transition \"$(T.name)\" created.")
-  else
+  elseif isempty(T.condition) && T.type == :exp
+    return println(io,"An expression transition \"$(T.name)\" created.")
+  elseif T.type == :mod
     return println(io,"A conditional transition \"$(T.name)\" created.")
+  else
+    return println(io,"An expression conditional transition \"$(T.name)\" created.")
   end
 end
 
