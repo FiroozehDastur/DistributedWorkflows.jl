@@ -22,7 +22,7 @@ module DistributedWorkflow
          transition,
          workflow_config,
          workflow_generator,
-         workflow_viewer
+         view_workflow
   
   include("config.jl")
   include("init_calls.jl")
