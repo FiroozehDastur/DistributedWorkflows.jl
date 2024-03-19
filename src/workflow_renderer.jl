@@ -99,6 +99,9 @@ function view_workflow(pnet::PetriNet, path::String="")
     subgraph cluster_init {
       label=""
       color="lightgrey"
+      style="filled"
+      fillcolor=lightgrey
+      margin=15
 
     
   """
@@ -118,9 +121,11 @@ function view_workflow(pnet::PetriNet, path::String="")
 
   subgraph cluster_net {
     label=""
-    style="rounded"
+    style="rounded, filled"
     color="black"
-    
+    fillcolor=lightyellow
+    margin=25
+
   """
 
   place_string = plstr_list[1]  
@@ -145,7 +150,7 @@ function view_workflow(pnet::PetriNet, path::String="")
         Pl_$(a.place.name) -> Tr_$(a.transition.name)\n"""
   end
   for a in read_arcs
-    arc_str = """[dir="forward"]\n"""
+    arc_str = """[style="dashed", dir="forward"]\n"""
     in_pl_trans_edge_str = in_pl_trans_edge_str * """
         Pl_$(a.place.name) -> Tr_$(a.transition.name)\n"""
   end
@@ -185,7 +190,7 @@ end_gen = """
     border_node [shape=plaintext, label="", width=2, height=2, style=dotted, color=black];
 
     }
-  graph [bgcolor=lightyellow, pad=0.3]
+  graph [bgcolor=white, pad=0.3]
   }
   """
 
