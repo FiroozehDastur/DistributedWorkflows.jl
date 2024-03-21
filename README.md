@@ -76,7 +76,7 @@ Once your application runs through, the output files will be stored in your desi
 
 # Shortcomings
 * At the moment, this package is only efficient and recommended for long running processes.
-* Due to the limitations of the underlying workflow manager, this package is limited to the following operating systems:
+* Due to the underlying workflow manager, this package only supports the following operating systems:
 ```
 * Centos 7
 * Oracle Linux 8
@@ -96,7 +96,7 @@ Once your application runs through, the output files will be stored in your desi
 
 
 # Appendix
-The underlying workflow management system is called [GPI-Space](https://www.gpi-space.de/) which is a a task-based workflow management system for parallel applications developed at Fraunhofer ITWM by the CC-HPC group.
+The underlying workflow management system is called [GPI-Space](https://www.gpi-space.de/) which is a task-based workflow management system for parallel applications developed at Fraunhofer ITWM by the CC-HPC group.
 
 # Package Dependency
 * [Cairo]()

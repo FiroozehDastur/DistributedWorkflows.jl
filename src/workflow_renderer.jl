@@ -3,19 +3,83 @@
 # Petri net viewer using GraphViz
 # =============================================================================
 """
+    view_workflow(pnet::PetriNet)
+    view_workflow(pnet::PetriNet, format::Symbol)
     view_workflow(pnet::PetriNet, path::String)
-By default this method generates a png file after compiling the Petri net into an XML workflow and compiling the workflow.
-If path is not given then the workflow image is stored in your home directory in \"tmp\" folder.
-Note: supported file formats: :png, :svg
+    view_workflow(pnet::PetriNet, format::Symbol, path::String)
+By default this method generates a PNG file after compiling the Petri net into an XML workflow and compiling the workflow.
+If path is not given then the workflow image is stored in your home directory in the \"tmp/pnet\" folder.
+
+Note: Supports all the file formats by GraphViz. For example, :png, :svg, :jpg, :pdf, :webp
+
+For other formats, check GraphViz documentation:
+https://graphviz.org/docs/outputs/
 
 
 # Examples
 ```julia-repl
+julia> # first generate a workflow in the form of a Petri net
+julia> pn = PetriNet("hello_julia")
+A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
+
+julia> p1 = place("input_file1")
+Place "input_file1" created.
+
+
+julia> p2 = place("input_file2")
+Place "input_file2" created.
+
+
+julia> p3 = place("output_file1")
+Place "output_file1" created.
+
+
+julia> p4 = place("output_file2")
+Place "output_file2" created.
+
+
+julia> t = transition("hello_jl")
+Transition "hello_jl" created.
+
+
+julia> connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
+A Petri net with name "hello_julia", having 0 ports, 4 places, and 1 transitions.
+
+
+julia> connect(pn, p1, :in)
+A Petri net with name "hello_julia", having 1 ports, 4 places, and 1 transitions.
+
+
+julia> connect(pn, p2, :in)
+A Petri net with name "hello_julia", having 2 ports, 4 places, and 1 transitions.
+
+
+julia> connect(pn, p3, :out)
+A Petri net with name "hello_julia", having 3 ports, 4 places, and 1 transitions.
+
+
+julia> connect(pn, p4, :out)
+A Petri net with name "hello_julia", having 4 ports, 4 places, and 1 transitions.
+
+
+julia> pn
+A Petri net with name "hello_julia", having 4 ports, 4 places, and 1 transitions.
+
+# now generate the workflow image
+julia> view_workflow(pn, :jpg, "/home/pnet")
+"An image of the workflow Petri net could be found in /home/pnet/hello_julia.jpg"
+
+# the following takes the Petri net and the path for storage and generates a PNG file which is stored in the provided path.
+julia> view_workflow(pn, "/home/pnet")
+"An image of the workflow Petri net could be found in /home/pnet/hello_julia.png"
 
 ```
+
+See also [`PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref), [`workflow_generator`](@ref).
+
 """
-function view_workflow(pnet::PetriNet, path::String="")
+function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
   # collect ports based on their types in and out for shape
   in_ports = Vector{Port}()
   out_ports = Vector{Port}()
@@ -195,16 +259,35 @@ end_gen = """
   """
 
   gen_str = gen_str_init * sub_gh_begin * place_string * transition_string * in_pl_trans_edge_str * out_pl_trans_edge_str * sub_gh_end2 * prt_pl_edge_str * end_gen
-  graph_viz = GraphViz.Graph(gen_str)
-  store_location = ""
+  path_dir = ""
   if isempty(path)
-    store_location = joinpath(ENV["HOME"], "tmp/$(pnet.name).png")
-    path_dir = joinpath(ENV["HOME"], "tmp")
+    path_dir = joinpath(ENV["HOME"], "tmp/pnet")
     run(`mkdir -p $(path_dir)`)
   else
-    store_location = joinpath(path, "$(pnet.name).png")
-    run(`mkdir -p $(path)`)
+    path_dir = path
+    run(`mkdir -p $(path_dir)`)
   end
-  graph_gen = FileIO.save(store_location, graph_viz)
+  store_location = ""
+  if format == :png
+    graph_viz = GraphViz.Graph(gen_str)
+    store_location = joinpath(path_dir, "$(pnet.name).png")
+    graph_gen = FileIO.save(store_location, graph_viz)
+  else
+      # Save DOT content to a file
+      dot_file = joinpath(path_dir, "$(pnet.name).dot")
+      open(dot_file, "w") do io
+        write(io, gen_str)
+      end
+      fmt = string(format)
+      # Convert DOT file to SVG using Graphviz
+      svg_file = "$(pnet.name).$(fmt)"
+      store_location = joinpath(path_dir, svg_file)
+      run(`dot -T$fmt $dot_file -o $store_location`)
+      run(`rm $dot_file`)
+  end
   return "An image of the workflow Petri net could be found in $(store_location)"
+end
+
+function view_workflow(pnet::PetriNet, path::String)
+  return view_workflow(pnet, :png, path)
 end
