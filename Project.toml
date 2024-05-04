@@ -6,6 +6,7 @@ version = "0.1.0"
 [deps]
 Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
 CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 GraphViz = "f526b714-d49f-11e8-06ff-31ed36ee7ee0"
 LightXML = "9c8b4983-aa76-5018-a973-4c85ecc9e179"
