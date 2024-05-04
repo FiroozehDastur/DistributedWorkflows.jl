@@ -83,8 +83,38 @@ Once your application runs through, the output files will be stored in your desi
 
 NOTE: for a more complex example see: [examples](examples).
 # API Functions
-* A list of all the api functions plus the description in a table.
-<!-- insert table of methods available to the user with a short description of what they do -->
+#### The following is a list of API functions related to generating and viewing a workflow in the form of Petri nets:
+
+| Function | Usage |
+|:--------:|:------|
+| [arc(place::Place, transition::Transition, arc_type::Symbol)]() | Creates an object of type Arc that joins a place to a transition in a Petri net.|
+| [connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)]() | Given a Petri net connects the place to the transition with the given arc type.|
+| [PetriNet(workflow_name::String)]() | Creates an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.|
+| [place(name::String, type::Symbol)]() | Creates an object of type Place for the Petri net object.|
+| [port(type::Symbol, place::Place)]() | Creates a port connecting to the given place with respect to the arc type.|
+| [transition(name::String, condition::String)]() | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.|
+| [remove(pnet::PetriNet, place::Place)]() | Remove the place from the given Petri net.|
+| [workflow_generator(pnet::PetriNet, path::String)]() | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
+| [view_workflow(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates a file in one of the acceptable formats after compiling the Petri net into an XML workflow and compiling the workflow. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
+
+
+#### The following i a list of API functions for setting the application and workflow configuration:
+
+| Function | Usage |
+|:--------:|:-----|
+| [application_config()]() | Description of function here...|
+| [client()]() | Description of function here...|
+| [compile_workflow(workflow::String, build_dir::String)]() | Given a path for the workflow and an accessible location for the build directory, this function compiles the XML workflow.|
+| [function_name()]() | Description of function here...|
+| [implementation()]() | Description of function here...|
+| [input_pair()]() | Description of function here...|
+| [julia_implementation()]() | Description of function here...|
+| [output_dir()]() | Description of function here...|
+| [port_info()]() | Description of function here...|
+| [set_workflow_env()]() | Description of function here...|
+| [submit_workflow()]() | Description of function here...|
+| [workflow_config()]() | Description of function here...|
+
 
 # Features
 * Serializer agnostic, for details see [custom serialize](docs/src/Serialization/custom_serializer.md) section in the documentation.

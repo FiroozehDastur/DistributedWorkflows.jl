@@ -6,7 +6,6 @@ module DistributedWorkflow
          client,
          compile_workflow, 
          connect,
-         create_xpnet,
          function_name, 
          implementation, 
          input_pair, 
