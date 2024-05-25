@@ -16,8 +16,14 @@ function __init__()
   workflow_path = config["workflow_path"]
   run(`mkdir -p $workflow_path`)
 
-  lib_path = readchomp(`spack location -i distributedworkflow`)
-  @wrapmodule(() -> joinpath(lib_path, "lib", "libzeda-distributedworkflow.so"), :define_module_interface)
+  base_path = readchomp(`spack location -i distributedworkflow`)
+  lib_path = joinpath(base_path, "lib")
+  lib64_path = joinpath(base_path, "lib64")
+  if isdir(lib_path)
+    @wrapmodule(() -> joinpath(lib_path, "libzeda-distributedworkflow.so"), :define_module_interface)
+  elseif isdir(lib64_path)
+    @wrapmodule(() -> joinpath(lib_path, "libzeda-distributedworkflow.so"), :define_module_interface)
+  end
   @initcxx
   
   # Banner printing that respects the -q and --banner flag
