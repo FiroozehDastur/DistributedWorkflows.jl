@@ -22,7 +22,7 @@ function __init__()
   if isdir(lib_path)
     @wrapmodule(() -> joinpath(lib_path, "libzeda-distributedworkflow.so"), :define_module_interface)
   elseif isdir(lib64_path)
-    @wrapmodule(() -> joinpath(lib_path, "libzeda-distributedworkflow.so"), :define_module_interface)
+    @wrapmodule(() -> joinpath(lib64_path, "libzeda-distributedworkflow.so"), :define_module_interface)
   end
   @initcxx
   
