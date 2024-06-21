@@ -22,32 +22,40 @@ Please cite this package as follows if you use it in your work:
 ```
 
 # Initial setup
-To install DistributedWorkflow.jl we first need to install the package manager Spack. Follow the steps from [Spack - Getting Started](https://spack.readthedocs.io/en/latest/getting_started.html) to install Spack. You might also want to read [Spack - Basic Usage](https://spack.readthedocs.io/en/latest/basic_usage.html) to learn basic usage of Spack.
+1. DistributedWorkflow.jl requires the package manager Spack to install necessary binaries. Follow the steps from [Spack - Getting Started](https://spack.readthedocs.io/en/latest/getting_started.html) to install Spack. You might also want to read [Spack - Basic Usage](https://spack.readthedocs.io/en/latest/basic_usage.html) to learn basic usage of Spack.
 
-Note: if you already have Spack installed, then you can skip the above step.
+> Note: if you already have Spack installed and sourced in your path, then you may skip the above step.
 
-Next, download the binary with respect to your system from the following:
+2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflow.jl](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/tag/v0.1.0-se)
 
-### Related binaries
-The binaries are all built for the `x86_64_v3` architechture
+OR 
 
-* [Ubuntu 22.04](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0/distributedworkflow.tar.gz)
-* <!-- [Ubuntu 24.04]() -->
-* <!-- [Debian 11]() -->
-* <!-- [Debian 12]() -->
-* <!-- [OracleLinux 8.9]() -->
-* <!-- [Rocky Linux 9]() -->
+Download the specific n=binary file from the links below:
 
-Once the installation is complete load the package by running the following:
+> Note: The binaries are all built for the `x86_64_v3` architechture
+
+* [Ubuntu 22.04](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_ubuntu22)
+* [Debian 11](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_debian11)
+* [Debian 12](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_debian12)
+* [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux8)
+* [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux9)
+
+3. Once the installation is complete, navigate to the directory where you saved your binary file and install it in a target location of your choice as follows:
 ```
-  unpack tar file
-  run the install script
+  ./distributedworkflow_myOS --target zeda
 ```
-If the installation script was successful, then running the following should load the required dependencies of `DistributedWorkflow.jl`.
+> Note: replace `myOs` with the specific name of the Linux distribution from the downloaded binary. For example, if you downloaded the binary file for Ubuntu 22, then you can run `./distributedworkflow_myOS --target zeda`.
+
+> Note: You are free to choose any other target location besides `zeda`.
+
+4. If the installation was successful, then running the following should load the required dependencies of `DistributedWorkflow.jl`.
 ```
   spack load distributedworkflow
 ```
-Now we are ready to start Julia and make use of DistributedWorkflow.jl
+You can check the loaded packages by running `spack find --loaded`.
+
+5. Now, we are set up to use DistributedWorkflow.jl to parallelise our application.
+
 ## DistributedWorkflow.jl
 
   This package can be installed similar to any Julia package by:
@@ -56,17 +64,33 @@ Now we are ready to start Julia and make use of DistributedWorkflow.jl
   ```
 
 # How to use DistributedWorkflow.jl
-```
-> **Note**
-Detailed instructions on the usage, as well as more examples, will follow soon.
-```
-## Testing an example locally
-When testing the application locally, set the hostname as follows:
-```hostname > <path-to-a-nodefile>```
+Once the package administrator has installed `DistributedWorkflow`, it can be loaded like any other Julia package by running `using DistributedWorkflow` in the Julia REPL.
 
-NOTE: the hostname needs to be setup before starting a Julia REPL.
+To use `DistributedWorkflow` to parallelise an application, the following steps are required:
 
-Start a Julia session and load the package with ```using DistributedWorkflow``` and 
+1. Setting up your Julia application structure. <!-- that will be run in parallel. This can be a single `.jl` file with all the necessary methods, or multiple `.jl` files. -->
+2. Designing a workflow in the form of a Petri net.
+3. A serialzer descriptor. If you are using Julia's default serializer then you can skip this step.
+4. Setting up the workflow launcher.
+5. Compile and execute.
+
+## A Simple Example
+* A small example to create a Petri net, compile it, start agent and run the application locally.
+
+
+## Testing the example locally
+<!-- 1. write your Julia application to be executed in parallel -->
+<!-- 2. create a Petri net with respect to the Julia code. This will be your workflow and the code will be linked and executed based on this Petri net. -->
+<!-- 3. Before compiling the net, you can view it in a format of your choice as follows: -->
+<!-- 4. Compile the workflow: -->
+<!-- 5. Once the workflow is compiled successfully, we are ready to test it locally as follows: -->
+<!-- Start the client -->
+<!-- link the ports -->
+<!-- submit workflow -->
+<!-- your results will be stored in the following path if a path is not specified by you: -->
+
+<!-- What to do if you have a custom serialiser??? -->
+<!-- Follow the example below for using a custom Serialiser. For demonstration purposes we use hdf5, something else, and Oscar's specific serialiser. Link Oscar here as a Computer algebra system. -->
 
 Assuming that you have a workflow Petri net stored in an accessible location, use ```compile_workflow(<workflow-name>.xpnet, "/path/to/build/location")``` function to compile the workflow.
 
@@ -78,10 +102,8 @@ Once your application runs through, the output files will be stored in your desi
 
 ## Running the example on a cluster
 
-## A simple example
-* A small example to create a Petri net, compile it, start agent and run the application locally.
+> NOTE: for more examples see: [examples](examples). For examples related to different (complex) Petri nets and its features see [GPI-Space database on Petri nets.](https://github.com/cc-hpc-itwm/gpispace/tree/v23.06/share/doc/example)
 
-NOTE: for a more complex example see: [examples](examples).
 # API Functions
 #### The following is a list of API functions related to generating and viewing a workflow in the form of Petri nets:
 
@@ -98,7 +120,7 @@ NOTE: for a more complex example see: [examples](examples).
 | [view_workflow(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates a file in one of the acceptable formats after compiling the Petri net into an XML workflow and compiling the workflow. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
 
 
-#### The following i a list of API functions for setting the application and workflow configuration:
+> The following i a list of API functions for setting the application and workflow configuration:
 
 | Function | Usage |
 |:--------:|:-----|
@@ -122,7 +144,7 @@ NOTE: for a more complex example see: [examples](examples).
 * Localised testing of workflow, before launching expensive cluster resources.
 * Write your own `xpnet` file and compile your workflow using the `compile_workflow()` function. 
 * You could also, generate a Petri net in Julia using `PetriNet()` and generate the `xpnet` file from the Petri net using `workflow_generator()` before compiling it.
-* Visualise Petri net within the Julia REPL.
+* Visualise Petri net within the Julia REPL in multiple formats.
 
 # Shortcomings
 * At the moment, this package is only efficient and recommended for long running processes.
@@ -131,6 +153,7 @@ NOTE: for a more complex example see: [examples](examples).
 * Ubuntu 20.04 LTS
 * Ubuntu 22.04 LTS
 ```
+However, we have provided binaries to some additional distributions that we are testing against. In case of any problems related to installation or setup, please get in touch with us.
 
 # See also
 * [More Examples]( ./examples)
