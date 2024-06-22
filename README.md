@@ -30,7 +30,7 @@ Please cite this package as follows if you use it in your work:
 
 OR 
 
-Download the specific n=binary file from the links below:
+Download the binary file specific to your operating system from one of the links below:
 
 > Note: The binaries are all built for the `x86_64_v3` architechture
 
@@ -52,20 +52,30 @@ Download the specific n=binary file from the links below:
 ```
   spack load distributedworkflow
 ```
-You can check the loaded packages by running `spack find --loaded`.
+You can check the loaded packages by running:
 
-5. Now, we are set up to use DistributedWorkflow.jl to parallelise our application.
+`spack find --loaded`
+
+5. If you would like to visualise the workflows before compilation, it is advised to download [Graphviz](https://graphviz.org/download/) to be able to visualise it in different formats.
+
+6. Now, we are set up to use DistributedWorkflow.jl to parallelise our application.
 
 ## DistributedWorkflow.jl
 
-  This package can be installed similar to any Julia package by:
+  Once this package is registered at it can be installed similar to any Julia package by doing:
   ```
     import Pkg; Pkg.add("DistributedWorkflow")
   ```
 
-# How to use DistributedWorkflow.jl
-Once the package administrator has installed `DistributedWorkflow`, it can be loaded like any other Julia package by running `using DistributedWorkflow` in the Julia REPL.
+  For now, doing the following should work:
+  1. Once you have the Julia REPL open, enter the package mode of julia and add the github repo as follows:
+  ```
+  ] add https://github.com/FiroozehDastur/DistributedWorkflow.jl.git
+  ```
 
+  2. Once the package administrator has installed `DistributedWorkflow`, it can be loaded like any other Julia package by running `using DistributedWorkflow` in the Julia REPL.
+
+# How to use DistributedWorkflow.jl
 To use `DistributedWorkflow` to parallelise an application, the following steps are required:
 
 1. Setting up your Julia application structure. <!-- that will be run in parallel. This can be a single `.jl` file with all the necessary methods, or multiple `.jl` files. -->
@@ -75,8 +85,60 @@ To use `DistributedWorkflow` to parallelise an application, the following steps 
 5. Compile and execute.
 
 ## A Simple Example
-* A small example to create a Petri net, compile it, start agent and run the application locally.
+With the following example, we demonstrate the usage with a simple "Hello World" example.
 
+Assuming that we use Julia's native serializer, let's say we have the following Julia code to run:
+
+```
+function hello_julia(In1, In2)
+  a1 = In1 * 2;
+  a2 = In2 - 3;
+  str = ["if you are reading this, then your application worked..."]
+  arr = [a1, a2]
+  g = gcd(arr)
+  ar = [(In1, In2, a1, a2, g)]
+  return [str, ar]
+end
+```
+
+It could be stored in a file, say `hello.jl`. Based on this piece of code we can see that the workflow is a Petri net with 2 input places, 1 transition, and 2 output places.
+
+The Petri net can now be constructed as follows:
+
+```
+# A Petri net with 2 input places and 2 output places
+pn = PetriNet("hello_julia") # create an empty Petri net called "hello_julia"
+# create the input and output places
+p1 = place("input_file1") 
+p2 = place("input_file2")
+p3 = place("output_file1")
+p4 = place("output_file2")
+
+# add a transition
+t = transition("hello_jl")
+
+# connect all the places and transitions based on their type to the Petri net
+connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
+connect(pn, p1, :in)
+connect(pn, p2, :in)
+connect(pn, p3, :out)
+connect(pn, p4, :out)
+
+# generate the workflow in the folder "tmp" under the home directory.
+wf = workflow_generator(pn)
+```
+
+To visualise the workflow before generating the XML format of it, run `view_workflow(pn)`. This would generate the following image as a PNG in a default location.
+
+![hello_julia_net](examples/images/hello_julia.png)
+
+To visualise the workflow in one of the other formats and a specific path use `view_workflow(pnet::PetriNet, format::Symbol, path::String)`. For example, view_workflow(pn, :svg, "home/usr/zeda/net") generates an SVG of the above Petri net and stores it in the path `home/usr/zeda/net`.
+
+> NOTE: the renderer works best if you have graphviz installed on your system. For Ubuntu 22 you can do `apt install graphviz` to install it.
+
+> The number of transitions coincide with the number of Julia methods to execute. Each input/output token corresponds to a string containing the file name where data is stored.
+
+***CONTINUE HERE***
 
 ## Testing the example locally
 <!-- 1. write your Julia application to be executed in parallel -->
