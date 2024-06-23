@@ -44,12 +44,12 @@ Download the binary file specific to your operating system from one of the links
 ```
   ./distributedworkflow_myOS --target zeda
 ```
-> Note: replace `myOs` with the specific name of the Linux distribution from the downloaded binary. For example, if you downloaded the binary file for Ubuntu 22, then you can run `./distributedworkflow_myOS --target zeda`.
+> Note: replace `myOs` with the specific name of the Linux distribution from the downloaded binary. For example, if you downloaded the binary file for Ubuntu 22, then you can run `./distributedworkflow_ubuntu22 --target zeda`.
 
 > Note: You are free to choose any other target location besides `zeda`.
 
 4. If the installation was successful, then running the following should load the required dependencies of `DistributedWorkflow.jl`.
-```
+```bash
   spack load distributedworkflow
 ```
 You can check the loaded packages by running:
@@ -63,13 +63,13 @@ You can check the loaded packages by running:
 ## DistributedWorkflow.jl
 
   Once this package is registered at it can be installed similar to any Julia package by doing:
-  ```
+  ```julia
     import Pkg; Pkg.add("DistributedWorkflow")
   ```
 
   For now, doing the following should work:
   1. Once you have the Julia REPL open, enter the package mode of julia and add the github repo as follows:
-  ```
+  ```julia
   ] add https://github.com/FiroozehDastur/DistributedWorkflow.jl.git
   ```
 
@@ -80,7 +80,7 @@ To use `DistributedWorkflow` to parallelise an application, the following steps 
 
 1. Setting up your Julia application structure. <!-- that will be run in parallel. This can be a single `.jl` file with all the necessary methods, or multiple `.jl` files. -->
 2. Designing a workflow in the form of a Petri net.
-3. A serialzer descriptor. If you are using Julia's default serializer then you can skip this step.
+3. A serializer descriptor. If you are using Julia's default serializer then you can skip this step.
 4. Setting up the workflow launcher.
 5. Compile and execute.
 
@@ -89,7 +89,7 @@ With the following example, we demonstrate the usage with a simple "Hello World"
 
 Assuming that we use Julia's native serializer, let's say we have the following Julia code to run:
 
-```
+```julia
 function hello_julia(In1, In2)
   a1 = In1 * 2;
   a2 = In2 - 3;
@@ -105,9 +105,12 @@ It could be stored in a file, say `hello.jl`. Based on this piece of code we can
 
 The Petri net can now be constructed as follows:
 
-```
+```julia
 # A Petri net with 2 input places and 2 output places
-pn = PetriNet("hello_julia") # create an empty Petri net called "hello_julia"
+
+# create an empty Petri net called "hello_julia"
+pn = PetriNet("hello_julia") 
+
 # create the input and output places
 p1 = place("input_file1") 
 p2 = place("input_file2")
@@ -117,12 +120,15 @@ p4 = place("output_file2")
 # add a transition
 t = transition("hello_jl")
 
-# connect all the places and transitions based on their type to the Petri net
+# connect all the places and transitions based on their connection type to the Petri net
 connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
-connect(pn, p1, :in)
-connect(pn, p2, :in)
-connect(pn, p3, :out)
-connect(pn, p4, :out)
+
+# Alternatively, each place and transition can be connected individually, as shown below:
+#
+# connect(pn, p1, :in)
+# connect(pn, p2, :in)
+# connect(pn, p3, :out)
+# connect(pn, p4, :out)
 
 # generate the workflow in the folder "tmp" under the home directory.
 wf = workflow_generator(pn)
@@ -132,7 +138,7 @@ To visualise the workflow before generating the XML format of it, run `view_work
 
 ![hello_julia_net](examples/images/hello_julia.png)
 
-To visualise the workflow in one of the other formats and a specific path use `view_workflow(pnet::PetriNet, format::Symbol, path::String)`. For example, view_workflow(pn, :svg, "home/usr/zeda/net") generates an SVG of the above Petri net and stores it in the path `home/usr/zeda/net`.
+To visualise the workflow in one of the other formats and a specific path use `view_workflow(pnet::PetriNet, format::Symbol, path::String)`. For example, `view_workflow(pn, :svg, "home/usr/zeda/net")` generates an SVG of the above Petri net and stores it in the path `home/usr/zeda/net`.
 
 > NOTE: the renderer works best if you have graphviz installed on your system. For Ubuntu 22 you can do `apt install graphviz` to install it.
 
