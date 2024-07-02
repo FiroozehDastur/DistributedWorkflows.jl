@@ -128,6 +128,24 @@ See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@
 """
 implementation(port_name::String, path::String) = KeyValuePair(port_name, path)
 
+# add documentation
+"""
+    port_info(KV)
+Description of function here...
+
+# Examples
+```julia-repl
+
+
+```
+"""
+function port_info(KV)
+  port = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_port(KV))
+  value = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_value(KV))
+
+  return port, value
+end
+
 """
     submit_workflow(client, workflow, input_params::Vector)
 Description of function here...
