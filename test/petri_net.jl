@@ -20,5 +20,5 @@ end
 
 @testset "Workflow compiler" begin
 
-  # test for workflow_generator, compile_workflow. Probably requires mock tests
+  # test for generate_workflow, compile_workflow. Probably requires mock tests
 end

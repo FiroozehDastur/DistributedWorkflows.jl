@@ -21,7 +21,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """ 
 application_config(port::String, impl::String, fname::String) = Application_config(port, impl, fname)
 
@@ -35,7 +35,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
 
@@ -51,7 +51,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
   run(`touch $nodefile`)
@@ -81,7 +81,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function client(workers::Int, nodefile::String, rif_strategy::String)
   run(`touch $nodefile`)
@@ -110,7 +110,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref), [`port_info`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref), [`port_info`](@ref).
 """
 input_pair(port_name::String, path::String) = KeyValuePair(port_name, path)
 
@@ -124,7 +124,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref), [`port_info`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref), [`port_info`](@ref).
 """
 implementation(port_name::String, path::String) = KeyValuePair(port_name, path)
 
@@ -138,7 +138,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function submit_workflow(client, workflow, input_params::Vector)
   input_vec = StdVector(input_params)
@@ -161,7 +161,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function workflow_config(workflow::String, output_dir::String, app_config::Application_config)
   run(`mkdir -p $output_dir`)
@@ -183,7 +183,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function workflow_config(workflow::String, output_dir::String, app_config::Vector{Application_config})
   run(`mkdir -p $output_dir`)
@@ -209,7 +209,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function workflow_config(workflow::String, output_dir::String, app_config::Application_config_many)
   run(`mkdir -p $output_dir`)

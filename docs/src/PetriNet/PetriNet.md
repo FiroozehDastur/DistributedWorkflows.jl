@@ -13,7 +13,7 @@ DistributedWorkflow.transition :: Union{Tuple{String}, Tuple{String, String}}
 │     DistributedWorkflow.submit_workflow :: Tuple{Any, Any, Vector}
 │     DistributedWorkflow.port_info :: Tuple{Any}
 │     
-│     DistributedWorkflow.workflow_generator :: Union{Tuple{PetriNet}, Tuple{PetriNet, String}}
+│     DistributedWorkflow.generate_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, String}}
 │     DistributedWorkflow.application_config :: Tuple{Vector{String}, Vector{String}, Vector{String}}
 │     DistributedWorkflow.application_config :: Tuple{String, String, String}
 │     DistributedWorkflow.view_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, Symbol}, Tuple{PetriNet, Symbol, String}}

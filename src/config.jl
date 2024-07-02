@@ -9,7 +9,7 @@ Description of function here...
 
 ```
 
-See also [`PetriNet`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function set_workflow_env(path::String)
   DistributedWorkflow.config["workflow_path"] = path

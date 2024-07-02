@@ -236,7 +236,7 @@ Once your application runs through, the output files will be stored in your desi
 | [port(type::Symbol, place::Place)]() | Creates a port connecting to the given place with respect to the arc type.|
 | [transition(name::String, condition::String)]() | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.|
 | [remove(pnet::PetriNet, place::Place)]() | Remove the place from the given Petri net.|
-| [workflow_generator(pnet::PetriNet, path::String)]() | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
+| [generate_workflow(pnet::PetriNet, path::String)]() | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
 | [view_workflow(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates a file in one of the acceptable formats after compiling the Petri net into an XML workflow and compiling the workflow. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
 
 **The following is a list of API functions for setting the application and workflow configuration:**
@@ -262,7 +262,7 @@ Once your application runs through, the output files will be stored in your desi
 * Reduced complexity in deploying your parallel application.
 * Localised testing of workflow, before launching expensive cluster resources.
 * Write your own `xpnet` file and compile your workflow using the `compile_workflow()` function. 
-* You could also, generate a Petri net in Julia using `PetriNet()` and generate the `xpnet` file from the Petri net using `workflow_generator()` before compiling it.
+* You could also, generate a Petri net in Julia using `PetriNet()` and generate the `xpnet` file from the Petri net using `generate_workflow()` before compiling it.
 * Visualise Petri net within the Julia REPL in multiple formats.
 
 ## Shortcomings
