@@ -4,7 +4,7 @@ module purge
 module use /p/hpc/soft/etc/modules
 module use /m/usoft/etc/modules
 
-module load path/to/julia # update julia first
+module load /p/hpc/soft/etc/modules/soft/julia/1.9.2
 
 source $HOME/spack/share/spack/setup-env.sh
 
