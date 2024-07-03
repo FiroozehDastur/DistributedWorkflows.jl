@@ -13,7 +13,7 @@ end
 
 """
     application_config(port::String, impl::String, fname::String)
-Description of function here...
+Convenience constructor for configuring a workflow application with a single transition.
 
 # Examples
 ```julia-repl
@@ -26,8 +26,8 @@ See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@
 application_config(port::String, impl::String, fname::String) = Application_config(port, impl, fname)
 
 """
-    application_config(ports::Vector{String}, impl::String, fnames::Vector{String})
-Description of function here...
+    application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String})
+Constructor for configuring a workflow application with multiple transitions.
 
 # Examples
 ```julia-repl
@@ -39,11 +39,23 @@ See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@
 """
 application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
 
+"""
+    application_config(ports::Vector{String}, impl::String, fnames::Vector{String})
+Convenience constructor for configuring a workflow application with multiple transitions sourcing their implementation details from the same file.
+
+# Examples
+```julia-repl
+
+
+```
+
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
+"""
 application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) = Application_config_many(ports, [impl], fnames)
 
 """
     client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
-Description of function here...
+Configures and launches a workflow client
 
 # Examples
 ```julia-repl
