@@ -20,7 +20,7 @@ module DistributedWorkflow
          submit_workflow, 
          transition,
          workflow_config,
-         workflow_generator,
+         generate_workflow,
          view_workflow
   
   include("init_calls.jl")

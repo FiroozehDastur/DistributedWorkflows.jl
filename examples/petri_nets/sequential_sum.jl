@@ -6,4 +6,4 @@ t1 = transition("Reduce")
 
 connect(pn, [(p1, :inout), (p2, :in)], t1)
 
-workflow_generator(pn)
+generate_workflow(pn)

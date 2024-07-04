@@ -178,8 +178,8 @@ end
 
 
 """
-    workflow_generator(pnet::PetriNet)
-    workflow_generator(pnet::PetriNet, path::String)
+    generate_workflow(pnet::PetriNet)
+    generate_workflow(pnet::PetriNet, path::String)
 Given a Petri net description, creates an XML workflow and writes it to a file in the path.
 
 # Examples
@@ -228,14 +228,14 @@ julia> connect(pn, :out, p3)
 A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions.
 
 # If a path is not provided, the generated workflow is stored in the home directory in the folder: tmp
-julia> workflow_generator(pn, "/home/pnet/")
+julia> generate_workflow(pn, "/home/pnet/")
 An XML workflow called: parallel_reduce.xpnet has been written to the location: /home/pnet/.
 
 ```
 
 See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref).
 """
-function workflow_generator(pnet::PetriNet, path::String="")
+function generate_workflow(pnet::PetriNet, path::String="")
   xpnet = _xpnet_generator(pnet)
   dir = ""
   if !isempty(path)

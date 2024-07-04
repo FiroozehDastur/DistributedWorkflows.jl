@@ -349,7 +349,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`connect`](@ref), [`remove`](@ref), [`workflow_generator`](@ref), [`compile_workflow`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`connect`](@ref), [`remove`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 struct PetriNet
   name::String

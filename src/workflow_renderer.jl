@@ -76,7 +76,7 @@ julia> view_workflow(pn, "/home/pnet")
 
 ```
 
-See also [`PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref), [`workflow_generator`](@ref).
+See also [`PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref), [`generate_workflow`](@ref).
 
 """
 function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")

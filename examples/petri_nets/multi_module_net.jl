@@ -14,4 +14,4 @@ connect(pn, [(p5, :in), (p3, :out), (p4, :out)], t2)
 
 connect(pn, [(p1, :in), (p2, :out), (p3, :out), (p4, :out)])
 
-workflow_generator(pn)
+generate_workflow(pn)
