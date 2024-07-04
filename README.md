@@ -187,8 +187,6 @@ To visualise the workflow in one of the other formats and a specific path use `v
 >
 > ---
 
-***CONTINUE HERE***
-
 ### Testing the example locally
 <!-- 1. write your Julia application to be executed in parallel -->
 <!-- 2. create a Petri net with respect to the Julia code. This will be your workflow and the code will be linked and executed based on this Petri net. -->
