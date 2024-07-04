@@ -35,7 +35,6 @@ install
 output_files
 tmp
 pnet2dot2pdf
-/test/*
 examples/applications/parallel_reduce
 examples/executor_files/execute_parallel*
 examples/other_serializers/hdf5
