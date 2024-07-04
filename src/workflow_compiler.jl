@@ -14,7 +14,7 @@ Success: Workflow compiled
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`workflow_generator`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`generate_workflow`](@ref).
 """
 function compile_workflow(workflow::String, build_dir::String="")
   source_dir = joinpath(readchomp(`spack location -i gspcdriver`), "share/zeda-gspcdriver/utils")

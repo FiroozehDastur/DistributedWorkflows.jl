@@ -35,4 +35,4 @@ install
 output_files
 tmp
 pnet2dot2pdf
-/test/*
+# /test/*
