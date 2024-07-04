@@ -43,21 +43,3 @@ function __init__()
     print_banner()
   end
 end
-
-# add documentation
-"""
-    port_info(KV)
-Description of function here...
-
-# Examples
-```julia-repl
-
-
-```
-"""
-function port_info(KV)
-  port = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_port(KV))
-  value = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_value(KV))
-
-  return port, value
-end

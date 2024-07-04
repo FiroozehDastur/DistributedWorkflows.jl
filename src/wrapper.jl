@@ -1,4 +1,3 @@
-# TODO: Add documentation.
 struct Application_config
   port::String
   impl::String
@@ -13,43 +12,54 @@ end
 
 """
     application_config(port::String, impl::String, fname::String)
-Description of function here...
+Convenience constructor for configuring a workflow application with a single transition.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `ports::String`: Ports to configure for the workflow transition.
+- `impl::String`: Julia file containing the implementation called by the workflow transition.
+- `fnames::String`: Function name to be executed by the workflow transition.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """ 
 application_config(port::String, impl::String, fname::String) = Application_config(port, impl, fname)
 
 """
-    application_config(ports::Vector{String}, impl::String, fnames::Vector{String})
-Description of function here...
+    application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String})
+Constructor for configuring a workflow application with multiple transitions.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `ports::Vector{String}`: List of ports to configure for the workflow transitions.
+- `impl::Vector{String}`: List of julia files containing the implementations called by the workflow transitions.
+- `fnames::Vector{String}`: List of function names to be executed by the workflow transitions.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String}) = Application_config_many(ports, impl, fnames)
 
+"""
+    application_config(ports::Vector{String}, impl::String, fnames::Vector{String})
+Convenience constructor for configuring a workflow application with multiple transitions sourcing their implementation details from the same file.
+
+# Arguments
+- `ports::Vector{String}`: List of ports to configure for the workflow transitions.
+- `impl::String`: Julia file containing the implementations called by the workflow transitions.
+- `fnames::Vector{String}`: List of function names to be executed by the workflow transitions.
+
+See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
+"""
 application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) = Application_config_many(ports, [impl], fnames)
 
 """
     client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
-Description of function here...
+Configures and starts a client setting up the workflow execution infrastructure and connects to a logging service.
+The nodefile will be automatically populated with the local host name if it doesn't exist in the given location or the `rif_strategy` is `local`.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `workers::Int`: Number of workers launched per node.
+- `nodefile::String`: Location of the nodefile.
+- `rif_strategy::String`: Launch mode of the workflow infrastructure. Accepts `ssh` for distributing the workers across multiple nodes or `local` for running on the localhost only.
+- `log_host::String`: Host of the logging service.
+- `log_port::Int` : Port the logging service is listening on.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -73,13 +83,13 @@ end
 
 """
     client(workers::Int, nodefile::String, rif_strategy::String)
-Description of function here...
+Configures and starts a client setting up the workflow execution infrastructure.
+The nodefile will be automatically populated with the local host name if it doesn't exist in the given location or the `rif_strategy` is `local`.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `workers::Int`: Number of workers launched per node.
+- `nodefile::String`: Location of the nodefile.
+- `rif_strategy::String`: Launch mode of the workflow infrastructure. Accepts `ssh` for distributing the workers across multiple nodes or `local` for running on the localhost only.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -102,13 +112,11 @@ end
 
 """
     input_pair(port_name::String, path::String)
-Description of function here...
+Convenience key-value pair wrapper for function signature clarity and readability.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `port_name::String`: Name of the port to contain the path string.
+- `path::String`: Path to an input data file.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref), [`port_info`](@ref).
 """
@@ -116,27 +124,36 @@ input_pair(port_name::String, path::String) = KeyValuePair(port_name, path)
 
 """
     implementation(port_name::String, path::String)
-Description of function here...
+Convenience key-value pair wrapper for function signature clarity and readability.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `port_name::String`: Name of the port to contain the path string.
+- `path::String`: Path to a julia source file.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref), [`port_info`](@ref).
 """
 implementation(port_name::String, path::String) = KeyValuePair(port_name, path)
 
 """
+    port_info(KV)
+Wrapper function for KeyValuePair.
+
+"""
+function port_info(KV)
+  port = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_port(KV))
+  value = CxxWrap.CxxWrapCore.dereference_argument(DistributedWorkflow.get_value(KV))
+
+  return port, value
+end
+
+"""
     submit_workflow(client, workflow, input_params::Vector)
-Description of function here...
+Submit a configured workflow to a client instance.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `client`: A workflow client instance.
+- `workflow`: A configured workflow object.
+- `input_params::Vector`: List of inputs for the workflow execution.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -153,13 +170,12 @@ end
 
 """
     workflow_config(workflow::String, output_dir::String, app_config::Application_config)
-Description of function here...
+Configures a workflow for execution by a client instance.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `workflow::String`: Name of the workflow.
+- `output_dir::String`: Location to store any output data generated during the workflow execution.
+- `app_config::Application_config`: Application configuration for the workflow exeuction.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -176,13 +192,12 @@ end
 
 """
     workflow_config(workflow::String, output_dir::String, app_config::Vector{Application_config})
-Description of function here...
+Configures a workflow for execution by a client instance.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `workflow::String`: Name of the workflow.
+- `output_dir::String`: Location to store any output data generated during the workflow execution.
+- `app_config::Vector{Application_config}`: List of application configurations for the workflow exeuction.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -202,13 +217,12 @@ end
 
 """
     workflow_config(workflow::String, output_dir::String, app_config::Application_config_many)
-Description of function here...
+Configures a workflow for execution by a client instance.
 
-# Examples
-```julia-repl
-
-
-```
+# Arguments
+- `workflow::String`: Name of the workflow.
+- `output_dir::String`: Location to store any output data generated during the workflow execution.
+- `app_config::Application_config_many`: Application configurations for the workflow exeuction.
 
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """

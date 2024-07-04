@@ -1,12 +1,11 @@
 module DistributedWorkflow
-  using Cairo, CxxWrap, FileIO, GraphViz, LightXML, Markdown, Serialization, TOML
+  using Cairo, CxxWrap, Documenter, FileIO, GraphViz, LightXML, Markdown, Serialization, TOML
   import Pkg
   export application_config,
          arc,
          client,
          compile_workflow, 
          connect,
-         create_xpnet,
          function_name, 
          implementation, 
          input_pair, 

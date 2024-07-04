@@ -1,9 +1,11 @@
 pn = PetriNet("aggregate_sum")
 
-p1 = place("sum", :control_init)
-p2 = place("values")
-t1 = transition("Reduce")
+p1 = place("value")
+p2 = place("sum")
+t = transition("Reduce")
 
-connect(pn, [(p1, :inout), (p2, :in)], t1)
+connect(pn, [(p1, :in), (p2, :out)], t)
 
-generate_workflow(pn)
+connect(pn, [(p1, :in), (p2, :out)])
+
+workflow_generator(pn)

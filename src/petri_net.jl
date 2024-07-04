@@ -76,7 +76,7 @@ A conditional transition "do_stuff" created.
 
 ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
+See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function transition(name::String, condition::String="")
   Transition(name, condition, :mod, [])
@@ -104,7 +104,7 @@ A conditional transition "do_stuff" created.
 
 ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
+See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function transition(name::String, type::Symbol, exp_str::Vector=[], condition::String="")
   if type != :exp
@@ -116,51 +116,51 @@ end
 
 
 # ToDo: Add special transitions with counter, parallel-reduce, and weighted transitions
-"""
-    parallel_reduce_transition(name::String, condition::String)
-Creates an object of type Transition for the Petri net.
+# """
+#     parallel_reduce_transition(name::String, condition::String)
+# Creates an object of type Transition for the Petri net.
 
-# Examples
-```julia-repl
-julia> transition("transition1")
-Transition "transition1" created.
-```
+# # Examples
+# ```julia-repl
+# julia> transition("transition1")
+# Transition "transition1" created.
+# ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`transition`](@ref), [`mapreduce_transition`](@ref), [`counter_transition`](@ref).
-"""
+# See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref).
+# """
 # function parallel_reduce_transition(name::String, condition::String="")
 #   type = :reduce
 # end
 
-"""
-    counter_transition(name::String, count::Symbol, n::Int, condition::String)
-Creates an object of type Transition for the Petri net.
+# """
+#     counter_transition(name::String, count::Symbol, n::Int, condition::String)
+# Creates an object of type Transition for the Petri net.
 
-# Examples
-```julia-repl
-julia> transition("transition1")
-Transition "transition1" created.
-```
+# # Examples
+# ```julia-repl
+# julia> transition("transition1")
+# Transition "transition1" created.
+# ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`transition`](@ref).
-"""
+# See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`reduce_transition`](@ref), [`transition`](@ref).
+# """
 # function counter_transition(name::String, count::Symbol, n::Int, condition::String="")
 #   type = :counter
 # # count == :up, :down
 # end
 
-"""
-    weighted_transition(name::String, weight::Int, condition::String)
-Creates an object of type Transition for the Petri net.
+# """
+#     weighted_transition(name::String, weight::Int, condition::String)
+# Creates an object of type Transition for the Petri net.
 
-# Examples
-```julia-repl
-julia> transition("transition1")
-Transition "transition1" created.
-```
+# # Examples
+# ```julia-repl
+# julia> transition("transition1")
+# Transition "transition1" created.
+# ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`transition`](@ref).
-"""
+# See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`reduce_transition`](@ref), [`transition`](@ref).
+# """
 # function weighted_transition(name::String, weight::Int, condition::String="")
 #   return Transition(name, condition, Symbol(weight))
 # end
@@ -176,7 +176,7 @@ julia> transition("transition1")
 Transition "transition1" created.
 ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`map_transition`](@ref), [`reduce_transition`](@ref), [`mapreduce_transition`](@ref), [`transition`](@ref).
+See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref).
 """
 # function conditional_transition(name::String, condition::String="")
 # t1 = Transition(name, condition, :mod, [])

@@ -64,6 +64,9 @@ function _xpnet_generator(pnet::PetriNet)
         elseif pnet.arcs[j].place.type == :counter
           prt = new_child(def, string(pnet.arcs[j].type))
           set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>"unsigned long"))
+        elseif pnet.arcs[j].place.type in [:control, :control_init]
+          prt = new_child(def, string(pnet.arcs[j].type))
+          set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>"control"))
         else
           prt = new_child(def, string(pnet.arcs[j].type))
           set_attributes(prt, Dict("name"=>pnet.arcs[j].place.name, "type"=>string(pnet.arcs[j].place.type)))
