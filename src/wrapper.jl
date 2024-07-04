@@ -15,6 +15,11 @@ end
     application_config(port::String, impl::String, fname::String)
 Convenience constructor for configuring a workflow application with a single transition.
 
+# Arguments
+- `ports::String`: Ports to configure for the workflow transition.
+- `impl::String`: Julia file containing the implementation called by the workflow transition.
+- `fnames::String`: Function name to be executed by the workflow transition.
+
 # Examples
 ```julia-repl
 
@@ -28,6 +33,11 @@ application_config(port::String, impl::String, fname::String) = Application_conf
 """
     application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{String})
 Constructor for configuring a workflow application with multiple transitions.
+
+# Arguments
+- `ports::Vector{String}`: List of ports to configure for the workflow transitions.
+- `impl::Vector{String}`: List of julia files containing the implementations called by the workflow transitions.
+- `fnames::Vector{String}`: List of function names to be executed by the workflow transitions.
 
 # Examples
 ```julia-repl
@@ -43,6 +53,11 @@ application_config(ports::Vector{String}, impl::Vector{String}, fnames::Vector{S
     application_config(ports::Vector{String}, impl::String, fnames::Vector{String})
 Convenience constructor for configuring a workflow application with multiple transitions sourcing their implementation details from the same file.
 
+# Arguments
+- `ports::Vector{String}`: List of ports to configure for the workflow transitions.
+- `impl::String`: Julia file containing the implementations called by the workflow transitions.
+- `fnames::Vector{String}`: List of function names to be executed by the workflow transitions.
+
 # Examples
 ```julia-repl
 
@@ -55,7 +70,15 @@ application_config(ports::Vector{String}, impl::String, fnames::Vector{String}) 
 
 """
     client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
-Configures and launches a workflow client
+Configures and starts a client setting up the workflow execution infrastructure and connects to a logging service.
+The nodefile will be automatically populated with the local host name if it doesn't exist in the given location or the `rif_strategy` is `local`.
+
+# Arguments
+- `workers::Int`: Number of workers launched per node.
+- `nodefile::String`: Location of the nodefile.
+- `rif_strategy::String`: Launch mode of the workflow infrastructure. Accepts `ssh` for distributing the workers across multiple nodes or `local` for running on the localhost only.
+- `log_host::String`: Host of the logging service.
+- `log_port::Int` : Port the logging service is listening on.
 
 # Examples
 ```julia-repl
@@ -85,7 +108,13 @@ end
 
 """
     client(workers::Int, nodefile::String, rif_strategy::String)
-Description of function here...
+Configures and starts a client setting up the workflow execution infrastructure.
+The nodefile will be automatically populated with the local host name if it doesn't exist in the given location or the `rif_strategy` is `local`.
+
+# Arguments
+- `workers::Int`: Number of workers launched per node.
+- `nodefile::String`: Location of the nodefile.
+- `rif_strategy::String`: Launch mode of the workflow infrastructure. Accepts `ssh` for distributing the workers across multiple nodes or `local` for running on the localhost only.
 
 # Examples
 ```julia-repl
@@ -114,7 +143,11 @@ end
 
 """
     input_pair(port_name::String, path::String)
-Description of function here...
+Convenience key-value pair wrapper for function signature clarity and readability.
+
+# Arguments
+- `port_name::String`: Name of the port to contain the path string.
+- `path::String`: Path to an input data file.
 
 # Examples
 ```julia-repl
@@ -128,7 +161,11 @@ input_pair(port_name::String, path::String) = KeyValuePair(port_name, path)
 
 """
     implementation(port_name::String, path::String)
-Description of function here...
+Convenience key-value pair wrapper for function signature clarity and readability.
+
+# Arguments
+- `port_name::String`: Name of the port to contain the path string.
+- `path::String`: Path to a julia source file.
 
 # Examples
 ```julia-repl
@@ -160,7 +197,12 @@ end
 
 """
     submit_workflow(client, workflow, input_params::Vector)
-Description of function here...
+Submit a configured workflow to a client instance.
+
+# Arguments
+- `client`: A workflow client instance.
+- `workflow`: A configured workflow object.
+- `input_params::Vector`: List of inputs for the workflow execution.
 
 # Examples
 ```julia-repl
@@ -183,7 +225,12 @@ end
 
 """
     workflow_config(workflow::String, output_dir::String, app_config::Application_config)
-Description of function here...
+Configures a workflow for execution by a client instance.
+
+# Arguments
+- `workflow::String`: Name of the workflow.
+- `output_dir::String`: Location to store any output data generated during the workflow execution.
+- `app_config::Application_config`: Application configuration for the workflow exeuction.
 
 # Examples
 ```julia-repl
@@ -205,7 +252,12 @@ end
 
 """
     workflow_config(workflow::String, output_dir::String, app_config::Vector{Application_config})
-Description of function here...
+Configures a workflow for execution by a client instance.
+
+# Arguments
+- `workflow::String`: Name of the workflow.
+- `output_dir::String`: Location to store any output data generated during the workflow execution.
+- `app_config::Vector{Application_config}`: List of application configurations for the workflow exeuction.
 
 # Examples
 ```julia-repl
@@ -231,7 +283,12 @@ end
 
 """
     workflow_config(workflow::String, output_dir::String, app_config::Application_config_many)
-Description of function here...
+Configures a workflow for execution by a client instance.
+
+# Arguments
+- `workflow::String`: Name of the workflow.
+- `output_dir::String`: Location to store any output data generated during the workflow execution.
+- `app_config::Application_config_many`: Application configurations for the workflow exeuction.
 
 # Examples
 ```julia-repl
