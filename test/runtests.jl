@@ -1,8 +1,5 @@
 # [test/runtests.jl]
-using DistributedWorkflow
-using Test, Mocking
+using DistributedWorkflow, Test
 
-# Test scripts
-include("foo_test.jl")
-include("petri_net.jl")
-# include("config_tests.jl")
+include("workflow.jl")
+include("wrapper.jl")

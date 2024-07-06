@@ -64,8 +64,8 @@ The nodefile will be automatically populated with the local host name if it does
 See also [`PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
 function client(workers::Int, nodefile::String, rif_strategy::String, log_host::String, log_port::Int)
-  run(`touch $nodefile`)
-  if rif_strategy=="local"
+  if !isfile(nodefile) || rif_strategy=="local"
+    run(`touch $nodefile`)
     write(nodefile, gethostname())
     # ToDo: add an else condition for the nodefile
   end
@@ -184,6 +184,7 @@ function workflow_config(workflow::String, output_dir::String, app_config::Appli
   portname = app_config.port
   executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")
   workflow_cfg = [DistributedWorkflow.implementation(portname, "julia $executor_file $(app_config.impl) $(app_config.fname) $output_dir")]
+
   workflow_config = StdVector(workflow_cfg)
   workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)
   DistributedWorkflow.Workflow(workflow_path, workflow_config)
@@ -204,7 +205,7 @@ function workflow_config(workflow::String, output_dir::String, app_config::Vecto
   run(`mkdir -p $output_dir`)
   executor_file = joinpath(pkgdir(DistributedWorkflow), "utils/executor.jl")
   n = length(app_config)
-  workflow_cfg = Vector(undef, n)
+  workflow_cfg = Vector{DistributedWorkflow.KeyValuePairAllocated}(undef, n)
   for i in 1:n
     portname = app_config[i].port
     workflow_cfg[i] = DistributedWorkflow.implementation(portname, "julia $executor_file $(app_config[i].impl) $(app_config[i].fname) $output_dir")
@@ -231,7 +232,7 @@ function workflow_config(workflow::String, output_dir::String, app_config::Appli
   n = length(app_config.ports)
   m = length(app_config.fnames)
   @assert n == m "The number of $(app_config.ports) should match the number of $(app_config.fnames), since each port gets a function name in the order they occur in the struct."
-  workflow_cfg = Vector(undef, n)
+  workflow_cfg = Vector{DistributedWorkflow.KeyValuePairAllocated}(undef, n)
   for i in 1:n
     impl = ""
     if length(app_config.impl) == 1
@@ -243,6 +244,7 @@ function workflow_config(workflow::String, output_dir::String, app_config::Appli
     fname = app_config.fnames[i]
     workflow_cfg[i] = DistributedWorkflow.implementation(portname, "julia $executor_file $(impl) $fname $output_dir")
   end
+
   workflow_config = StdVector(workflow_cfg)
   workflow_path = joinpath(DistributedWorkflow.config["workflow_path"], workflow)
   DistributedWorkflow.Workflow(workflow_path, workflow_config)
