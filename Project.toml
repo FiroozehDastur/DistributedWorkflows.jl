@@ -18,6 +18,7 @@ TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
+julia = "v.1.9.2"
 Cairo = "v1.0.5"
 CxxWrap = "v0.14.2"
 FileIO = "v1.16.2"
