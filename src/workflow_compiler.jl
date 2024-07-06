@@ -8,7 +8,8 @@ Note:
   
 # Examples
 ```julia-repl
-julia> compile_workflow("/root/tmp/hello_julia.xpnet")
+tmp_dir = joinpath(@__DIR, "tmp")
+julia> compile_workflow(joinpath(tmp_dir, "hello_julia.xpnet"))
 ...
 Success: Workflow compiled
 
