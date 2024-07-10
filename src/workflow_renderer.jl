@@ -80,9 +80,53 @@ See also [`PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref
 
 """
 function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
+  dot_str = _generate_dot(pnet)
+  path_dir = ""
+  if isempty(path)
+    path_dir = joinpath(ENV["HOME"], "tmp/pnet")
+    run(`mkdir -p $(path_dir)`)
+  else
+    path_dir = path
+    run(`mkdir -p $(path_dir)`)
+  end
+  store_location = ""
+  if format == :png
+    graph_viz = GraphViz.Graph(dot_str)
+    store_location = joinpath(path_dir, "$(pnet.name).png")
+    graph_gen = FileIO.save(store_location, graph_viz)
+  else
+      # Save DOT content to a file
+      dot_file = joinpath(path_dir, "$(pnet.name).dot")
+      open(dot_file, "w") do io
+        write(io, dot_str)
+      end
+      fmt = string(format)
+      # Convert DOT file to SVG using Graphviz
+      svg_file = "$(pnet.name).$(fmt)"
+      store_location = joinpath(path_dir, svg_file)
+      run(`dot -T$fmt $dot_file -o $store_location`)
+      run(`rm $dot_file`)
+  end
+  return "An image of the workflow Petri net could be found in $(store_location)"
+end
+
+function view_workflow(pnet::PetriNet, path::String)
+  return view_workflow(pnet, :png, path)
+end
+
+function show_workflow(pnet::PetriNet)
+  dot_str = _generate_dot(pnet)
+  result = _exec(`dot -Tsvg`, dot_str)
+  if result.code != 0
+    throw(result.stderr)
+  end
+  Docs.HTML(result.stdout)
+end
+
+function _generate_dot(pnet::PetriNet)
   # collect ports based on their types in and out for shape
-  in_ports = Vector{Port}()
-  out_ports = Vector{Port}()
+  in_ports = Vector{DistributedWorkflow.Port}()
+  out_ports = Vector{DistributedWorkflow.Port}()
   for p in pnet.ports
     if p.type == :in 
       push!(in_ports, p)
@@ -134,11 +178,11 @@ function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
   end
 
   # collect list of different kinds of arcs
-  in_arcs = Vector{Arc}()
-  out_arcs = Vector{Arc}()
-  inout_arcs = Vector{Arc}()
-  read_arcs = Vector{Arc}()
-  out_many_arcs = Vector{Arc}()
+  in_arcs = Vector{DistributedWorkflow.Arc}()
+  out_arcs = Vector{DistributedWorkflow.Arc}()
+  inout_arcs = Vector{DistributedWorkflow.Arc}()
+  read_arcs = Vector{DistributedWorkflow.Arc}()
+  out_many_arcs = Vector{DistributedWorkflow.Arc}()
   for a in pnet.arcs
     if a.type == :in
       push!(in_arcs, a)
@@ -258,36 +302,5 @@ end_gen = """
   }
   """
 
-  gen_str = gen_str_init * sub_gh_begin * place_string * transition_string * in_pl_trans_edge_str * out_pl_trans_edge_str * sub_gh_end2 * prt_pl_edge_str * end_gen
-  path_dir = ""
-  if isempty(path)
-    path_dir = joinpath(ENV["HOME"], "tmp/pnet")
-    run(`mkdir -p $(path_dir)`)
-  else
-    path_dir = path
-    run(`mkdir -p $(path_dir)`)
-  end
-  store_location = ""
-  if format == :png
-    graph_viz = GraphViz.Graph(gen_str)
-    store_location = joinpath(path_dir, "$(pnet.name).png")
-    graph_gen = FileIO.save(store_location, graph_viz)
-  else
-      # Save DOT content to a file
-      dot_file = joinpath(path_dir, "$(pnet.name).dot")
-      open(dot_file, "w") do io
-        write(io, gen_str)
-      end
-      fmt = string(format)
-      # Convert DOT file to SVG using Graphviz
-      svg_file = "$(pnet.name).$(fmt)"
-      store_location = joinpath(path_dir, svg_file)
-      run(`dot -T$fmt $dot_file -o $store_location`)
-      run(`rm $dot_file`)
-  end
-  return "An image of the workflow Petri net could be found in $(store_location)"
-end
-
-function view_workflow(pnet::PetriNet, path::String)
-  return view_workflow(pnet, :png, path)
+  return gen_str_init * sub_gh_begin * place_string * transition_string * in_pl_trans_edge_str * out_pl_trans_edge_str * sub_gh_end2 * prt_pl_edge_str * end_gen
 end
