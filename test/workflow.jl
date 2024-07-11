@@ -34,7 +34,7 @@
 
     path = joinpath(@__DIR__, "tmp/")
     wf = generate_workflow(pn, path)
-    vw = view_workflow(pn, path)
+    vw = savefig(pn, path)
     @test isfile(joinpath(path, "test_net.xpnet")) == true
     @test isfile(joinpath(path, "test_net.png")) == true
 

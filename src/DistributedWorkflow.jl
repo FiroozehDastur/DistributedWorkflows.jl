@@ -20,7 +20,8 @@ module DistributedWorkflow
          transition,
          workflow_config,
          generate_workflow,
-         view_workflow
+         savefig,
+         show_workflow
   
   include("init_calls.jl")
 

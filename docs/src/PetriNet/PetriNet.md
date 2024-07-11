@@ -16,7 +16,7 @@ DistributedWorkflow.transition :: Union{Tuple{String}, Tuple{String, String}}
 │     DistributedWorkflow.generate_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, String}}
 │     DistributedWorkflow.application_config :: Tuple{Vector{String}, Vector{String}, Vector{String}}
 │     DistributedWorkflow.application_config :: Tuple{String, String, String}
-│     DistributedWorkflow.view_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, Symbol}, Tuple{PetriNet, Symbol, String}}
+│     DistributedWorkflow.savefig :: Union{Tuple{PetriNet}, Tuple{PetriNet, Symbol}, Tuple{PetriNet, Symbol, String}}
 │     DistributedWorkflow.set_workflow_env :: Tuple{String}
 │     DistributedWorkflow.client :: Tuple{Int64, String, String}
 │     DistributedWorkflow.client :: Tuple{Int64, String, String, String, Int64}

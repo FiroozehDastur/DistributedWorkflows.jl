@@ -3,10 +3,10 @@
 # Petri net viewer using GraphViz
 # =============================================================================
 """
-    view_workflow(pnet::PetriNet)
-    view_workflow(pnet::PetriNet, format::Symbol)
-    view_workflow(pnet::PetriNet, path::String)
-    view_workflow(pnet::PetriNet, format::Symbol, path::String)
+    savefig(pnet::PetriNet)
+    savefig(pnet::PetriNet, format::Symbol)
+    savefig(pnet::PetriNet, path::String)
+    savefig(pnet::PetriNet, format::Symbol, path::String)
 By default this method generates a PNG file after compiling the Petri net into an XML workflow and compiling the workflow.
 If path is not given then the workflow image is stored in your home directory in the \"tmp/pnet\" folder.
 
@@ -67,11 +67,11 @@ julia> pn
 A Petri net with name "hello_julia", having 4 ports, 4 places, and 1 transitions.
 
 # now generate the workflow image
-julia> view_workflow(pn, :jpg, "/home/pnet")
+julia> savefig(pn, :jpg, "/home/pnet")
 "An image of the workflow Petri net could be found in /home/pnet/hello_julia.jpg"
 
 # the following takes the Petri net and the path for storage and generates a PNG file which is stored in the provided path.
-julia> view_workflow(pn, "/home/pnet")
+julia> savefig(pn, "/home/pnet")
 "An image of the workflow Petri net could be found in /home/pnet/hello_julia.png"
 
 ```
@@ -79,7 +79,7 @@ julia> view_workflow(pn, "/home/pnet")
 See also [`PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref), [`generate_workflow`](@ref).
 
 """
-function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
+function savefig(pnet::PetriNet, format::Symbol=:png, path::String="")
   dot_str = _generate_dot(pnet)
   path_dir = ""
   if isempty(path)
@@ -110,10 +110,19 @@ function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
   return "An image of the workflow Petri net could be found in $(store_location)"
 end
 
-function view_workflow(pnet::PetriNet, path::String)
-  return view_workflow(pnet, :png, path)
+function savefig(pnet::PetriNet, path::String)
+  return savefig(pnet, :png, path)
 end
 
+"""
+    show_workflow(pnet::PetriNet)
+
+Converts the given Petri net object to an SVG string and displays it as HTML to the screen.
+This functionality is meant to be used within environments like IJulia.jl or Pluto.jl, not the REPL.
+
+# Arguments
+- `pnet::PetriNet`: Petri net object describing the workflow to visualize
+"""
 function show_workflow(pnet::PetriNet)
   dot_str = _generate_dot(pnet)
   result = _exec(`dot -Tsvg`, dot_str)
