@@ -1,9 +1,9 @@
 import Pkg; Pkg.activate("../")
-using Documenter, DistributedWorkflow
+using Documenter, DistributedWorkflows
 
 makedocs(
-    modules = [DistributedWorkflow],
-    sitename = "DistributedWorkflow.jl",
+    modules = [DistributedWorkflows],
+    sitename = "DistributedWorkflows.jl",
     format = Documenter.HTML(prettyurls = true),
     pages = [
         "Introduction" => "index.md",
@@ -17,6 +17,6 @@ makedocs(
 
 
 deploydocs(
-    repo = "github.com/FiroozehDastur/DistributedWorkflow.jl",
+    repo = "github.com/FiroozehDastur/DistributedWorkflows.jl",
     devbranch = "main"
 )

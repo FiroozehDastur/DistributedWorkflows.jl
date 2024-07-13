@@ -1,17 +1,17 @@
-# DistributedWorkflow.jl 
+# DistributedWorkflows.jl 
 
 ```@meta
-CurrentModule = DistributedWorkflow
+CurrentModule = DistributedWorkflows
 ```
 
 
 ```@contents
 ```
 ## Overview
-This package is a test for the upcoming DistributedWorkflow package in Julia.
+This package is a test for the upcoming DistributedWorkflows package in Julia.
 
 ```@autodocs
-Modules = [DistributedWorkflow]
+Modules = [DistributedWorkflows]
 ```
 
 ```@index

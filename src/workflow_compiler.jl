@@ -19,7 +19,7 @@ See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [
 """
 function compile_workflow(workflow::String, build_dir::String="")
   source_dir = joinpath(readchomp(`spack location -i gspcdriver`), "share/zeda-gspcdriver/utils")
-  install_dir = DistributedWorkflow.config["workflow_path"]
+  install_dir = DistributedWorkflows.config["workflow_path"]
   # compile
   if isempty(build_dir)
     build_dir = joinpath(ENV["HOME"], "tmp/build")

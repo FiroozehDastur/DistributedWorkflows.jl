@@ -1,40 +1,40 @@
 <!-- ```@doc
-DistributedWorkflow.PetriNet(workflow_name)
+DistributedWorkflows.PetriNet(workflow_name)
 ```
 
 ```@doc
-DistributedWorkflow.transition :: Union{Tuple{String, Symbol}, Tuple{String, Symbol, Vector}, Tuple{String, Symbol, Vector, String}}
+DistributedWorkflows.transition :: Union{Tuple{String, Symbol}, Tuple{String, Symbol, Vector}, Tuple{String, Symbol, Vector, String}}
 
-DistributedWorkflow.transition :: Union{Tuple{String}, Tuple{String, String}}
+DistributedWorkflows.transition :: Union{Tuple{String}, Tuple{String, String}}
 ``` -->
 
  
 <!-- │     
-│     DistributedWorkflow.submit_workflow :: Tuple{Any, Any, Vector}
-│     DistributedWorkflow.port_info :: Tuple{Any}
+│     DistributedWorkflows.submit_workflow :: Tuple{Any, Any, Vector}
+│     DistributedWorkflows.port_info :: Tuple{Any}
 │     
-│     DistributedWorkflow.generate_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, String}}
-│     DistributedWorkflow.application_config :: Tuple{Vector{String}, Vector{String}, Vector{String}}
-│     DistributedWorkflow.application_config :: Tuple{String, String, String}
-│     DistributedWorkflow.view_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, Symbol}, Tuple{PetriNet, Symbol, String}}
-│     DistributedWorkflow.set_workflow_env :: Tuple{String}
-│     DistributedWorkflow.client :: Tuple{Int64, String, String}
-│     DistributedWorkflow.client :: Tuple{Int64, String, String, String, Int64}
-│     DistributedWorkflow.place :: Union{Tuple{String}, Tuple{String, Symbol}}
-│     DistributedWorkflow.remove :: Tuple{PetriNet, DistributedWorkflow.Port}
-│     DistributedWorkflow.remove :: Tuple{PetriNet, DistributedWorkflow.Place}
-│     DistributedWorkflow.remove :: Tuple{PetriNet, DistributedWorkflow.Transition}
-│     DistributedWorkflow.remove :: Tuple{PetriNet, DistributedWorkflow.Arc}
-│     DistributedWorkflow.input_pair :: Tuple{String, String}
-│     DistributedWorkflow.connect :: Tuple{PetriNet, Symbol, DistributedWorkflow.Place}
-│     DistributedWorkflow.connect :: Tuple{PetriNet, Vector{Tuple{DistributedWorkflow.Place, Symbol}}}
-│     DistributedWorkflow.connect :: Tuple{PetriNet, DistributedWorkflow.Place, DistributedWorkflow.Port}
-│     DistributedWorkflow.connect :: Tuple{PetriNet, DistributedWorkflow.Place, DistributedWorkflow.Transition, Symbol}
-│     DistributedWorkflow.connect :: Tuple{PetriNet, Vector{Tuple{DistributedWorkflow.Place, Symbol}}, DistributedWorkflow.Transition}
-│     DistributedWorkflow.arc :: Tuple{DistributedWorkflow.Place, DistributedWorkflow.Transition, Symbol}
-│     DistributedWorkflow.implementation :: Tuple{String, String}
-│     DistributedWorkflow.compile_workflow :: Union{Tuple{String}, Tuple{String, String}}
-│     DistributedWorkflow.port :: Tuple{Symbol, DistributedWorkflow.Place}
-│     DistributedWorkflow.workflow_config :: Tuple{String, String, DistributedWorkflow.Application_config}
-│     DistributedWorkflow.workflow_config :: Tuple{String, String, DistributedWorkflow.Application_config_many}
-│     DistributedWorkflow.workflow_config :: Tuple{String, String, Vector{DistributedWorkflow.Application_config}} -->
+│     DistributedWorkflows.generate_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, String}}
+│     DistributedWorkflows.application_config :: Tuple{Vector{String}, Vector{String}, Vector{String}}
+│     DistributedWorkflows.application_config :: Tuple{String, String, String}
+│     DistributedWorkflows.view_workflow :: Union{Tuple{PetriNet}, Tuple{PetriNet, Symbol}, Tuple{PetriNet, Symbol, String}}
+│     DistributedWorkflows.set_workflow_env :: Tuple{String}
+│     DistributedWorkflows.client :: Tuple{Int64, String, String}
+│     DistributedWorkflows.client :: Tuple{Int64, String, String, String, Int64}
+│     DistributedWorkflows.place :: Union{Tuple{String}, Tuple{String, Symbol}}
+│     DistributedWorkflows.remove :: Tuple{PetriNet, DistributedWorkflows.Port}
+│     DistributedWorkflows.remove :: Tuple{PetriNet, DistributedWorkflows.Place}
+│     DistributedWorkflows.remove :: Tuple{PetriNet, DistributedWorkflows.Transition}
+│     DistributedWorkflows.remove :: Tuple{PetriNet, DistributedWorkflows.Arc}
+│     DistributedWorkflows.input_pair :: Tuple{String, String}
+│     DistributedWorkflows.connect :: Tuple{PetriNet, Symbol, DistributedWorkflows.Place}
+│     DistributedWorkflows.connect :: Tuple{PetriNet, Vector{Tuple{DistributedWorkflows.Place, Symbol}}}
+│     DistributedWorkflows.connect :: Tuple{PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}
+│     DistributedWorkflows.connect :: Tuple{PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}
+│     DistributedWorkflows.connect :: Tuple{PetriNet, Vector{Tuple{DistributedWorkflows.Place, Symbol}}, DistributedWorkflows.Transition}
+│     DistributedWorkflows.arc :: Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}
+│     DistributedWorkflows.implementation :: Tuple{String, String}
+│     DistributedWorkflows.compile_workflow :: Union{Tuple{String}, Tuple{String, String}}
+│     DistributedWorkflows.port :: Tuple{Symbol, DistributedWorkflows.Place}
+│     DistributedWorkflows.workflow_config :: Tuple{String, String, DistributedWorkflows.Application_config}
+│     DistributedWorkflows.workflow_config :: Tuple{String, String, DistributedWorkflows.Application_config_many}
+│     DistributedWorkflows.workflow_config :: Tuple{String, String, Vector{DistributedWorkflows.Application_config}} -->

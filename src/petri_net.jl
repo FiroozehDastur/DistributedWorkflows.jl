@@ -664,7 +664,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.places
-3-element Vector{DistributedWorkflow.Place}:
+3-element Vector{DistributedWorkflows.Place}:
  Place "input1" created.
 
  Place "input2" created.
@@ -677,7 +677,7 @@ A Petri net with name "hello_julia", having 2 ports, 2 places, and 1 transitions
 
 
 julia> pn.places
-2-element Vector{DistributedWorkflow.Place}:
+2-element Vector{DistributedWorkflows.Place}:
  Place "input2" created.
 
  Place "output_result" created.
@@ -757,7 +757,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.transitions
-1-element Vector{DistributedWorkflow.Transition}:
+1-element Vector{DistributedWorkflows.Transition}:
  Transition "initial_transition" created.
 
 
@@ -766,7 +766,7 @@ A Petri net with name "hello_julia", having 2 ports, 2 places, and 0 transitions
 
 
 julia> pn.transitions
-DistributedWorkflow.Transition[]
+DistributedWorkflows.Transition[]
 
 
 ```
@@ -837,7 +837,7 @@ An arc of type "in", connecting the place: input1 to the transition: initial_tra
 
 
 julia> pn.arcs
-3-element Vector{DistributedWorkflow.Arc}:
+3-element Vector{DistributedWorkflows.Arc}:
  An arc of type "in", connecting the place: input1 to the transition: initial_transition.
 
  An arc of type "read", connecting the place: input2 to the transition: initial_transition.
@@ -850,7 +850,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.arcs
-2-element Vector{DistributedWorkflow.Arc}:
+2-element Vector{DistributedWorkflows.Arc}:
  An arc of type "read", connecting the place: input2 to the transition: initial_transition.
 
  An arc of type "out_many", connecting the place: output_result to the transition: initial_transition.
@@ -910,7 +910,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.ports
-3-element Vector{DistributedWorkflow.Port}:
+3-element Vector{DistributedWorkflows.Port}:
  A port of type "in" connected to place "input1".
 
  A port of type "in" connected to place "input2".
@@ -927,7 +927,7 @@ A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions
 
 
 julia> pn.ports
-2-element Vector{DistributedWorkflow.Port}:
+2-element Vector{DistributedWorkflows.Port}:
  A port of type "in" connected to place "input2".
 
  A port of type "out" connected to place "output_result".

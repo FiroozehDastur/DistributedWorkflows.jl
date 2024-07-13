@@ -1,5 +1,5 @@
 # [test/runtests.jl]
-using DistributedWorkflow, Test
+using DistributedWorkflows, Test
 
 include("workflow.jl")
 include("wrapper.jl")
