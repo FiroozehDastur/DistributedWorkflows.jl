@@ -1,4 +1,4 @@
-pn = PetriNet("parallel_reduce")
+pn = Workflow_PetriNet("parallel_reduce")
 
 p1 = place("input_file")
 p2 = place("partial_result")

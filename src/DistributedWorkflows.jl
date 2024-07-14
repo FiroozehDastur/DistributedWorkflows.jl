@@ -7,11 +7,11 @@ module DistributedWorkflows
          compile_workflow, 
          connect,
          function_name, 
+         generate_workflow,
          implementation, 
          input_pair, 
          julia_implementation, 
          output_dir,
-         PetriNet, 
          place,
          port,
          port_info,
@@ -19,7 +19,7 @@ module DistributedWorkflows
          submit_workflow, 
          transition,
          workflow_config,
-         generate_workflow,
+         Workflow_PetriNet, 
          view_workflow
   
   include("init_calls.jl")

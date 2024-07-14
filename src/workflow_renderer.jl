@@ -3,10 +3,10 @@
 # Petri net viewer using GraphViz
 # =============================================================================
 """
-    view_workflow(pnet::PetriNet)
-    view_workflow(pnet::PetriNet, format::Symbol)
-    view_workflow(pnet::PetriNet, path::String)
-    view_workflow(pnet::PetriNet, format::Symbol, path::String)
+    view_workflow(pnet::Workflow_PetriNet)
+    view_workflow(pnet::Workflow_PetriNet, format::Symbol)
+    view_workflow(pnet::Workflow_PetriNet, path::String)
+    view_workflow(pnet::Workflow_PetriNet, format::Symbol, path::String)
 By default this method generates a PNG file after compiling the Petri net into an XML workflow and compiling the workflow.
 If path is not given then the workflow image is stored in your home directory in the \"tmp/pnet\" folder.
 
@@ -19,7 +19,7 @@ https://graphviz.org/docs/outputs/
 # Examples
 ```julia-repl
 julia> # first generate a workflow in the form of a Petri net
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -76,10 +76,10 @@ julia> view_workflow(pn, "/home/pnet")
 
 ```
 
-See also [`PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref), [`generate_workflow`](@ref).
+See also [`Workflow_PetriNet`](@ref), [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref), [`generate_workflow`](@ref).
 
 """
-function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
+function view_workflow(pnet::Workflow_PetriNet, format::Symbol=:png, path::String="")
   # collect ports based on their types in and out for shape
   in_ports = Vector{Port}()
   out_ports = Vector{Port}()
@@ -156,7 +156,7 @@ function view_workflow(pnet::PetriNet, format::Symbol=:png, path::String="")
   title = """label = "$(pnet.name)";"""
   pos = """labelloc = "t";"""
   gen_str_init = """
-  digraph petrinet {
+  digraph Workflow_PetriNet {
     $title
     $pos
 
@@ -288,6 +288,6 @@ end_gen = """
   return "An image of the workflow Petri net could be found in $(store_location)"
 end
 
-function view_workflow(pnet::PetriNet, path::String)
+function view_workflow(pnet::Workflow_PetriNet, path::String)
   return view_workflow(pnet, :png, path)
 end
