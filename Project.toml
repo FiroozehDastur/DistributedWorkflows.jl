@@ -1,7 +1,7 @@
 name = "DistributedWorkflows"
 uuid = "e6614011-adc0-4f34-baa6-5a168cd5013f"
 authors = ["FiroozehDastur <dastur.firoozeh@gmail.com>"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
