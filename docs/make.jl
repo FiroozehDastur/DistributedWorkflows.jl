@@ -8,15 +8,14 @@ makedocs(
     pages = [
         "Introduction" => "index.md",
         "API" => "api.md",
-        "Cluster" => "./Cluster/cluster.md",
-        "PetriNet" => "./PetriNet/PetriNet.md",
-        "Scripting" => "./Scripting/scripting.md",
-        "Serialization" => "./Serialization/custom_serializer.md"
+        "Examples" => "examples.md",
+        "Workflow" => "./PetriNet/PetriNet.md",
+        "Serialization" => "./Serialization/custom_serializer.md",
+        "Troubleshooting" => "troubleshooting.md"
     ]
 )
 
 
 deploydocs(
-    repo = "github.com/FiroozehDastur/DistributedWorkflows.jl",
-    devbranch = "main"
+    repo = "github.com/FiroozehDastur/DistributedWorkflows.jl.git",
 )

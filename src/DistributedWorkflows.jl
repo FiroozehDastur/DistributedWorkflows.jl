@@ -6,7 +6,6 @@ module DistributedWorkflows
          client,
          compile_workflow, 
          connect,
-         function_name, 
          implementation, 
          input_pair, 
          julia_implementation, 

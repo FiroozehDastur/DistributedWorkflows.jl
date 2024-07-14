@@ -1,4 +1,4 @@
-# [.github/workflows/Documentation.yml]
+# [.github/workflows/documentation.yml]
 name: Documentation
 
 on:
