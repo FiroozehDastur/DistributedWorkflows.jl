@@ -9,7 +9,7 @@ makedocs(
         "Introduction" => "index.md",
         "API" => "api.md",
         "Cluster" => "./Cluster/cluster.md",
-        "PetriNet" => "./PetriNet/PetriNet.md",
+        "Workflow" => "./PetriNet/PetriNet.md",
         "Scripting" => "./Scripting/scripting.md",
         "Serialization" => "./Serialization/custom_serializer.md"
     ]

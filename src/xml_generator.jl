@@ -1,4 +1,4 @@
-function _xpnet_generator(pnet::PetriNet)
+function _xpnet_generator(pnet::Workflow_PetriNet)
   xpnet = XMLDocument()
   defun = create_root(xpnet, "defun")
   set_attribute(defun, "name", pnet.name)
@@ -181,13 +181,13 @@ end
 
 
 """
-    generate_workflow(pnet::PetriNet)
-    generate_workflow(pnet::PetriNet, path::String)
+    generate_workflow(pnet::Workflow_PetriNet)
+    generate_workflow(pnet::Workflow_PetriNet, path::String)
 Given a Petri net description, creates an XML workflow and writes it to a file in the path.
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -236,9 +236,9 @@ An XML workflow called: parallel_reduce.xpnet has been written to the location: 
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`compile_workflow`](@ref).
 """
-function generate_workflow(pnet::PetriNet, path::String="")
+function generate_workflow(pnet::Workflow_PetriNet, path::String="")
   xpnet = _xpnet_generator(pnet)
   dir = ""
   if !isempty(path)
