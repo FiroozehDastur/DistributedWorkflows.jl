@@ -1,4 +1,4 @@
-module DistributedWorkflow
+module DistributedWorkflows
   using Cairo, CxxWrap, Documenter, FileIO, GraphViz, LightXML, Markdown, Serialization, TOML
   import Pkg
   export application_config,
@@ -6,12 +6,11 @@ module DistributedWorkflow
          client,
          compile_workflow, 
          connect,
-         function_name, 
+         function_name,
          implementation, 
          input_pair, 
          julia_implementation, 
          output_dir,
-         PetriNet, 
          place,
          port,
          port_info,
@@ -21,7 +20,8 @@ module DistributedWorkflow
          workflow_config,
          generate_workflow,
          savefig,
-         show_workflow
+         show_workflow,
+         Workflow_PetriNet
   
   include("init_calls.jl")
 

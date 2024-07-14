@@ -1,5 +1,5 @@
   ```@meta
-    CurrentModule = DistributedWorkflow
+    CurrentModule = DistributedWorkflows
     ```
 
     ```@contents
@@ -10,6 +10,6 @@
     This page is a dump of all the docstrings found in the code. 
 
     ```@autodocs
-    Modules = [DistributedWorkflow]
+    Modules = [DistributedWorkflows]
     Order = [:module, :type, :function, :macro]
     ```

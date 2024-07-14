@@ -1,7 +1,7 @@
 @testset "Workflow related unit tests" begin
     # A Petri net with 2 input places and 2 output places
-    pn = PetriNet("test_net")
-    @test fieldcount(PetriNet) == 5
+    pn = Workflow_PetriNet("test_net")
+    @test fieldcount(Workflow_PetriNet) == 5
     p1 = place("input_file1")
     p2 = place("input_file2")
     p3 = place("output_file1")

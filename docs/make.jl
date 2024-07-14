@@ -1,15 +1,15 @@
 import Pkg; Pkg.activate("../")
-using Documenter, DistributedWorkflow
+using Documenter, DistributedWorkflows
 
 makedocs(
-    modules = [DistributedWorkflow],
-    sitename = "DistributedWorkflow.jl",
+    modules = [DistributedWorkflows],
+    sitename = "DistributedWorkflows.jl",
     format = Documenter.HTML(prettyurls = true),
     pages = [
         "Introduction" => "index.md",
         "API" => "api.md",
         "Cluster" => "./Cluster/cluster.md",
-        "PetriNet" => "./PetriNet/PetriNet.md",
+        "Workflow" => "./PetriNet/PetriNet.md",
         "Scripting" => "./Scripting/scripting.md",
         "Serialization" => "./Serialization/custom_serializer.md"
     ]
@@ -17,6 +17,6 @@ makedocs(
 
 
 deploydocs(
-    repo = "github.com/FiroozehDastur/DistributedWorkflow.jl",
+    repo = "github.com/FiroozehDastur/DistributedWorkflows.jl",
     devbranch = "main"
 )

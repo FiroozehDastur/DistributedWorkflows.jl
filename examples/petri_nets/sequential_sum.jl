@@ -1,4 +1,4 @@
-pn = PetriNet("aggregate_sum")
+pn = Workflow_PetriNet("aggregate_sum")
 
 p1 = place("value")
 p2 = place("sum")

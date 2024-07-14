@@ -1,12 +1,12 @@
 function __init__()
-  path = joinpath(ENV["HOME"], ".distributedworkflow")
+  path = joinpath(ENV["HOME"], ".distributedworkflows")
   run(`mkdir -p $path`)
 
   config_file = joinpath(path, "config.toml")
   if !isfile(config_file)
     data = Dict(
                 "version" => "0.1",
-                "workflow_path" => joinpath(ENV["HOME"], ".distributedworkflow/workflows"),
+                "workflow_path" => joinpath(ENV["HOME"], ".distributedworkflows/workflows"),
     );
     open(config_file, "w") do io
       TOML.print(io, data)
@@ -31,7 +31,7 @@ function __init__()
   if !(allowbanner == 0)
     # package banner
     function print_banner()
-      println("                _          ___      | DistributedWorkflow - a task-based distributed")
+      println("                _          ___      | DistributedWorkflows - a task-based distributed")
       println("               | |        /   \\     | workflow management system.")
       println("   ___         | |<----->(  \e[34mo\e[0m  )    |")
       println("  / \e[32mo\e[0m \\        | |        \\___/     | Version $(pkg_version) ...")

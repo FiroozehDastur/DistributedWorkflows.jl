@@ -1,4 +1,4 @@
-pn = PetriNet("multi_module")
+pn = Workflow_PetriNet("multi_module")
 
 p1 = place("input_file")
 p2 = place("output_file0")

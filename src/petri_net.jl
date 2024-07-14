@@ -24,7 +24,7 @@ julia> place("in_place", :control)
 Place "in_place" with control token created.
 ```
 
-See also [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
+See also [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function place(name::String, token_type::Symbol=:string)
   possible_tokens = [:string, :control, :counter, :control_init]
@@ -76,7 +76,7 @@ A conditional transition "do_stuff" created.
 
 ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`arc`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function transition(name::String, condition::String="")
   Transition(name, condition, :mod, [])
@@ -104,7 +104,7 @@ A conditional transition "do_stuff" created.
 
 ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`arc`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function transition(name::String, type::Symbol, exp_str::Vector=[], condition::String="")
   if type != :exp
@@ -126,7 +126,7 @@ end
 # Transition "transition1" created.
 # ```
 
-# See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref).
+# See also [`place`](@ref), [`arc`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref).
 # """
 # function parallel_reduce_transition(name::String, condition::String="")
 #   type = :reduce
@@ -142,7 +142,7 @@ end
 # Transition "transition1" created.
 # ```
 
-# See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`reduce_transition`](@ref), [`transition`](@ref).
+# See also [`place`](@ref), [`arc`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`reduce_transition`](@ref), [`transition`](@ref).
 # """
 # function counter_transition(name::String, count::Symbol, n::Int, condition::String="")
 #   type = :counter
@@ -159,7 +159,7 @@ end
 # Transition "transition1" created.
 # ```
 
-# See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`reduce_transition`](@ref), [`transition`](@ref).
+# See also [`place`](@ref), [`arc`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`reduce_transition`](@ref), [`transition`](@ref).
 # """
 # function weighted_transition(name::String, weight::Int, condition::String="")
 #   return Transition(name, condition, Symbol(weight))
@@ -176,7 +176,7 @@ julia> transition("transition1")
 Transition "transition1" created.
 ```
 
-See also [`place`](@ref), [`arc`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref).
+See also [`place`](@ref), [`arc`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref), [`transition`](@ref).
 """
 # function conditional_transition(name::String, condition::String="")
 # t1 = Transition(name, condition, :mod, [])
@@ -234,7 +234,7 @@ An arc of type "in", connecting the place: place1 to the transition: transition1
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function arc(place::Place, transition::Transition, arc_type::Symbol)
   possible_arcs = [:in, :read, :inout, :out, :out_many]
@@ -274,7 +274,7 @@ A port of type "in" connected to place "input1".
 
 ```
 
-See also [`place`](@ref), [`PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref), [`remove`](@ref).
 """
 function port(type::Symbol, place::Place)
   possible_ports = [:in, :out, :inout]
@@ -296,7 +296,7 @@ end
 # Creating Petri nets
 # =============================================================================
 """
-    PetriNet(workflow_name::String)
+    Workflow_PetriNet(workflow_name::String)
 A struct creating an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.
 
 Use the `connect()` function to populate the Petri net, and `remove()` function to remove Petri net components.
@@ -304,7 +304,7 @@ Use the `connect()` function to populate the Petri net, and `remove()` function 
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -351,13 +351,13 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`connect`](@ref), [`remove`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
-struct PetriNet
+struct Workflow_PetriNet
   name::String
   places::Vector{Place}
   transitions::Vector{Transition}
   arcs::Vector{Arc}
   ports::Vector{Port}
-  function PetriNet(name::String)
+  function Workflow_PetriNet(name::String)
     if isempty(name)
       error("An empty string as Petri net name is not allowed. Please provide a name for the Petri net.")
     end
@@ -366,7 +366,7 @@ struct PetriNet
 end
 
 
-function Base.show(io::IO, Pnet::PetriNet)
+function Base.show(io::IO, Pnet::Workflow_PetriNet)
   k = length(Pnet.ports)
   n = length(Pnet.places)
   m = length(Pnet.transitions)
@@ -374,14 +374,14 @@ function Base.show(io::IO, Pnet::PetriNet)
 end
 
 """
-    connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)
-    connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol)
+    connect(pnet::Workflow_PetriNet, place::Place, transition::Transition, arc_type::Symbol)
+    connect(pnet::Workflow_PetriNet, transition::Transition, place::Place, arc_type::Symbol)
 Given a Petri net connects the place to the transition with the given arc type. 
 
 # Examples
 ```julia-repl
 # initiating an empty Petri net.
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -426,9 +426,9 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`remove`](@ref).
 """
-function connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)
+function connect(pnet::Workflow_PetriNet, place::Place, transition::Transition, arc_type::Symbol)
   connect_arc = arc(place, transition, arc_type)
   if !(connect_arc in pnet.arcs)
     push!(pnet.arcs, connect_arc)
@@ -443,17 +443,17 @@ function connect(pnet::PetriNet, place::Place, transition::Transition, arc_type:
   return pnet
 end
 
-connect(pnet::PetriNet, transition::Transition, place::Place, arc_type::Symbol) = connect(pnet, place, transition, arc_type)
+connect(pnet::Workflow_PetriNet, transition::Transition, place::Place, arc_type::Symbol) = connect(pnet, place, transition, arc_type)
 
 
 """
-    connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
-    connect(pnet::PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}})
+    connect(pnet::Workflow_PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
+    connect(pnet::Workflow_PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}})
 Given a Petri net, connects the vector of tuples (places, arc_types) to the given transition. 
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -479,9 +479,9 @@ A Petri net with name "hello_julia", having 0 ports, 3 places, and 1 transitions
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`remove`](@ref).
 """
-function connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
+function connect(pnet::Workflow_PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
   connect_list = Vector{Arc}()
   for (p, a) in places_arcs
     connect(pnet, p, transition, a)
@@ -489,17 +489,17 @@ function connect(pnet::PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, tran
   return pnet
 end
 
-connect(pnet::PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}}) = connect(pnet, places_arcs, transition)
+connect(pnet::Workflow_PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}}) = connect(pnet, places_arcs, transition)
 
 
 """
-    connect(pnet::PetriNet, place::Place, port::Port)
-    connect(pnet::PetriNet, port::Port, place::Place)
+    connect(pnet::Workflow_PetriNet, place::Place, port::Port)
+    connect(pnet::Workflow_PetriNet, port::Port, place::Place)
 Given a Petri net, connects the given place to the given port. 
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -536,9 +536,9 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`remove`](@ref).
 """
-function connect(pnet::PetriNet, place::Place, port::Port)
+function connect(pnet::Workflow_PetriNet, place::Place, port::Port)
   if !(place in pnet.places)
     push!(pnet.places, place)
   end
@@ -548,16 +548,16 @@ function connect(pnet::PetriNet, place::Place, port::Port)
   return pnet
 end
 
-connect(pnet::PetriNet, port::Port, place::Place) = connect(pnet, place, port) 
+connect(pnet::Workflow_PetriNet, port::Port, place::Place) = connect(pnet, place, port) 
 
 """
-    connect(pnet::PetriNet, port_type::Symbol, place::Place)
-    connect(pnet::PetriNet, place::Place, port_type::Symbol)
+    connect(pnet::Workflow_PetriNet, port_type::Symbol, place::Place)
+    connect(pnet::Workflow_PetriNet, place::Place, port_type::Symbol)
 Given a Petri net, connects the given place to a port of name port_name and type port_type. 
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -590,30 +590,30 @@ A Petri net with name "hello_julia", having 1 ports, 3 places, and 1 transitions
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`remove`](@ref).
 """
-function connect(pnet::PetriNet, port_type::Symbol, place::Place)
+function connect(pnet::Workflow_PetriNet, port_type::Symbol, place::Place)
   pt = port(port_type, place)
   return connect(pnet, place, pt)
 end
 
-connect(pnet::PetriNet, place::Place, port_type::Symbol) = connect(pnet, port_type, place)
+connect(pnet::Workflow_PetriNet, place::Place, port_type::Symbol) = connect(pnet, port_type, place)
 
 """
-    connect(pnet::PetriNet, place_port::Vector{Tuple{Place, Symbol}})
-    connect(pnet::PetriNet, port_place::Vector{Tuple{Symbol, Place}})
+    connect(pnet::Workflow_PetriNet, place_port::Vector{Tuple{Place, Symbol}})
+    connect(pnet::Workflow_PetriNet, port_place::Vector{Tuple{Symbol, Place}})
 Given a Petri net, connects the given places to a port of name port_name and type port_type. 
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`remove`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`remove`](@ref).
 """
-function connect(pnet::PetriNet, place_port::Vector{Tuple{Place, Symbol}})
+function connect(pnet::Workflow_PetriNet, place_port::Vector{Tuple{Place, Symbol}})
   for (p, s) in place_port
     connect(pnet, p, s)
   end
   return pnet
 end
 
-function connect(pnet::PetriNet, port_place::Vector{Tuple{Symbol, Place}})
+function connect(pnet::Workflow_PetriNet, port_place::Vector{Tuple{Symbol, Place}})
   for (s, p) in place_port
     connect(pnet, p, s)
   end
@@ -622,12 +622,12 @@ end
 
 
 """
-    remove(pnet::PetriNet, place::Place)
+    remove(pnet::Workflow_PetriNet, place::Place)
 Remove the place from the given Petri net.  
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -664,7 +664,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.places
-3-element Vector{DistributedWorkflow.Place}:
+3-element Vector{DistributedWorkflows.Place}:
  Place "input1" created.
 
  Place "input2" created.
@@ -677,7 +677,7 @@ A Petri net with name "hello_julia", having 2 ports, 2 places, and 1 transitions
 
 
 julia> pn.places
-2-element Vector{DistributedWorkflow.Place}:
+2-element Vector{DistributedWorkflows.Place}:
  Place "input2" created.
 
  Place "output_result" created.
@@ -685,9 +685,9 @@ julia> pn.places
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref).
 """
-function remove(pnet::PetriNet, place::Place)
+function remove(pnet::Workflow_PetriNet, place::Place)
   if place in pnet.places
     deleteat!(pnet.places, findall(x->x==place, pnet.places))
   end
@@ -715,12 +715,12 @@ function remove(pnet::PetriNet, place::Place)
 end
 
 """
-    remove(pnet::PetriNet,  transition::Transition)
+    remove(pnet::Workflow_PetriNet,  transition::Transition)
 Remove the transition from the given Petri net.  
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -757,7 +757,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.transitions
-1-element Vector{DistributedWorkflow.Transition}:
+1-element Vector{DistributedWorkflows.Transition}:
  Transition "initial_transition" created.
 
 
@@ -766,14 +766,14 @@ A Petri net with name "hello_julia", having 2 ports, 2 places, and 0 transitions
 
 
 julia> pn.transitions
-DistributedWorkflow.Transition[]
+DistributedWorkflows.Transition[]
 
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref).
 """
-function remove(pnet::PetriNet, transition::Transition)
+function remove(pnet::Workflow_PetriNet, transition::Transition)
   if transition in pnet.transitions
     deleteat!(pnet.transitions, findall(x->x==transition, pnet.transitions))
   end
@@ -791,12 +791,12 @@ function remove(pnet::PetriNet, transition::Transition)
 end
 
 """
-    remove(pnet::PetriNet, arc::Arc)
+    remove(pnet::Workflow_PetriNet, arc::Arc)
 Remove the arc from the given Petri net.  
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -837,7 +837,7 @@ An arc of type "in", connecting the place: input1 to the transition: initial_tra
 
 
 julia> pn.arcs
-3-element Vector{DistributedWorkflow.Arc}:
+3-element Vector{DistributedWorkflows.Arc}:
  An arc of type "in", connecting the place: input1 to the transition: initial_transition.
 
  An arc of type "read", connecting the place: input2 to the transition: initial_transition.
@@ -850,7 +850,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.arcs
-2-element Vector{DistributedWorkflow.Arc}:
+2-element Vector{DistributedWorkflows.Arc}:
  An arc of type "read", connecting the place: input2 to the transition: initial_transition.
 
  An arc of type "out_many", connecting the place: output_result to the transition: initial_transition.
@@ -858,9 +858,9 @@ julia> pn.arcs
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref).
 """
-function remove(pnet::PetriNet, arc::Arc)
+function remove(pnet::Workflow_PetriNet, arc::Arc)
   if arc in pnet.arcs
     deleteat!(pnet.arcs, findall(x->x==arc, pnet.arcs))
   end
@@ -868,12 +868,12 @@ function remove(pnet::PetriNet, arc::Arc)
 end
 
 """
-    remove(pnet::PetriNet, port::Port)
+    remove(pnet::Workflow_PetriNet, port::Port)
 Remove the port from the given Petri net.  
 
 # Examples
 ```julia-repl
-julia> pn = PetriNet("hello_julia")
+julia> pn = Workflow_PetriNet("hello_julia")
 A Petri net with name "hello_julia", having 0 ports, 0 places, and 0 transitions.
 
 
@@ -910,7 +910,7 @@ A Petri net with name "hello_julia", having 3 ports, 3 places, and 1 transitions
 
 
 julia> pn.ports
-3-element Vector{DistributedWorkflow.Port}:
+3-element Vector{DistributedWorkflows.Port}:
  A port of type "in" connected to place "input1".
 
  A port of type "in" connected to place "input2".
@@ -927,7 +927,7 @@ A Petri net with name "hello_julia", having 2 ports, 3 places, and 1 transitions
 
 
 julia> pn.ports
-2-element Vector{DistributedWorkflow.Port}:
+2-element Vector{DistributedWorkflows.Port}:
  A port of type "in" connected to place "input2".
 
  A port of type "out" connected to place "output_result".
@@ -935,9 +935,9 @@ julia> pn.ports
 
 ```
 
-See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`PetriNet`](@ref), [`connect`](@ref).
+See also [`place`](@ref), [`transition`](@ref), [`arc`](@ref), [`port`](@ref), [`Workflow_PetriNet`](@ref), [`connect`](@ref).
 """
-function remove(pnet::PetriNet, port::Port)
+function remove(pnet::Workflow_PetriNet, port::Port)
   if port in pnet.ports
     deleteat!(pnet.ports, findall(x->x==port, pnet.ports))
   end

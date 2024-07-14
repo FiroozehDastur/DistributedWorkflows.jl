@@ -1,30 +1,30 @@
-# DistributedWorkflow.jl - A Julia interface to a distributed task-based workflow management system
+# DistributedWorkflows.jl - A Julia interface to a distributed task-based workflow management system
 
-![DistributedWorkflowImage](logo/DistributedWorkflow.png)
+![DistributedWorkflowsImage](logo/DistributedWorkflows.png)
 
-[![CI](https://github.com/FiroozehDastur/DistributedWorkflow.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/FiroozehDastur/DistributedWorkflow.jl/actions/workflows/CI.yml)
-[![codecov](https://codecov.io/gh/FiroozehDastur/DistributedWorkflow.jl/graph/badge.svg?token=9JIYL7YJYK)](https://codecov.io/gh/FiroozehDastur/DistributedWorkflow.jl)
-[![](https://img.shields.io/badge/docs-stable-blue.svg)](http://bjack205.github.io/DistributedWorkflow.jl/dev)
+[![CI](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml)
+[![codecov](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl/graph/badge.svg?token=9JIYL7YJYK)](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl)
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](http://bjack205.github.io/DistributedWorkflows.jl/dev)
 
 
-## How to cite DistributedWorkflow.jl
+## How to cite DistributedWorkflows.jl
 
 Please cite this package as follows if you use it in your work:
 
 ```
-@misc{DistributedWorkflow,
+@misc{DistributedWorkflows,
   author    = {Dastur, Firoozeh and Zeyen, Max and Rahn, Mirko},
-  title     = {DistributedWorkflow.jl - A Julia interface to a distributed 
+  title     = {DistributedWorkflows.jl - A Julia interface to a distributed 
                task-based workflow management system},
   year     = {2024},
   month    = {January},
-  howpublished     = {\url{https://github.com/FiroozehDastur/DistributedWorkflow.jl}}
+  howpublished     = {\url{https://github.com/FiroozehDastur/DistributedWorkflows.jl}}
 }
 ```
 
 ## Initial setup
 
-1. DistributedWorkflow.jl requires the package manager Spack to install necessary binaries. Follow the steps from [Spack - Getting Started](https://spack.readthedocs.io/en/latest/getting_started.html) to install Spack. You might also want to read [Spack - Basic Usage](https://spack.readthedocs.io/en/latest/basic_usage.html) to learn basic usage of Spack.
+1. DistributedWorkflows.jl requires the package manager Spack to install necessary binaries. Follow the steps from [Spack - Getting Started](https://spack.readthedocs.io/en/latest/getting_started.html) to install Spack. You might also want to read [Spack - Basic Usage](https://spack.readthedocs.io/en/latest/basic_usage.html) to learn basic usage of Spack.
 
    > ---
    > **Note:**
@@ -33,7 +33,7 @@ Please cite this package as follows if you use it in your work:
    >
    > ---
 
-2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflow.jl](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/tag/v0.1.0-se)
+2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflows.jl](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.1.0-se)
 
    *OR* 
 
@@ -46,11 +46,11 @@ Please cite this package as follows if you use it in your work:
    >
    > ---
 
-   * [Ubuntu 22.04](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_ubuntu22)
-   * [Debian 11](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_debian11)
-   * [Debian 12](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_debian12)
-   * [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux8)
-   * [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflow.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux9)
+   * [Ubuntu 22.04](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_ubuntu22)
+   * [Debian 11](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_debian11)
+   * [Debian 12](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_debian12)
+   * [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux8)
+   * [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux9)
 
 3. Once the installation is complete, navigate to the directory where you saved your binary file and install it in a target location of your choice as follows:
 
@@ -72,7 +72,7 @@ Please cite this package as follows if you use it in your work:
    >
    > ---
 
-4. If the installation was successful, then running the following should load the required dependencies of `DistributedWorkflow.jl`.
+4. If the installation was successful, then running the following should load the required dependencies of `DistributedWorkflows.jl`.
 
    ```bash
    spack load distributedworkflow
@@ -86,14 +86,14 @@ Please cite this package as follows if you use it in your work:
 
 5. If you would like to visualise the workflows before compilation, it is advised to download [Graphviz](https://graphviz.org/download/) to be able to visualise it in different formats.
 
-6. Now, we are set up to use DistributedWorkflow.jl to parallelise our application.
+6. Now, we are set up to use DistributedWorkflows.jl to parallelise our application.
 
-## DistributedWorkflow.jl
+## DistributedWorkflows.jl
 
 Once this package is registered at it can be installed similar to any Julia package by doing:
 
 ```julia
-import Pkg; Pkg.add("DistributedWorkflow")
+import Pkg; Pkg.add("DistributedWorkflows")
 ```
 
 For now, doing the following should work:
@@ -101,14 +101,14 @@ For now, doing the following should work:
 1. Once you have the Julia REPL open, enter the package mode of julia and add the github repo as follows:
 
    ```julia
-   ] add https://github.com/FiroozehDastur/DistributedWorkflow.jl.git
+   ] add https://github.com/FiroozehDastur/DistributedWorkflows.jl.git
    ```
 
-2. Once the package administrator has installed `DistributedWorkflow`, it can be loaded like any other Julia package by running `using DistributedWorkflow` in the Julia REPL.
+2. Once the package administrator has installed `DistributedWorkflows`, it can be loaded like any other Julia package by running `using DistributedWorkflows` in the Julia REPL.
 
-## How to use DistributedWorkflow.jl
+## How to use DistributedWorkflows.jl
 
-To use `DistributedWorkflow` to parallelise an application, the following steps are required:
+To use `DistributedWorkflows` to parallelise an application, the following steps are required:
 
 1. Setting up your Julia application structure. <!-- that will be run in parallel. This can be a single `.jl` file with all the necessary methods, or multiple `.jl` files. -->
 2. Designing a workflow in the form of a Petri net.
