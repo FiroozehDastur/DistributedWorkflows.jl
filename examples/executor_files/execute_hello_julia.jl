@@ -1,14 +1,15 @@
 # ================================================================
 # hello julia Petri net
 # ================================================================
-using DistributedWorkflows, CxxWrap
+using DistributedWorkflows
 
 # Change the paths to locate the files according to system settings
 include(joinpath(ENV["HOME"], "DistributedWorkflows.jl/examples/petri_nets/hello_julia_net.jl"))
 
 tmp_dir = joinpath(ENV["HOME"], "tmp")
 DistributedWorkflows.compile_workflow(joinpath(tmp_dir, "hello_julia.xpnet"))
-client = DistributedWorkflows.client(1, joinpath(tmp_dir, "nodefile"), "local", "localhost", 6789)
+client = DistributedWorkflows.client(1, joinpath(tmp_dir, "nodefile"), "local")
+# client = DistributedWorkflows.client(1, joinpath(tmp_dir, "nodefile"), "local"), "localhost", 6789)
 
 # new version
 impl_port = "implementation_1"

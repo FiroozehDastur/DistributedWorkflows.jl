@@ -1,3 +1,16 @@
+function check_dependency()
+  try
+    readchomp(`spack location -i distributedworkflow`)
+    return true
+  catch e
+    if e isa Base.IOError
+      return false
+    else
+      rethrow(e)
+    end
+  end
+end
+
 function __init__()
   path = joinpath(ENV["HOME"], ".distributedworkflows")
   run(`mkdir -p $path`)
@@ -16,15 +29,19 @@ function __init__()
   workflow_path = config["workflow_path"]
   run(`mkdir -p $workflow_path`)
 
-  base_path = readchomp(`spack location -i distributedworkflow`)
-  lib_path = joinpath(base_path, "lib")
-  lib64_path = joinpath(base_path, "lib64")
-  if isdir(lib_path)
-    @wrapmodule(() -> joinpath(lib_path, "libzeda-distributedworkflow.so"), :define_module_interface)
-  elseif isdir(lib64_path)
-    @wrapmodule(() -> joinpath(lib64_path, "libzeda-distributedworkflow.so"), :define_module_interface)
+  if check_dependency()    
+    base_path = readchomp(`spack location -i distributedworkflow`)
+    lib_path = joinpath(base_path, "lib")
+    lib64_path = joinpath(base_path, "lib64")
+    if isdir(lib_path)
+      @wrapmodule(() -> joinpath(lib_path, "libzeda-distributedworkflow.so"), :define_module_interface)
+    elseif isdir(lib64_path)
+      @wrapmodule(() -> joinpath(lib64_path, "libzeda-distributedworkflow.so"), :define_module_interface)
+    end
+    @initcxx
+  else
+    @warn "Spack not found, will proceed without it.\nThis will cause an error while launching a client and submitting workflows."
   end
-  @initcxx
   
   # Banner printing that respects the -q and --banner flag
   allowbanner = Base.JLOptions().banner

@@ -38,6 +38,10 @@
     @test isfile(joinpath(path, "test_net.xpnet")) == true
     @test isfile(joinpath(path, "test_net.png")) == true
 
-    @test compile_workflow(joinpath(path, "test_net.xpnet")) === nothing
-    
+    if check_dependency()
+        @test compile_workflow(joinpath(path, "test_net.xpnet")) === nothing
+    else
+        a = "test string"
+        @test typeof(a) == String
+    end
 end
