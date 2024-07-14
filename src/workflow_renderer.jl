@@ -134,8 +134,8 @@ end
 
 function _generate_dot(pnet::Workflow_PetriNet)
   # collect ports based on their types in and out for shape
-  in_ports = Vector{DistributedWorkflow.Port}()
-  out_ports = Vector{DistributedWorkflow.Port}()
+  in_ports = Vector{Port}()
+  out_ports = Vector{Port}()
   for p in pnet.ports
     if p.type == :in 
       push!(in_ports, p)
@@ -187,11 +187,11 @@ function _generate_dot(pnet::Workflow_PetriNet)
   end
 
   # collect list of different kinds of arcs
-  in_arcs = Vector{DistributedWorkflow.Arc}()
-  out_arcs = Vector{DistributedWorkflow.Arc}()
-  inout_arcs = Vector{DistributedWorkflow.Arc}()
-  read_arcs = Vector{DistributedWorkflow.Arc}()
-  out_many_arcs = Vector{DistributedWorkflow.Arc}()
+  in_arcs = Vector{Arc}()
+  out_arcs = Vector{Arc}()
+  inout_arcs = Vector{Arc}()
+  read_arcs = Vector{Arc}()
+  out_many_arcs = Vector{Arc}()
   for a in pnet.arcs
     if a.type == :in
       push!(in_arcs, a)
