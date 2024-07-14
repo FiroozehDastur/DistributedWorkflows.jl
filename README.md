@@ -1,6 +1,6 @@
 # DistributedWorkflows.jl - A Julia interface to a distributed task-based workflow management system
 
-<!-- ![DistributedWorkflowsImage](logo/DistributedWorkflows.png) -->
+<!-- ![DistributedWorkflowsImage](logo/logo.png) -->
 <img src="docs/src/assets/logo.svg" width="200" height="200">
 
 [![CI](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml)
