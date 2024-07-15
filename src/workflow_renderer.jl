@@ -125,11 +125,10 @@ This functionality is meant to be used within environments like IJulia.jl or Plu
 """
 function show_workflow(pnet::Workflow_PetriNet)
   dot_str = _generate_dot(pnet)
-  result = _exec(`dot -Tsvg`, dot_str)
-  if result.code != 0
-    throw(result.stderr)
-  end
-  Docs.HTML(result.stdout)
+  io = IOBuffer()
+  run(pipeline(`dot -Tsvg`, stdin=IOBuffer(dot_str), stdout=io))
+  result = String(take!(io))
+  Docs.HTML(result)
 end
 
 function _generate_dot(pnet::Workflow_PetriNet)
