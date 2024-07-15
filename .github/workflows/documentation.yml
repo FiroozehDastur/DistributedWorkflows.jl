@@ -4,19 +4,25 @@ name: Documentation
 on:
   push:
     branches:
-      - main
+      - documentation
     tags: '*'
   pull_request:
+    branches:
+      - documentation
 
 jobs:
   build:
+    permissions:
+      contents: write
+      pull-request: read
+      statuses: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@latest
       - uses: julia-actions/julia-buildpkg@v1
         with:
-          version: '1.7'
+          version: '1.9'
       - name: Install dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
       - name: Build and deploy
