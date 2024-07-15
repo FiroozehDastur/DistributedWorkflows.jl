@@ -1,5 +1,5 @@
 module DistributedWorkflows
-  using Cairo, CxxWrap, Documenter, FileIO, GraphViz, LightXML, Markdown, Serialization, TOML
+  using Cairo, CxxWrap, FileIO, GraphViz, LightXML, Markdown, Serialization, TOML
   import Pkg
   export application_config,
          arc,
