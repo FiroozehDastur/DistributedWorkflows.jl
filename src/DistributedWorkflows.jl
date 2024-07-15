@@ -25,7 +25,6 @@ module DistributedWorkflows
   
   include("init_calls.jl")
 
-  include("helpers.jl")
   include("petri_net.jl")
   include("workflow_compiler.jl")
   include("workflow_renderer.jl")
