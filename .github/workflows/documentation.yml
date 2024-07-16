@@ -3,11 +3,11 @@ name: Documentation
 on:
   push:
     branches:
-      - documentation
+      - main
     tags: '*'
   pull_request:
     branches:
-      - documentation
+      - main
 
 jobs:
   build:
