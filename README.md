@@ -5,7 +5,7 @@
 
 [![CI](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl/graph/badge.svg?token=9JIYL7YJYK)](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl)
-[![](https://img.shields.io/badge/docs-stable-blue.svg)](http://bjack205.github.io/DistributedWorkflows.jl/dev)
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://FiroozehDastur.github.io/DistributedWorkflows.jl/dev)
 
 
 ## How to cite DistributedWorkflows.jl
