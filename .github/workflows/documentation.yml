@@ -13,7 +13,7 @@ jobs:
   build:
     permissions:
       contents: write
-      pull-request: read
+      pull-requests: read
       statuses: write
     runs-on: ubuntu-latest
     steps:
