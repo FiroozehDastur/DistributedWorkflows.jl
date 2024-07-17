@@ -21,7 +21,7 @@ jobs:
           version: '1.9'
       - uses: julia-actions/cache@v2
       - name: sanity check
-        run: ls -a DistributedWorkflows.jl/
+        run: ls -a ./DistributedWorkflows.jl/
       - name: Install dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
         working-directory: ../
