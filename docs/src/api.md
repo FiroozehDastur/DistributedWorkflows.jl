@@ -1,15 +1,11 @@
-  ```@meta
-    CurrentModule = DistributedWorkflows
-    ```
+# Available features in the public API
 
-    ```@contents
-    Pages = ["api.md"]
-    ```
+```@meta
+CurrentModule = DistributedWorkflows
+```
 
-    # API
-    This page is a dump of all the docstrings found in the code. 
 
-    ```@autodocs
-    Modules = [DistributedWorkflows]
-    Order = [:module, :type, :function, :macro]
-    ```
+```@autodocs
+Modules = [DistributedWorkflows]
+Pages = ["wrapper.jl"]
+```

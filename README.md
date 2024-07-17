@@ -1,6 +1,7 @@
 # DistributedWorkflows.jl - A Julia interface to a distributed task-based workflow management system
 
-![DistributedWorkflowsImage](logo/DistributedWorkflows.png)
+<!-- ![DistributedWorkflowsImage](logo/logo.png) -->
+<img src="docs/src/assets/logo.svg" width="200" height="200">
 
 [![CI](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/FiroozehDastur/DistributedWorkflows.jl/actions/workflows/CI.yml)
 [![codecov](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl/graph/badge.svg?token=9JIYL7YJYK)](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl)
@@ -248,7 +249,6 @@ Once your application runs through, the output files will be stored in your desi
 | [application_config()]() | Description of function here...|
 | [client()]() | Description of function here...|
 | [compile_workflow(workflow::String, build_dir::String)]() | Given a path for the workflow and an accessible location for the build directory, this function compiles the XML workflow.|
-| [function_name()]() | Description of function here...|
 | [implementation()]() | Description of function here...|
 | [input_pair()]() | Description of function here...|
 | [julia_implementation()]() | Description of function here...|
