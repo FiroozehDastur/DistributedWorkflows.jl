@@ -33,7 +33,7 @@ Please cite this package as follows if you use it in your work:
 !!! info
     If you already have Spack installed and sourced in your path, then you may skip the above step.
 
-2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflows.jl](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.1.0).
+2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflows.jl](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.2.0).
 
 !!! info
     The binaries are all built for the `x86_64_v3` architechture
