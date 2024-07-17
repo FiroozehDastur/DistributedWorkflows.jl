@@ -1,5 +1,5 @@
 import Pkg; Pkg.activate("../")
-Pkg.activate(".")
+Pkg.activate("./docs")
 using Documenter, DistributedWorkflows
 
 makedocs(
