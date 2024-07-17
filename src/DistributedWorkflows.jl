@@ -6,7 +6,11 @@ module DistributedWorkflows
          client,
          compile_workflow, 
          connect,
+<<<<<<< HEAD
          generate_workflow,
+=======
+         function_name,
+>>>>>>> origin/main
          implementation, 
          input_pair, 
          julia_implementation, 
@@ -18,10 +22,13 @@ module DistributedWorkflows
          submit_workflow, 
          transition,
          workflow_config,
-         Workflow_PetriNet, 
-         view_workflow
+         generate_workflow,
+         savefig,
+         show_workflow,
+         Workflow_PetriNet
   
   include("init_calls.jl")
+
   include("petri_net.jl")
   include("workflow_compiler.jl")
   include("workflow_renderer.jl")

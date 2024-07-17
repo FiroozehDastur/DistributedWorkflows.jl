@@ -168,11 +168,14 @@ connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
 wf = generate_workflow(pn)
 ```
 
-To visualise the workflow before generating the XML format of it, run `view_workflow(pn)`. This would generate the following image as a PNG in a default location.
+When working within an environment like IJulia or Pluto, it is possible to visualise the workflow before generating the XML format of it by running `show_workflow(pn)`.
+It is also possible to generate a rendering and store it to disk by running `savefig(pn)`.
+This call would save the workflow as a PNG in a default location.
+The output for both methods would look like the image below:
 
 ![hello_julia_net](examples/images/hello_julia.png)
 
-To visualise the workflow in one of the other formats and a specific path use `view_workflow(pnet::PetriNet, format::Symbol, path::String)`. For example, `view_workflow(pn, :svg, "home/usr/zeda/net")` generates an SVG of the above Petri net and stores it in the path `home/usr/zeda/net`.
+To visualise the workflow in one of the other formats and a specific path use `savefig(pnet::PetriNet, format::Symbol, path::String)`. For example, `savefig(pn, :svg, "home/usr/zeda/net")` generates an SVG of the above Petri net and stores it in the path `home/usr/zeda/net`.
 
 > ---
 > **Warning:**
@@ -228,15 +231,16 @@ Once your application runs through, the output files will be stored in your desi
 
 | Function | Usage |
 |:-:|:-:|
-| [arc(place::Place, transition::Transition, arc_type::Symbol)]() | Creates an object of type Arc that joins a place to a transition in a Petri net.|
-| [connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)]() | Given a Petri net connects the place to the transition with the given arc type.|
-| [PetriNet(workflow_name::String)]() | Creates an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.|
-| [place(name::String, type::Symbol)]() | Creates an object of type Place for the Petri net object.|
-| [port(type::Symbol, place::Place)]() | Creates a port connecting to the given place with respect to the arc type.|
-| [transition(name::String, condition::String)]() | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.|
-| [remove(pnet::PetriNet, place::Place)]() | Remove the place from the given Petri net.|
-| [generate_workflow(pnet::PetriNet, path::String)]() | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
-| [view_workflow(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates a file in one of the acceptable formats after compiling the Petri net into an XML workflow and compiling the workflow. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
+| [arc(place::Place, transition::Transition, arc_type::Symbol)](./src/petri_net.jl#L217) | Creates an object of type Arc that joins a place to a transition in a Petri net.|
+| [connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)](./src/petri_net.jl#L377) | Given a Petri net connects the place to the transition with the given arc type.|
+| [PetriNet(workflow_name::String)](./src/petri_net.jl#L299) | Creates an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.|
+| [place(name::String, type::Symbol)](./src/petri_net.jl#L10) | Creates an object of type Place for the Petri net object.|
+| [port(type::Symbol, place::Place)](./src/petri_net.jl#L261) | Creates a port connecting to the given place with respect to the arc type.|
+| [transition(name::String, condition::String)](./src/petri_net.jl#L58) | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.|
+| [remove(pnet::PetriNet, place::Place)](./src/petri_net.jl#L625) | Remove the place from the given Petri net.|
+| [generate_workflow(pnet::PetriNet, path::String)](./src/petri_net.jl#L) | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
+| [savefig(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates an image file in one of the acceptable formats. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
+| [show_workflow(pnet::PetriNet)](./src/workflow_renderer.jl#L118) | Displays a visualisation of the Petri net workflow on screen within environments such as IJulia or Pluto.|
 
 **The following is a list of API functions for setting the application and workflow configuration:**
 
