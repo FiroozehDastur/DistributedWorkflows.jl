@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Workflow · DistributedWorkflows.jl</title><meta name="title" content="Workflow · DistributedWorkflows.jl"/><meta property="og:title" content="Workflow · DistributedWorkflows.jl"/><meta property="twitter:title" content="Workflow · DistributedWorkflows.jl"/><meta name="description" content="Documentation for DistributedWorkflows.jl."/><meta property="og:description" content="Documentation for DistributedWorkflows.jl."/><meta property="twitter:description" content="Documentation for DistributedWorkflows.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.svg" alt="DistributedWorkflows.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">DistributedWorkflows.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Introduction</a></li><li><a class="tocitem" href="../../api/">API</a></li><li><a class="tocitem" href="../../examples/">Examples</a></li><li class="is-active"><a class="tocitem" href>Workflow</a></li><li><a class="tocitem" href="../../Serialization/custom_serializer/">Serialization</a></li><li><a class="tocitem" href="../../troubleshooting/">Troubleshooting</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Workflow</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Workflow</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/main/docs/src/PetriNet/PetriNet.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Workflow"><a class="docs-heading-anchor" href="#Workflow">Workflow</a><a id="Workflow-1"></a><a class="docs-heading-anchor-permalink" href="#Workflow" title="Permalink"></a></h1><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.Workflow_PetriNet" href="#DistributedWorkflows.Workflow_PetriNet"><code>DistributedWorkflows.Workflow_PetriNet</code></a> — <span class="docstring-category">Type</span></header><section><div><pre><code class="language-julia hljs">Workflow_PetriNet(workflow_name::String)</code></pre><p>A struct creating an empty Petri net named: &quot;workflow_name&quot;. Throws an error, if workflow name is not provided.</p><p>Use the <code>connect()</code> function to populate the Petri net, and <code>remove()</code> function to remove Petri net components.</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;,:string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output&quot;,:string)
+Place &quot;output&quot; created.
+
+
+julia&gt; t = transition(&quot;trans&quot;)
+Transition trans created.
+
+
+julia&gt; connect(pn, p1, t, :in)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 1 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, t, :read)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 2 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, t, :out_many)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, :in, p2)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, :out, p3)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>, <a href="#DistributedWorkflows.generate_workflow"><code>generate_workflow</code></a>, <a href="#DistributedWorkflows.compile_workflow"><code>compile_workflow</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L298-L353">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}" href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>DistributedWorkflows.arc</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">arc(place::Place, transition::Transition, type::Symbol)</code></pre><p>Creates an object of type Arc that joins a place to a transition in a Petri net. Note: acceptable arcs are one of the following:     :in, :read, :inout, :out, :out_many</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; p1 = place(&quot;place1&quot;, &quot;input_place&quot;)
+Place &quot;place1&quot; created.
+
+
+julia&gt; t1 = transition(&quot;transition1&quot;)
+Transition &quot;transition1&quot; created.
+
+
+julia&gt; arc(p1, t1, :in)
+An arc of type &quot;in&quot;, connecting the place: place1 to the transition: transition1.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L216-L238">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}" href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>DistributedWorkflows.connect</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">connect(pnet::Workflow_PetriNet, place::Place, port::Port)
+connect(pnet::Workflow_PetriNet, port::Port, place::Place)</code></pre><p>Given a Petri net, connects the given place to the given port. </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, :in)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, :out)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L495-L540">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}" href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>DistributedWorkflows.connect</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">connect(pnet::Workflow_PetriNet, place::Place, transition::Transition, arc_type::Symbol)
+connect(pnet::Workflow_PetriNet, transition::Transition, place::Place, arc_type::Symbol)</code></pre><p>Given a Petri net connects the place to the transition with the given arc type. </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs"># initiating an empty Petri net.
+julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;,:string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output&quot;,:string)
+Place &quot;output&quot; created.
+
+
+julia&gt; t = transition(&quot;transition1&quot;)
+Transition &quot;transition1&quot; created.
+
+
+julia&gt; connect(pn, p1,t, :in)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 1 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2,t, :read)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 2 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3,t, :out_many)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, :in, p2)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, :out, p3)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L376-L430">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.connect-Tuple{Workflow_PetriNet, Symbol, DistributedWorkflows.Place}" href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, Symbol, DistributedWorkflows.Place}"><code>DistributedWorkflows.connect</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">connect(pnet::Workflow_PetriNet, port_type::Symbol, place::Place)
+connect(pnet::Workflow_PetriNet, place::Place, port_type::Symbol)</code></pre><p>Given a Petri net, connects the given place to a port of name port<em>name and type port</em>type. </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+julia&gt; prt = port(:in, p1)
+A port of type &quot;in&quot;, connected to place &quot;input1&quot;.
+
+
+julia&gt; connect(pn, p1, prt)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L553-L594">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.connect-Tuple{Workflow_PetriNet, Vector{Tuple{DistributedWorkflows.Place, Symbol}}, DistributedWorkflows.Transition}" href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, Vector{Tuple{DistributedWorkflows.Place, Symbol}}, DistributedWorkflows.Transition}"><code>DistributedWorkflows.connect</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">connect(pnet::Workflow_PetriNet, places_arcs::Vector{Tuple{Place, Symbol}}, transition::Transition)
+connect(pnet::Workflow_PetriNet, transition::Transition, places_arcs::Vector{Tuple{Place, Symbol}})</code></pre><p>Given a Petri net, connects the vector of tuples (places, arc_types) to the given transition. </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L449-L483">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.connect-Tuple{Workflow_PetriNet, Vector{Tuple{DistributedWorkflows.Place, Symbol}}}" href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, Vector{Tuple{DistributedWorkflows.Place, Symbol}}}"><code>DistributedWorkflows.connect</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">connect(pnet::Workflow_PetriNet, place_port::Vector{Tuple{Place, Symbol}})
+connect(pnet::Workflow_PetriNet, port_place::Vector{Tuple{Symbol, Place}})</code></pre><p>Given a Petri net, connects the given places to a port of name port<em>name and type port</em>type. </p><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L602-L608">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.place" href="#DistributedWorkflows.place"><code>DistributedWorkflows.place</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">place(name::String)
+place(name::String, type::Symbol)</code></pre><p>Creates an object of type Place for the Petri net object. Note: acceptable place types are:   :string, :control, :control_init, :counter</p><p>Also, note that an input or output place cannot be of type :control.</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; place(&quot;new_place&quot;, :string)
+Place &quot;new_place&quot; created.
+
+julia&gt; place(&quot;in_place&quot;, :control)
+Place &quot;in_place&quot; with control token created.</code></pre><p>See also <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L9-L28">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}" href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>DistributedWorkflows.port</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">port(type::Symbol, place::Place)</code></pre><p>Creates a port connecting to the given place with respect to the arc type. Note: the allowed port types are one of the following:     :in, :out, :inout</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; port(:in, p1)
+A port of type &quot;in&quot; connected to place &quot;input1&quot;.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L260-L278">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}" href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>DistributedWorkflows.remove</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">remove(pnet::Workflow_PetriNet, arc::Arc)</code></pre><p>Remove the arc from the given Petri net.  </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, :in)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, :out)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+
+
+julia&gt; a1 = arc(p1,t,:in)
+An arc of type &quot;in&quot;, connecting the place: input1 to the transition: initial_transition.
+
+
+julia&gt; pn.arcs
+3-element Vector{DistributedWorkflows.Arc}:
+ An arc of type &quot;in&quot;, connecting the place: input1 to the transition: initial_transition.
+
+ An arc of type &quot;read&quot;, connecting the place: input2 to the transition: initial_transition.
+
+ An arc of type &quot;out_many&quot;, connecting the place: output_result to the transition: initial_transition.
+
+
+julia&gt; remove(pn, a1)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+
+
+julia&gt; pn.arcs
+2-element Vector{DistributedWorkflows.Arc}:
+ An arc of type &quot;read&quot;, connecting the place: input2 to the transition: initial_transition.
+
+ An arc of type &quot;out_many&quot;, connecting the place: output_result to the transition: initial_transition.
+
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L793-L862">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Place}" href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Place}"><code>DistributedWorkflows.remove</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">remove(pnet::Workflow_PetriNet, place::Place)</code></pre><p>Remove the place from the given Petri net.  </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, :in)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, :out)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+
+
+julia&gt; pn.places
+3-element Vector{DistributedWorkflows.Place}:
+ Place &quot;input1&quot; created.
+
+ Place &quot;input2&quot; created.
+
+ Place &quot;output_result&quot; created.
+
+
+julia&gt; remove(pn, p1)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 2 places, and 1 transitions.
+
+
+julia&gt; pn.places
+2-element Vector{DistributedWorkflows.Place}:
+ Place &quot;input2&quot; created.
+
+ Place &quot;output_result&quot; created.
+
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L624-L689">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Port}" href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Port}"><code>DistributedWorkflows.remove</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">remove(pnet::Workflow_PetriNet, port::Port)</code></pre><p>Remove the port from the given Petri net.  </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, :in)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, :out)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+
+
+julia&gt; pn.ports
+3-element Vector{DistributedWorkflows.Port}:
+ A port of type &quot;in&quot; connected to place &quot;input1&quot;.
+
+ A port of type &quot;in&quot; connected to place &quot;input2&quot;.
+
+ A port of type &quot;out&quot; connected to place &quot;output_result&quot;.
+
+
+julia&gt; prt = port(:in, p1)
+A port of type &quot;in&quot; connected to place &quot;input1&quot;.
+
+
+julia&gt; remove(pn, prt)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; pn.ports
+2-element Vector{DistributedWorkflows.Port}:
+ A port of type &quot;in&quot; connected to place &quot;input2&quot;.
+
+ A port of type &quot;out&quot; connected to place &quot;output_result&quot;.
+
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L870-L939">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Transition}" href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Transition}"><code>DistributedWorkflows.remove</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">remove(pnet::Workflow_PetriNet,  transition::Transition)</code></pre><p>Remove the transition from the given Petri net.  </p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place &quot;input1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;, :string)
+Place &quot;input2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_result&quot;, :string)
+Place &quot;output_result&quot; created.
+
+
+julia&gt; t = transition(&quot;initial_transition&quot;)
+Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :read),(p3, :out_many)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, :in)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, :out)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+
+
+julia&gt; pn.transitions
+1-element Vector{DistributedWorkflows.Transition}:
+ Transition &quot;initial_transition&quot; created.
+
+
+julia&gt; remove(pn, t)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 2 places, and 0 transitions.
+
+
+julia&gt; pn.transitions
+DistributedWorkflows.Transition[]
+
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L717-L775">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.transition" href="#DistributedWorkflows.transition"><code>DistributedWorkflows.transition</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">transition(name::String, exp::Vector{String})
+transition(name::String, exp::Vector{String}, condition::String)</code></pre><p>Creates an object of type Transition for the Petri net object containing an expression. If a condition string is given, the the transition is a condiational transition.</p><p>Note: the condition and/or expression follows Fortran style expression. The following are possible expressions that can be wrapped in a string: Comparison expressions:  :lt: :le: :gt: :ge: :ne: :eq: Boolean expressions:  :or: :and: :not: Operations:  +, -, *, /, :=</p><p>See the example on how to use.</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; transition(&quot;transition1&quot;)
+Transition &quot;transition1&quot; created.
+
+julia&gt; transition(&quot;do_stuff&quot;, &quot;counter :eq: 0UL&quot;)
+A conditional transition &quot;do_stuff&quot; created.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L85-L108">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.transition" href="#DistributedWorkflows.transition"><code>DistributedWorkflows.transition</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">transition(name::String)
+transition(name::String, condition::String)</code></pre><p>Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.</p><p>Note: the condition and/or expression follows Fortran style expression. The following are possible expressions that can be wrapped in a string:   Comparison expressions:  :lt: :le: :gt: :ge: :ne: :eq:   Boolean expressions:  :or: :and: :not:   Operations:  +, -, *, /, :=</p><p>See the example on how to use.</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; transition(&quot;transition1&quot;)
+Transition &quot;transition1&quot; created.
+
+julia&gt; transition(&quot;do_stuff&quot;, &quot;counter :eq: 0UL&quot;)
+A conditional transition &quot;do_stuff&quot; created.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/petri_net.jl#L57-L80">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.compile_workflow" href="#DistributedWorkflows.compile_workflow"><code>DistributedWorkflows.compile_workflow</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">compile_workflow(workflow::String, build_dir::String)</code></pre><p>Given a path for the workflow and an accessible location for the build directory, this function compiles the XML workflow.</p><p>Note:   workflow =&gt; absolute path to the xpnet file   build_dir =&gt; path to build directory</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">tmp_dir = joinpath(@__DIR, &quot;tmp&quot;)
+julia&gt; compile_workflow(joinpath(tmp_dir, &quot;hello_julia.xpnet&quot;))
+...
+Success: Workflow compiled
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>, <a href="#DistributedWorkflows.generate_workflow"><code>generate_workflow</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/workflow_compiler.jl#L1-L19">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.savefig" href="#DistributedWorkflows.savefig"><code>DistributedWorkflows.savefig</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">savefig(pnet::Workflow_PetriNet)
+savefig(pnet::Workflow_PetriNet, format::Symbol)
+savefig(pnet::Workflow_PetriNet, path::String)
+savefig(pnet::Workflow_PetriNet, format::Symbol, path::String)</code></pre><p>By default this method generates a PNG file after compiling the Petri net into an XML workflow and compiling the workflow. If path is not given then the workflow image is stored in your home directory in the &quot;tmp/pnet&quot; folder.</p><p>Note: Supports all the file formats by GraphViz. For example, :png, :svg, :jpg, :pdf, :webp</p><p>For other formats, check GraphViz documentation: https://graphviz.org/docs/outputs/</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; # first generate a workflow in the form of a Petri net
+julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input_file1&quot;)
+Place &quot;input_file1&quot; created.
+
+
+julia&gt; p2 = place(&quot;input_file2&quot;)
+Place &quot;input_file2&quot; created.
+
+
+julia&gt; p3 = place(&quot;output_file1&quot;)
+Place &quot;output_file1&quot; created.
+
+
+julia&gt; p4 = place(&quot;output_file2&quot;)
+Place &quot;output_file2&quot; created.
+
+
+julia&gt; t = transition(&quot;hello_jl&quot;)
+Transition &quot;hello_jl&quot; created.
+
+
+julia&gt; connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 4 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 4 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2, :in)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 4 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3, :out)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 4 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p4, :out)
+A Petri net with name &quot;hello_julia&quot;, having 4 ports, 4 places, and 1 transitions.
+
+
+julia&gt; pn
+A Petri net with name &quot;hello_julia&quot;, having 4 ports, 4 places, and 1 transitions.
+
+# now generate the workflow image
+julia&gt; savefig(pn, :jpg, &quot;/home/pnet&quot;)
+&quot;An image of the workflow Petri net could be found in /home/pnet/hello_julia.jpg&quot;
+
+# the following takes the Petri net and the path for storage and generates a PNG file which is stored in the provided path.
+julia&gt; savefig(pn, &quot;/home/pnet&quot;)
+&quot;An image of the workflow Petri net could be found in /home/pnet/hello_julia.png&quot;
+</code></pre><p>See also <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>, <a href="#DistributedWorkflows.compile_workflow"><code>compile_workflow</code></a>, <a href="#DistributedWorkflows.generate_workflow"><code>generate_workflow</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/workflow_renderer.jl#L5-L81">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.show_workflow-Tuple{Workflow_PetriNet}" href="#DistributedWorkflows.show_workflow-Tuple{Workflow_PetriNet}"><code>DistributedWorkflows.show_workflow</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">show_workflow(pnet::Workflow_PetriNet)</code></pre><p>Converts the given Petri net object to an SVG string and displays it as HTML to the screen. This functionality is meant to be used within environments like IJulia.jl or Pluto.jl, not the REPL.</p><p><strong>Arguments</strong></p><ul><li><code>pnet::Workflow_PetriNet</code>: Petri net object describing the workflow to visualize</li></ul></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/workflow_renderer.jl#L117-L125">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="DistributedWorkflows.generate_workflow" href="#DistributedWorkflows.generate_workflow"><code>DistributedWorkflows.generate_workflow</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">generate_workflow(pnet::Workflow_PetriNet)
+generate_workflow(pnet::Workflow_PetriNet, path::String)</code></pre><p>Given a Petri net description, creates an XML workflow and writes it to a file in the path.</p><p><strong>Examples</strong></p><pre><code class="language-julia-repl hljs">julia&gt; pn = Workflow_PetriNet(&quot;hello_julia&quot;)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 0 places, and 0 transitions.
+
+
+julia&gt; p1 = place(&quot;input1&quot;, :string)
+Place input1 with control token created.
+
+
+julia&gt; p2 = place(&quot;input2&quot;,:string)
+Place input2 with control token created.
+
+
+julia&gt; p3 = place(&quot;output&quot;,:string)
+Place output with control token created.
+
+
+julia&gt; t = transition(&quot;trans&quot;)
+Transition trans created.
+
+
+julia&gt; connect(pn, p1,t, :in)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 1 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p2,t, :read)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 2 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p3,t, :out_many)
+A Petri net with name &quot;hello_julia&quot;, having 0 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, p1, :in)
+A Petri net with name &quot;hello_julia&quot;, having 1 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, :in, p2)
+A Petri net with name &quot;hello_julia&quot;, having 2 ports, 3 places, and 1 transitions.
+
+
+julia&gt; connect(pn, :out, p3)
+A Petri net with name &quot;hello_julia&quot;, having 3 ports, 3 places, and 1 transitions.
+
+# If a path is not provided, the generated workflow is stored in the home directory in the folder: tmp
+julia&gt; generate_workflow(pn, &quot;/home/pnet/&quot;)
+An XML workflow called: parallel_reduce.xpnet has been written to the location: /home/pnet/.
+</code></pre><p>See also <a href="#DistributedWorkflows.place"><code>place</code></a>, <a href="#DistributedWorkflows.transition"><code>transition</code></a>, <a href="#DistributedWorkflows.arc-Tuple{DistributedWorkflows.Place, DistributedWorkflows.Transition, Symbol}"><code>arc</code></a>, <a href="#DistributedWorkflows.port-Tuple{Symbol, DistributedWorkflows.Place}"><code>port</code></a>, <a href="#DistributedWorkflows.Workflow_PetriNet"><code>Workflow_PetriNet</code></a>, <a href="#DistributedWorkflows.connect-Tuple{Workflow_PetriNet, DistributedWorkflows.Place, DistributedWorkflows.Port}"><code>connect</code></a>, <a href="#DistributedWorkflows.remove-Tuple{Workflow_PetriNet, DistributedWorkflows.Arc}"><code>remove</code></a>, <a href="#DistributedWorkflows.compile_workflow"><code>compile_workflow</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/FiroozehDastur/DistributedWorkflows.jl/blob/da96f32e8099f0dd13e873121ffccc821cf602e5/src/xml_generator.jl#L183-L240">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../examples/">« Examples</a><a class="docs-footer-nextpage" href="../../Serialization/custom_serializer/">Serialization »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.5.0 on <span class="colophon-date" title="Wednesday 17 July 2024 22:21">Wednesday 17 July 2024</span>. Using Julia version 1.10.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
