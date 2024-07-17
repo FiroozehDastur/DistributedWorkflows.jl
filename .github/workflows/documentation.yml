@@ -21,13 +21,13 @@ jobs:
           version: '1.9'
       - uses: julia-actions/cache@v2
       - name: sanity check
-        run: ls -a ./DistributedWorkflows.jl/
+        run: ls -a
       - name: Install dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
-        working-directory: ../
+        working-directory: ./DistributedWorkflows.jl/
       - name: Build and deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
         run: julia --project=docs/ docs/make.jl
-        working-directory: ../
+        working-directory: ./DistributedWorkflows.jl/
