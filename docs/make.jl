@@ -1,4 +1,4 @@
-import Pkg; Pkg.activate("./docs")
+# import Pkg; Pkg.activate("./docs")
 using Documenter, DistributedWorkflows
 
 makedocs(
