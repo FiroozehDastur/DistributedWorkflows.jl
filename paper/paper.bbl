@@ -1,0 +1,173 @@
+\begin{thebibliography}{10}
+
+\bibitem{Antic}
+{ANTIC} -- {A}lgebraic {N}umber {T}heory {I}n {C}.
+\url{https://github.com/flintlib/antic}.
+
+\bibitem{JuliaClusterManagers}
+{C}luster{M}anagers {J}ulia {P}ackage.
+\url{https://github.com/JuliaParallel/ClusterManagers.jl}.
+
+\bibitem{cxxwrap}
+{C}xx{W}rap.jl: {P}ackage to make {C}++ libraries available in {J}ulia.
+\url{https://github.com/JuliaInterop/CxxWrap.jl}.
+
+\bibitem{Distributedjl}
+{D}istributed.jl: {C}reate and control multiple {J}ulia processes remotely for
+  distributed computing. ships as a {J}ulia stdlib.
+\url{https://github.com/JuliaLang/Distributed.jl}.
+
+\bibitem{Graphviz81:online}
+Graphviz.
+\url{https://www.graphviz.org/}.
+
+\bibitem{HDF5}
+{HDF5}.jl {F}ile {F}ormat.
+\url{https://juliaio.github.io/HDF5.jl/stable/}.
+
+\bibitem{Introduction_to_petri_nets_book}
+{I}ntroduction to {P}etri {N}ets.
+\url{https://link.springer.com/chapter/10.1007/978-1-4471-4276-8_10}.
+
+\bibitem{JLD2}
+{JLD2} {F}ile {F}ormat.
+\url{https://github.com/JuliaIO/JLD2.jl}.
+
+\bibitem{Plutojl}
+Pluto.jl — interactive {J}ulia programming environment.
+\url{https://plutojl.org/}.
+
+\bibitem{Jupyter}
+{P}roject {J}upyter.
+\url{https://jupyter.org/}.
+
+\bibitem{Understanding_Petri_nets_book}
+{U}nderstanding {P}etri {N}ets: {M}odeling {T}echniques, {A}nalysis {M}ethods,
+  {C}ase {S}tudies.
+\url{https://link.springer.com/book/10.1007/978-3-642-33278-4}.
+
+\bibitem{dagger1}
+R.~Alomairy, F.~Tome, J.~Samaroo, and A.~Edelman.
+{D}ynamic {T}ask {S}cheduling with {D}ata {D}ependency {A}wareness using
+  {J}ulia.
+pages 1--6, 2024.
+
+\bibitem{gpispace_paper_singular}
+J.~B\"{o}hm and A.~Fr\"{u}hbis-Kr\"{u}ger.
+{M}assively {P}arallel {C}omputations in {A}lgebraic {G}eometry.
+In {\em Proceedings of the 2021 International Symposium on Symbolic and
+  Algebraic Computation}, ISSAC '21, page 11–14, New York, NY, USA, 2021.
+  Association for Computing Machinery.
+
+\bibitem{dask}
+{Dask Development Team}.
+{\em Dask: Library for dynamic task scheduling}, 2016.
+
+\bibitem{DistributedWorkflows}
+F.~Dastur, M.~Zeyen, and M.~Rahn.
+{D}istributed{W}orkflows.jl - {A} {J}ulia interface to a distributed task-based
+  workflow management system.
+\url{https://firoozehdastur.github.io/DistributedWorkflows.jl/stable/}, January
+  2024.
+
+\bibitem{DGPS_Singular}
+W.~Decker, G.M. Greuel, G.~Pfister, and H.~Sch\"onemann.
+{\sc Singular} {4-4-0} --- {A} computer algebra system for polynomial
+  computations.
+\url{http://www.singular.uni-kl.de}, 2024.
+
+\bibitem{blackhole_merger}
+S.~d’Ascoli, S.C. Noble, D.B. Bowen, M.~Campanelli, J.H. Krolik, and
+  V.~Mewes.
+{E}lectromagnetic {E}mission from {S}upermassive {B}inary {B}lack {H}oles
+  {A}pproaching {M}erger.
+{\em The Astrophysical Journal}, 865(2):140, oct 2018.
+
+\bibitem{GSPC}
+Competence Center High Performance~Computing Fraunhofer~ITWM.
+{GPI}-{S}pace.
+\url{https://www.gpi-space.de}, September 2020.
+
+\bibitem{GAP4}
+The GAP~Group.
+{\em {GAP -- Groups, Algorithms, and Programming, Version 4.14.0}}, 2024.
+
+\bibitem{Polymake}
+E.~Gawrilow and M.~Joswig.
+{\em polymake: a {F}ramework for {A}nalyzing {C}onvex {P}olytopes}, pages
+  43--73.
+Birkh{\"a}user Basel, Basel, 2000.
+
+\bibitem{gpispace_paper_seismic}
+D.~Gruenewald, N.~Ettrich, M.~Rahn, and F.J. Pfreundt.
+{FRTM} - {A} {P}roductive {F}ramework for {R}everse {T}ime {M}igration.
+2014.
+
+\bibitem{in_situ_visualization_large_scale_fusion_simulation}
+J.~Kress, D.~Pugmire, S.~Klasky, and H.~Childs.
+{V}isualization and {A}nalysis {R}equirements for in {S}itu {P}rocessing for a
+  {L}arge-{S}cale {F}usion {S}imulation {C}ode.
+In {\em 2016 Second Workshop on In Situ Infrastructures for Enabling
+  Extreme-Scale Analysis and Visualization (ISAV)}, pages 45--50, 2016.
+
+\bibitem{WeatherForcast_HPC_paper}
+J.~Michalakes.
+{\em {{HPC} for {W}eather {F}orecasting}}, pages 297--323.
+Springer International Publishing, Cham, 2020.
+
+\bibitem{IEEE_1989paper_petrinets_and_its_applications}
+T.~Murata.
+{P}etri nets: {P}roperties, analysis and applications.
+{\em Proceedings of the IEEE}, 77(4):541--580, 1989.
+
+\bibitem{OSCAR}
+{OSCAR} -- {O}pen {S}ource {C}omputer {A}lgebra {R}esearch system, {V}ersion
+  1.3.0-{DEV}, 2024.
+
+\bibitem{asteroid_vis_paper}
+J.~Patchett, F.~Samsel, K.~Tsai, G.~Gisler, D.~Rogers, G.~Abram, and T.~Turton.
+{V}isualization and {A}nalysis of {T}hreats from {A}steroid {O}cean {I}mpacts.
+2016.
+Winner, Best Scientific Visualization and Data Analytics Showcase;
+  LA-UR-16-26258.
+
+\bibitem{petri_nets}
+C.~A. Petri.
+{\em Kommunikation mit Automaten}.
+Phd thesis, Technische Hochschule Darmstadt, 1962.
+Available at
+  \url{https://www2.informatik.uni-hamburg.de/TGI/mitarbeiter/profs/petri/PetriDis.pdf}.
+
+\bibitem{biology_example_petrinets_openaccess}
+M.~Radom, M.~A. Machnicka, J.~Krwawicz, J.~M. Bujnicki, and P.~Formanowicz.
+{P}etri net–based model of the human {DNA} base excision repair pathway.
+{\em PLOS ONE}, 14:1--26, 09 2019.
+
+\bibitem{gpispace_paper_mapreduce}
+T.~Rotaru, M.~Rahn, and F.J. Pfreundt.
+{M}ap{R}educe in {GPI}-{S}pace.
+In {\em {E}uro-{P}ar 2013: {P}arallel {P}rocessing {W}orkshops:
+  {B}igData{C}loud, {DIHC}, {F}ed{ICI}, {H}etero{P}ar, {H}i{BB}, {LSDVE},
+  {MHPC}, {OMHI}, {PADABS}, {PROPER}, {R}esilience, {ROME}, and {UCHPC} 2013,
+  {A}achen, {G}ermany, {A}ugust 26-27, 2013. {R}evised {S}elected {P}apers 19},
+  pages 43--52. Springer, 2014.
+
+\bibitem{dagger2}
+J.~Samaroo, R.~Alomairy, M.~Giordano, and A.~Edelman.
+{E}fficient {D}ynamic {T}ask {S}cheduling in {H}eterogeneous {E}nvironments
+  with {J}ulia.
+2024.
+
+\bibitem{TheJuly2019EuropeanHeatWaveinaWarmerClimateStorylineScenarioswithaCoupledModelUsingSpectralNudging}
+A.~Sánchez-Benítez, H.~Goessling, F.~Pithan, T.~Semmler, and T.~Jung.
+{T}he {J}uly 2019 {E}uropean {H}eat {W}ave in a {W}armer {C}limate: {S}toryline
+  {S}cenarios with a {C}oupled {M}odel {U}sing {S}pectral {N}udging.
+{\em Journal of Climate}, 35(8):2373 -- 2390, 2022.
+
+\bibitem{petri_nets_paper_IEEE_inhibitor_nets}
+D.~A. Zaitsev.
+{T}oward the {M}inimal {U}niversal {P}etri {N}et.
+{\em IEEE Transactions on Systems, Man, and Cybernetics: Systems},
+  44(1):47--58, 2014.
+
+\end{thebibliography}

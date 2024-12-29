@@ -1,0 +1,26 @@
+title: "DistributedWorkflows.jl - A Julia interface to a task-based workflow management system."
+keywords:
+  - Distributed workflows
+  - Parallel computing
+  - Task-based computing
+  - Petri net workflows
+  - High-Performance Computing (HPC)
+  - User experience (UX)
+  - User-centered design (UCD)
+authors:
+  - name: Firoozeh Dastur
+    orcid: 0009-0000-3334-8132
+    affiliation: 1, 2
+  - name: Max Zeyen
+    affiliation: 3
+  - name: Mirko Rahn
+    affiliation: 2
+affiliations:
+  - name: RPTU Kaiserslautern
+    index: 1
+  - name: Fraunhofer ITWM
+    index: 2
+  - name: NorthStar Earth \& Space
+    index: 3
+date: 20 July 2024
+bibliography: ref.bib
