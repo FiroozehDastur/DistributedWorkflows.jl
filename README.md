@@ -34,7 +34,7 @@ Please cite this package as follows if you use it in your work:
    >
    > ---
 
-2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflows.jl](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.1.0-se)
+2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflows.jl](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.1.0)
 
    *OR* 
 
@@ -47,11 +47,11 @@ Please cite this package as follows if you use it in your work:
    >
    > ---
 
-   * [Ubuntu 22.04](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_ubuntu22)
-   * [Debian 11](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_debian11)
-   * [Debian 12](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_debian12)
-   * [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux8)
-   * [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0-se/distributedworkflow_rockylinux9)
+   * [Ubuntu 22.04](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0/distributedworkflow_ubuntu22)
+   * [Debian 11](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0/distributedworkflow_debian11)
+   * [Debian 12](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0/distributedworkflow_debian12)
+   * [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0/distributedworkflow_rockylinux8)
+   * [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.1.0/distributedworkflow_rockylinux9)
 
 3. Once the installation is complete, navigate to the directory where you saved your binary file and install it in a target location of your choice as follows:
 
