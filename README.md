@@ -43,7 +43,7 @@ Please cite this package as follows if you use it in your work:
    > ---
    > **Note:**
    >
-   > The binaries are all built for the `x86_64_v3` architechture
+   > The binaries are all built for the `x86_64_v3` architecture
    >
    > ---
 
@@ -217,7 +217,7 @@ Next, start the client using
 client(<number-of-workers>, "/path/to/nodefile", "rif-strategy")
 ```
 
-As a next step, it is advisible to create a script with your workflow configuration (see the executor files in the examples folder), and submit your application using the ```submit_workflow()``` function.
+As a next step, it is advisable to create a script with your workflow configuration (see the executor files in the examples folder), and submit your application using the ```submit_workflow()``` function.
 
 Once your application runs through, the output files will be stored in your desired output location.
 
@@ -236,7 +236,7 @@ Once your application runs through, the output files will be stored in your desi
 | [PetriNet(workflow_name::String)](./src/petri_net.jl#L299) | Creates an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.|
 | [place(name::String, type::Symbol)](./src/petri_net.jl#L10) | Creates an object of type Place for the Petri net object.|
 | [port(type::Symbol, place::Place)](./src/petri_net.jl#L261) | Creates a port connecting to the given place with respect to the arc type.|
-| [transition(name::String, condition::String)](./src/petri_net.jl#L58) | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.|
+| [transition(name::String, condition::String)](./src/petri_net.jl#L58) | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a conditional transition.|
 | [remove(pnet::PetriNet, place::Place)](./src/petri_net.jl#L625) | Remove the place from the given Petri net.|
 | [generate_workflow(pnet::PetriNet, path::String)](./src/petri_net.jl#L) | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
 | [savefig(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates an image file in one of the acceptable formats. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
