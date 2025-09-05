@@ -57,7 +57,7 @@ end
 """
     transition(name::String)
     transition(name::String, condition::String)
-Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a condiational transition.
+Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a conditional transition.
 
   Note: the condition and/or expression follows Fortran style expression. The following are possible expressions that can be wrapped in a string:
   Comparison expressions:  :lt: :le: :gt: :ge: :ne: :eq:
@@ -85,7 +85,7 @@ end
 """
     transition(name::String, exp::Vector{String})
     transition(name::String, exp::Vector{String}, condition::String)
-Creates an object of type Transition for the Petri net object containing an expression. If a condition string is given, the the transition is a condiational transition.
+Creates an object of type Transition for the Petri net object containing an expression. If a condition string is given, the the transition is a conditional transition.
 
 Note: the condition and/or expression follows Fortran style expression. The following are possible expressions that can be wrapped in a string:
 Comparison expressions:  :lt: :le: :gt: :ge: :ne: :eq:

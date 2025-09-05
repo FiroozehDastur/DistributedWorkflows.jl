@@ -175,7 +175,7 @@ Configures a workflow for execution by a client instance.
 # Arguments
 - `workflow::String`: Name of the workflow.
 - `output_dir::String`: Location to store any output data generated during the workflow execution.
-- `app_config::Application_config`: Application configuration for the workflow exeuction.
+- `app_config::Application_config`: Application configuration for the workflow execution.
 
 See also [`Workflow_PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -197,7 +197,7 @@ Configures a workflow for execution by a client instance.
 # Arguments
 - `workflow::String`: Name of the workflow.
 - `output_dir::String`: Location to store any output data generated during the workflow execution.
-- `app_config::Vector{Application_config}`: List of application configurations for the workflow exeuction.
+- `app_config::Vector{Application_config}`: List of application configurations for the workflow execution.
 
 See also [`Workflow_PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
@@ -222,7 +222,7 @@ Configures a workflow for execution by a client instance.
 # Arguments
 - `workflow::String`: Name of the workflow.
 - `output_dir::String`: Location to store any output data generated during the workflow execution.
-- `app_config::Application_config_many`: Application configurations for the workflow exeuction.
+- `app_config::Application_config_many`: Application configurations for the workflow execution.
 
 See also [`Workflow_PetriNet`](@ref), [`generate_workflow`](@ref), [`compile_workflow`](@ref).
 """
