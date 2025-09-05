@@ -231,32 +231,27 @@ Once your application runs through, the output files will be stored in your desi
 
 | Function | Usage |
 |:-:|:-:|
-| [arc(place::Place, transition::Transition, arc_type::Symbol)](./src/petri_net.jl#L217) | Creates an object of type Arc that joins a place to a transition in a Petri net.|
-| [connect(pnet::PetriNet, place::Place, transition::Transition, arc_type::Symbol)](./src/petri_net.jl#L377) | Given a Petri net connects the place to the transition with the given arc type.|
-| [PetriNet(workflow_name::String)](./src/petri_net.jl#L299) | Creates an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.|
-| [place(name::String, type::Symbol)](./src/petri_net.jl#L10) | Creates an object of type Place for the Petri net object.|
-| [port(type::Symbol, place::Place)](./src/petri_net.jl#L261) | Creates a port connecting to the given place with respect to the arc type.|
-| [transition(name::String, condition::String)](./src/petri_net.jl#L58) | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a conditional transition.|
-| [remove(pnet::PetriNet, place::Place)](./src/petri_net.jl#L625) | Remove the place from the given Petri net.|
-| [generate_workflow(pnet::PetriNet, path::String)](./src/petri_net.jl#L) | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
-| [savefig(pnet::PetriNet, format::Symbol, path::String)](./src/workflow_renderer.jl#L6) | Generates an image file in one of the acceptable formats. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
-| [show_workflow(pnet::PetriNet)](./src/workflow_renderer.jl#L118) | Displays a visualisation of the Petri net workflow on screen within environments such as IJulia or Pluto.|
+| [arc( )](./src/petri_net.jl#L217) | Creates an object of type Arc that joins a place to a transition in a Petri net.|
+| [connect( )](./src/petri_net.jl#L377) | Given a Petri net connects the place to the transition with the given arc type.|
+| [PetriNet( )](./src/petri_net.jl#L299) | Creates an empty Petri net named: "workflow_name". Throws an error, if workflow name is not provided.|
+| [place( )](./src/petri_net.jl#L10) | Creates an object of type Place for the Petri net object.|
+| [port( )](./src/petri_net.jl#L261) | Creates a port connecting to the given place with respect to the arc type.|
+| [transition( )](./src/petri_net.jl#L58) | Creates an object of type Transition for the Petri net object. If a condition string is given, the the transition is a conditional transition.|
+| [remove( )](./src/petri_net.jl#L625) | Remove the place from the given Petri net.|
+| [generate_workflow( )](./src/petri_net.jl#L) | Given a Petri net description, creates an XML workflow and writes it to a file in the path.|
+| [savefig( )](./src/workflow_renderer.jl#L6) | Generates an image file in one of the acceptable formats. If path is not given then the workflow image is stored in the home directory in the "tmp/pnet" folder.|
+| [show_workflow( )](./src/workflow_renderer.jl#L118) | Displays a visualisation of the Petri net workflow on screen within environments such as IJulia or Pluto.|
 
 **The following is a list of API functions for setting the application and workflow configuration:**
 
 | Function | Usage |
 |:-:|:-:|
-| [application_config()]() | Description of function here...|
-| [client()]() | Description of function here...|
-| [compile_workflow(workflow::String, build_dir::String)]() | Given a path for the workflow and an accessible location for the build directory, this function compiles the XML workflow.|
-| [implementation()]() | Description of function here...|
-| [input_pair()]() | Description of function here...|
-| [julia_implementation()]() | Description of function here...|
-| [output_dir()]() | Description of function here...|
-| [port_info()]() | Description of function here...|
-| [set_workflow_env()]() | Description of function here...|
-| [submit_workflow()]() | Description of function here...|
-| [workflow_config()]() | Description of function here...|
+| [application_config( )](./src/wrapper.jl#L14) | Constructor for configuring a workflow application |
+| [client( )](./src/wrapper.jl#L53) | Configures and starts a client setting up the workflow execution infrastructure and connects to a logging service. |
+| [compile_workflow( )](./src/workflow_compiler.jl#L2) | Given a path for the workflow and an accessible location for the build directory, this function compiles the XML workflow.|
+| [input_pair( )](./src/wrapper.jl#L114) | Convenience key-value pair wrapper for function signature clarity and readability. |
+| [submit_workflow( )](./src/wrapper.jl#L150) | Submit a configured workflow to a client instance. |
+| [workflow_config( )](./src/wrapper.jl#L172) | Configures a workflow for execution by a client instance. |
 
 ## Features
 
@@ -270,13 +265,13 @@ Once your application runs through, the output files will be stored in your desi
 ## Shortcomings
 
 * At the moment, this package is only efficient and recommended for long running processes.
-* Due to the underlying workflow manager, this package only supports the following operating systems:
+* At the time of this package’s publication, the underlying workflow manager supports only the following operating systems:
 
   ```
   * Ubuntu 20.04 LTS
   * Ubuntu 22.04 LTS
   ```
-  However, we have provided binaries to some additional distributions that we are testing against. In case of any problems related to installation or setup, please get in touch with us.
+  However, we provide binaries to some additional distributions that we are testing against. In case of any problems related to installation or setup, please get in touch with us.
 
 ## See also
 
