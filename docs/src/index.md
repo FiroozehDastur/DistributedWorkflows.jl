@@ -6,6 +6,7 @@ CurrentModule = DistributedWorkflows
 
 
 ```@contents
+Pages = ["index.md", "api.md", "Serialization/custom_serializer.md", "troubleshooting.md"]
 ``` 
 
 ## Overview

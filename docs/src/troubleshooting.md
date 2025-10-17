@@ -21,6 +21,7 @@ If you encounter issues after following the README instructions, try the steps b
 
 ## Other Issues
 
+- If you have followed all the steps above and are still experiencing issues with the installation, please open an issue so we can work together to resolve it. Be sure to include a minimal reproducible example that clearly demonstrates the problem you’re encountering.
 - For any other problems, you can open a GitHub issue with:  
   - A minimal reproducible example.  
   - Relevant details about your setup and the steps leading to the error.  

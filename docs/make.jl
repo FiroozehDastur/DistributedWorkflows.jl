@@ -7,9 +7,7 @@ makedocs(
     format = Documenter.HTML(prettyurls = true),
     pages = [
         "Introduction" => "index.md",
-        "API" => "api.md",
-        "Examples" => "examples.md",
-        "Workflow" => "./PetriNet/PetriNet.md",
+        "Available Features" => "api.md",
         "Serialization" => "./Serialization/custom_serializer.md",
         "Troubleshooting" => "troubleshooting.md"
     ]
