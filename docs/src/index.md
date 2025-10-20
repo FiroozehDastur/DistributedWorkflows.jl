@@ -6,6 +6,7 @@ CurrentModule = DistributedWorkflows
 
 
 ```@contents
+Pages = ["index.md", "api.md", "Serialization/custom_serializer.md", "troubleshooting.md"]
 ``` 
 
 ## Overview
@@ -36,7 +37,7 @@ Please cite this package as follows if you use it in your work:
 2. Next, download the respective binary for your system from the following: [Binaries for DistributedWorkflows.jl](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.2.0).
 
 !!! info
-    The binaries are all built for the `x86_64_v3` architechture
+    The binaries are all built for the `x86_64_v3` architecture
 
 3. Once the installation is complete, navigate to the directory where you saved your binary file and install it in a target location of your choice as follows:
 
@@ -172,7 +173,7 @@ Next, start the client using
 client(<number-of-workers>, "/path/to/nodefile", "rif-strategy")
 ```
 
-As a next step, it is advisible to create a script with your workflow configuration (see the executor files in the examples folder), and submit your application using the ```submit_workflow()``` function.
+As a next step, it is advisable to create a script with your workflow configuration (see the executor files in the examples folder), and submit your application using the ```submit_workflow()``` function.
 
 Once your application runs through, the output files will be stored in your desired output location.
 
