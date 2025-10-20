@@ -7,6 +7,14 @@
 [![codecov](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl/graph/badge.svg?token=9JIYL7YJYK)](https://codecov.io/gh/FiroozehDastur/DistributedWorkflows.jl)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://FiroozehDastur.github.io/DistributedWorkflows.jl/dev)
 
+> ---
+> **⚠️ Compatibility Notice**
+>
+> This package currently supports Julia v1.9.2 or earlier, as required for the JuliaCon proceedings. A new version compatible with later Julia releases will be provided after the publication is finalized.
+>
+> For compatibility with the operating systems check the [release artifacts](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/tag/v0.1.0).
+>
+> ---
 
 ## How to cite DistributedWorkflows.jl
 
@@ -265,13 +273,13 @@ Once your application runs through, the output files will be stored in your desi
 ## Shortcomings
 
 * At the moment, this package is only efficient and recommended for long running processes.
-* At the time of this package’s publication, the underlying workflow manager supports only the following operating systems:
+* At the time of this package’s publication, the underlying workflow manager (GPI-Space) supports only the following operating systems:
 
   ```
   * Ubuntu 20.04 LTS
   * Ubuntu 22.04 LTS
   ```
-  However, we provide binaries to some additional distributions that we are testing against. In case of any problems related to installation or setup, please get in touch with us.
+ DistributedWorkflows provides binaries to additional distributions. In case of any problems related to installation or setup, please get in touch with us.
 
 ## See also
 
