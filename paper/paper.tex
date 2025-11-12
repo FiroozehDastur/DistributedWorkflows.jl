@@ -35,7 +35,7 @@ Additionally, increasing data sizes and problem complexity have raised the neces
 For example, in the modeling and analysis of protein synthesis and DNA mutation, distributed systems enable efficient simulations of complex biological processes, providing insights into genetics and molecular biology (e.g. \cite{biology_example_petrinets_openaccess}).
 Similarly, weather simulations have greatly benefited from distributed systems, allowing for more accurate and faster predictions (e.g. \cite{WeatherForcast_HPC_paper}).
 Additionally, climate simulations are enabled to run over larger time ranges (e.g. \cite{TheJuly2019EuropeanHeatWaveinaWarmerClimateStorylineScenarioswithaCoupledModelUsingSpectralNudging}).
-Other examples include asteroid impact simulations\cite{asteroid_vis_paper}, black hole mergers\cite{blackhole_merger}, and nuclear fusion simulations\cite{in_situ_visualization_large_scale_fusion_simulation}, just to name a few (see Figure \ref{fig:intro_examples}).
+Other examples include asteroid impact simulations \cite{asteroid_vis_paper}, black hole mergers \cite{blackhole_merger}, and nuclear fusion simulations \cite{in_situ_visualization_large_scale_fusion_simulation}, just to name a few (see Figure \ref{fig:intro_examples}).
 These achievements highlight the transformative power of distributed systems in scientific research.\vskip 6pt
 
 However, programming distributed applications is a challenge of its own, especially for scientists who are not trained in the proper usage of HPC systems.
@@ -58,8 +58,8 @@ Workflows provide a higher-level abstraction that simplifies the process of buil
 By abstracting away much of the low-level complexity, workflows enable domain scientists to focus on the problem at hand rather than the intricacies of parallel programming. 
 This approach significantly reduces the cognitive load required to implement distributed systems and makes parallel computing more accessible to non-computer scientists.\vskip 6pt
 
-In this paper, we introduce \emph{DistributedWorkflows.jl}\cite{DistributedWorkflows}, a Julia package that aims to facilitate the writing of parallel applications. 
-\emph{DistributedWorkflows.jl} is a high-level wrapper around the HPC tool GPI-Space\cite{GSPC}, which allows domain scientists to create efficient parallel applications with a user-friendly interface. 
+In this paper, we introduce \emph{DistributedWorkflows.jl} \cite{DistributedWorkflows}, a Julia package that aims to facilitate the writing of parallel applications. 
+\emph{DistributedWorkflows.jl} is a high-level wrapper around the HPC tool GPI-Space \cite{GSPC}, which allows domain scientists to create efficient parallel applications with a user-friendly interface. 
 This package simplifies the process of building distributed applications by providing a higher-level abstraction, enabling scientists to focus on their research rather than the challenges of parallel programming.\vskip 6pt
 
 The paper is structured as follows:
@@ -74,26 +74,27 @@ Finally, Section \ref{sec:conclusions_and_future_work} briefly describes future 
 \label{sec:related_work}
 
 Julia's rich ecosystem already includes some packages for high-performance computing.
-The most popular of these packages are \emph{Distributed.jl}\cite{Distributedjl} and \emph{Dagger.jl}\cite{dagger1, dagger2}.\vskip 6pt
+The most popular of these packages are \emph{Distributed.jl} \cite{Distributedjl} and \emph{Dagger.jl} \cite{dagger1, dagger2}.\vskip 6pt
 
 \emph{Distributed.jl} offers functionalities for creating and managing multiple Julia processes remotely, enabling distributed and parallel computing. 
 It utilizes network sockets or other supported interfaces to facilitate communication between Julia processes and relies on Julia’s serialization package from its standard library to efficiently transfer Julia objects between processes. 
 The package includes a comprehensive set of utilities for creating and destroying Julia processes, adding them to a "cluster" (a collection of interconnected Julia processes), and enabling Remote Procedure Calls (RPC) between processes within the cluster. 
 However, it requires the manual launching of tasks, which adds complexity to managing distributed workloads and makes it less user-friendly for domain scientists.\vskip 6pt
 
-\emph{Dagger.jl} is a scheduler that draws inspiration from Dask\cite{dask}. 
+\emph{Dagger.jl} is a scheduler that draws inspiration from Dask \cite{dask}. 
 It efficiently executes computations represented as directed-acyclic graphs (DAGs) across multiple Julia worker processes and threads, as well as GPUs via \emph{DaggerGPU.jl}. 
 While DAGs are a powerful way to represent dependencies in a computation, as the name suggests, they cannot represent cyclic dependencies.\vskip 6pt
 
-\emph{DistributedWorkflows.jl} uses GPI-Space\cite{GSPC} as its underlying framework.
+\emph{DistributedWorkflows.jl} uses GPI-Space \cite{GSPC} as its underlying framework.
 GPI-Space has been utilized across a wide range of domains, from big-data processing \cite{gpispace_paper_mapreduce}, reverse time migration for seismic measurement data \cite{gpispace_paper_seismic}, to computational algebraic geometry \cite{gpispace_paper_singular}.
-It employs Petri nets as its workflow description language, which were named after Carl Adam Petri, who extensively analyzed these graphs in his dissertation\cite{petri_nets}.
+It employs Petri nets as its workflow description language, which were named after Carl Adam Petri, who extensively analyzed these graphs in his dissertation \cite{petri_nets}.
 Petri nets are directed bi-partite graphs capable of modeling both concurrency and resource sharing more naturally.
 In Petri nets, the transitions and places provide a richer representation of parallelism, and workflows can easily capture more complex interactions in distributed systems. 
 This makes Petri nets, as used in \emph{DistributedWorkflows.jl}, a more powerful model for designing distributed applications, as they allow for greater expressiveness and ease in handling complex tasks and synchronization.
 Table \ref{comparison table for distributed, dagger, and distributedworkflows} provides a feature comparison between \emph{Distributed.jl}, \emph{Dagger.jl}, and \emph{DistributedWorkflows.jl}.\vskip 6pt
 
-This package was created out of the need to provide a convenient way to parallelize computations in the Julia package \emph{Oscar}\cite{OSCAR}. \emph{Oscar} is a computer algebra system that combines the capabilities of its four cornerstones \emph{GAP}\cite{GAP4}, \emph{Polymake}\cite{Polymake}, \emph{Antic}\cite{Antic} and \emph{Singular}\cite{DGPS_Singular}. Each of these cornerstones come equipped with their own serializer, in addition to \textsc{Oscar}'s own serializer that works from within Julia. Hence, the need of \emph{DistributedWorkflows.jl} to be serializer independent.\vskip 6pt
+This package was created out of the need to provide a convenient way to parallelize computations in the Julia package OSCAR \cite{OSCAR}. OSCAR is a computer algebra system that combines the capabilities of its four cornerstones \emph{GAP} \cite{GAP4}, \emph{Polymake} \cite{Polymake}, ANTIC % \cite{Antic} 
+and \emph{Singular} \cite{DGPS_Singular}. Each of these cornerstones come equipped with their own serializer, in addition to OSCAR's own serializer that works from within Julia. Hence, the need of \emph{DistributedWorkflows.jl} to be serializer independent.\vskip 6pt
 
 \emph{Singular} already employs GPI-Space to write parallel applications, for example see \cite{gpispace_paper_singular}. 
 However, \emph{Singular}’s workflows are custom-designed for specific applications and are not reusable across different tasks. 
@@ -199,7 +200,7 @@ Finally, activity results are passed back from the scheduler to the workflow eng
 \section{Design and Method}
 \label{sec:design_and_method}
 
-The \emph{DistributedWorkflows.jl} package started as an interface to GPI-Space\cite{GSPC}, but it has grown to include features that significantly improves user experience.
+The \emph{DistributedWorkflows.jl} package started as an interface to GPI-Space \cite{GSPC}, but it has grown to include features that significantly improves user experience.
 The primary focus being on ease of use and flexibility, this package extends the capabilities of the underlying system.
 Below is a summary of its key features:
 
@@ -207,7 +208,7 @@ Below is a summary of its key features:
     \item \textbf{Ease of use}\\
           Designed to simplify user interactions, with a fully documented public API, consisting of examples for every method.\vskip 6pt
     \item \textbf{Serializer Independent}\\
-          Supports Julia's built-in serializer, as well as other serializer formats like JLD2\cite{JLD2}, HDF5\cite{HDF5}, or any other custom serializer see for example the serializer for Julia package Oscar\cite{OSCAR}, allowing for flexibility in data handling.\vskip 6pt
+          Supports Julia's built-in serializer, as well as other serializer formats like JLD2 \cite{JLD2}, HDF5 \cite{HDF5}, or any other custom serializer see for example the serializer for Julia package OSCAR \cite{OSCAR}, allowing for flexibility in data handling.\vskip 6pt
     \item \textbf{Simplified Workflow Creation}\\
           Reduced complexity of writing parallel applications and the Petri net workflows, making it accessible to experts and non-experts alike.\vskip 6pt
     
@@ -216,7 +217,7 @@ Below is a summary of its key features:
     \item \textbf{Workflow Component Editing}\\
           Has the ability to add and/or remove parts of any Petri net component, giving users greater control over the workflow design.\vskip 6pt
     \item \textbf{Workflow Visualization}\\
-          Features a visualization tool using Graphviz\cite{Graphviz81:online} to generate and view Petri nets, aiding in workflow design.\vskip 6pt
+          Features a visualization tool using Graphviz \cite{Graphviz81:online} to generate and view Petri nets, aiding in workflow design.\vskip 6pt
     \item \textbf{XML File Generation and Compilation}\\
            Includes a convenience function to generate and compile workflows into XML files required by GPI-Space, directly within Julia.\vskip 6pt
     \item \textbf{Reusable Workflows}\\
@@ -229,7 +230,7 @@ Below is a summary of its key features:
     \item \textbf{Direct Job Submission}\\
           Supports job submission directly from Julia, streamlining deployment.\vskip 6pt
     \item \textbf{Notebook Support}\\
-          Integrates with Jupyter\cite{Jupyter} and Pluto\cite{Plutojl} notebooks, enabling workflow viewing and editing in an interactive environment, see Figure \ref{notebook_examples}.\vskip 6pt
+          Integrates with Jupyter \cite{Jupyter} and Pluto \cite{Plutojl} notebooks, enabling workflow viewing and editing in an interactive environment, see Figure \ref{notebook_examples}.\vskip 6pt
 \end{itemize}
 
 \begin{figure}[h]
@@ -245,14 +246,14 @@ Below is a summary of its key features:
 This package has been designed with a user-centric approach from its inception.
 Our primary goal has been to remove the complexities of writing parallel applications and make distributed computing more accessible to domain scientists.
 As a result, users can focus on parallelizing their algorithms and designing a Petri net to define the workflow, rather than dealing with system setup intricacies. 
-To achieve this, we abstracted the C++ components of GPI-Space into a library and integrated its communication functionality into Julia using CXXWrap\cite{cxxwrap}.\vskip 6pt
+To achieve this, we abstracted the C++ components of GPI-Space into a library and integrated its communication functionality into Julia using CXXWrap \cite{cxxwrap}.\vskip 6pt
 
 Since GPI-Space is a workflow management tool not natively designed for Julia, users need to configure their environment to utilize it.
 GPI-Space itself can be downloaded by following the installation steps provided in \cite{GSPC}.
 \emph{DistributedWorkflows.jl} on the other hand, provides binaries for selected operating systems and architectures, that can be downloaded from the GitHub repository \cite{DistributedWorkflows}.
 Following the step by step instructions, the user can setup their environment to use the package.\vskip 6pt
 
-For users who wish to visualize workflows before compilation, it is recommended to install Graphviz\cite{Graphviz81:online}, which allows visualization in various formats. 
+For users who wish to visualize workflows before compilation, it is recommended to install Graphviz \cite{Graphviz81:online}, which allows visualization in various formats. 
 Once the setup is complete, the \emph{DistributedWorkflows.jl} package can be installed directly in Julia using its package manager. 
 At this stage, users are ready to parallelize and execute their applications with \emph{DistributedWorkflows.jl}.\vskip 6pt
 
