@@ -51,12 +51,26 @@ author = {},
 }
 
 Citation # 7
-@misc{Introduction_to_petri_nets_book,
-author = {},
-title = {{I}ntroduction to {P}etri {N}ets},
-doi = {10.1007/978-1-4471-4276-8_10},
-howpublished = {\url{https://link.springer.com/chapter/10.1007/978-1-4471-4276-8_10}}
+@Inbook{Introduction_to_petri_nets_book,
+author="Cabasino, M. P.
+and Giua, A.
+and Seatzu, C.",
+editor="Seatzu, C.
+and Silva, M.
+and van Schuppen, J. H.",
+title="Introduction to Petri Nets",
+bookTitle="Control of Discrete-Event Systems: Automata and Petri Net Perspectives",
+year="2013",
+publisher="Springer London",
+address="London",
+pages="191--211",
+abstract="Petri nets are one of the most important discrete event systems formalisms. Three are the main reasons of this. Firstly, they provide a rich family of both logic and timed models, that share a set of formal tools. Secondly, they can be used in all phases of design of a control system. Finally, Petri nets have been successfully used in several research domains, such as max-plus algebra, markovian processes, supervisory control, etc. In this chapter we provide the basic notations and results in this framework, only focusing on a purely logic model called place/transition net.",
+isbn="978-1-4471-4276-8",
+doi="10.1007/978-1-4471-4276-8_10",
+url="https://doi.org/10.1007/978-1-4471-4276-8_10",
+note = {\url{https://doi.org/10.1007/978-1-4471-4276-8_10}}
 }
+
 
 Citation # 8
 @misc{JLD2,
@@ -69,7 +83,7 @@ Citation # 8
 
 Citation # 9
 @misc{Plutojl,
-author = {},
+  author = {},
   title = {Pluto.jl — interactive {J}ulia programming environment},
   publisher = {GitHub},
   journal = {GitHub repository},
@@ -84,11 +98,15 @@ Citation # 10
 }
 
 Citation # 11
-@misc{Understanding_Petri_nets_book,
-author = {},
-title = {{U}nderstanding {P}etri {N}ets: {M}odeling {T}echniques, {A}nalysis {M}ethods, {C}ase {S}tudies},
-doi = {10.1007/978-3-642-33278-4},
-howpublished = {\url{https://link.springer.com/book/10.1007/978-3-642-33278-4}}
+@book{Understanding_Petri_nets_book,
+  title = {Understanding Petri Nets: Modeling Techniques,  Analysis Methods,  Case Studies},
+  ISBN = {9783642332784},
+  url = {http://dx.doi.org/10.1007/978-3-642-33278-4},
+  note = {\url{http://dx.doi.org/10.1007/978-3-642-33278-4}},
+  DOI = {10.1007/978-3-642-33278-4},
+  publisher = {Springer Berlin Heidelberg},
+  author = {Reisig,  W.},
+  year = {2013}
 }
 
 Citation # 12
@@ -97,17 +115,19 @@ Citation # 12
   author={Alomairy, R. and Tome, F. and Samaroo, J. and Edelman, A.},
   pages={1--6},
   year={2024},
-  publisher={MIT Open Access Articles}
+  publisher={MIT Open Access Articles},
+  note = {\url{https://www.juliapackages.com/p/dagger}}
 }
 
 Citation # 13
 @inproceedings{gpispace_paper_singular,
-author = {B\"{o}hm, Janko and Fr\"{u}hbis-Kr\"{u}ger, Anne},
+author = {B\"{o}hm, J. and Fr\"{u}hbis-Kr\"{u}ger, A.},
 title = {Massively Parallel Computations in Algebraic Geometry},
 year = {2021},
 isbn = {9781450383820},
 publisher = {Association for Computing Machinery},
 address = {New York, NY, USA},
+note = {\url{https://doi.org/10.1145/3452143.3465510}},
 url = {https://doi.org/10.1145/3452143.3465510},
 doi = {10.1145/3452143.3465510},
 booktitle = {Proceedings of the 2021 International Symposium on Symbolic and Algebraic Computation},
@@ -123,7 +143,7 @@ Citation # 14
   title = {Dask: Library for dynamic task scheduling},
   author = {{Dask Development Team}},
   year = {2016},
-  url = {http://dask.pydata.org},
+  note = {\url{https://docs.dask.org/en/stable/}}
 }
 
 Citation # 15
@@ -135,7 +155,6 @@ Citation # 15
   month    = {January},
   publisher = {GitHub},
   journal = {GitHub repository},
-  
   howpublished = {\url{https://firoozehdastur.github.io/DistributedWorkflows.jl/stable/}}
 }
 
@@ -144,12 +163,13 @@ Citation # 16
  title = {{\sc Singular} {4-4-0} --- {A} computer algebra system for polynomial computations},
  author = {Decker, W. and Greuel, G.M. and Pfister, G. and Sch\"onemann, H.},
  year = {2024},
- howpublished = {\url{http://www.singular.uni-kl.de}},
+ howpublished = {\url{https://www.singular.uni-kl.de/}},
 }
 
 Citation # 17
 @article{blackhole_merger,
 doi = {10.3847/1538-4357/aad8b4},
+note = {\url{https://dx.doi.org/10.3847/1538-4357/aad8b4}},
 url = {https://dx.doi.org/10.3847/1538-4357/aad8b4},
 year = {2018},
 month = {oct},
@@ -173,40 +193,43 @@ Citation # 18
 
 Citation # 19
 @manual{GAP4,
-    organization = "The GAP~Group",
-    title        = "{GAP -- Groups, Algorithms, and Programming,
-                    Version 4.14.0}",
-    year         = 2024,
-    url          = "\url{https://www.gap-system.org}",
+  organization = "The GAP~Group",
+  title        = "{GAP -- Groups, Algorithms, and Programming,
+                  Version 4.14.0}",
+  year         = 2024,
+  url          = "\url{https://www.gap-system.org}",
+  note = {\url{https://www.gap-system.org}}
 }
 
 Citation # 20
 @Inbook{Polymake,
-author="Gawrilow, E.
-and Joswig, M.",
-editor="Kalai, Gil
-and Ziegler, G{\"u}nter M.",
-title="polymake: a {F}ramework for {A}nalyzing {C}onvex {P}olytopes",
-bookTitle="Polytopes --- Combinatorics and Computation",
-year="2000",
-publisher="Birkh{\"a}user Basel",
-address="Basel",
-pages="43--73",
-isbn="978-3-0348-8438-9",
-doi="10.1007/978-3-0348-8438-9_2",
-url="https://doi.org/10.1007/978-3-0348-8438-9_2"
+  author="Gawrilow, E.
+  and Joswig, M.",
+  editor="Kalai, Gil
+  and Ziegler, G{\"u}nter M.",
+  title="polymake: a {F}ramework for {A}nalyzing {C}onvex {P}olytopes",
+  bookTitle="Polytopes --- Combinatorics and Computation",
+  year="2000",
+  publisher="Birkh{\"a}user Basel",
+  address="Basel",
+  pages="43--73",
+  isbn="978-3-0348-8438-9",
+  doi="10.1007/978-3-0348-8438-9_2",
+  url="https://doi.org/10.1007/978-3-0348-8438-9_2",
+  note = {\url{https://doi.org/10.1007/978-3-0348-8438-9_2}}
 }
 
 Citation # 21
 @article{gpispace_paper_seismic,
-   author = {Gruenewald, D. and Ettrich, N. and Rahn, M. and Pfreundt, F.J.},
-   title = {{FRTM} - {A} {P}roductive {F}ramework for {R}everse {T}ime {M}igration}, 
-   year = {2014},
-   doi = {10.3997/2214-4609.20141914},
-   url = {https://www.earthdoc.org/content/papers/10.3997/2214-4609.20141914},
-   publisher = {European Association of Geoscientists &amp; Engineers},
-   issn = {2214-4609},
-   eid = {cp-426-00011},
+  author = {Gruenewald, D. and Ettrich, N. and Rahn, M. and Pfreundt, F.J.},
+  title = {{FRTM} - {A} {P}roductive {F}ramework for {R}everse {T}ime {M}igration}, 
+  year = {2014},
+  doi = {10.3997/2214-4609.20141914},
+  url = {https://www.earthdoc.org/content/papers/10.3997/2214-4609.20141914},
+  publisher = {European Association of Geoscientists &amp; Engineers},
+  issn = {2214-4609},
+  eid = {cp-426-00011},
+  note = {\url{https://www.earthdoc.org/content/papers/10.3997/2214-4609.20141914}}
 }
 
 Citation # 22
@@ -217,23 +240,25 @@ Citation # 22
   year={2016},
   pages={45-50},
   keywords={Data visualization;Computational modeling;Data models;Analytical models;Interviews;Three-dimensional displays;Tokamak devices},
-  doi={10.1109/ISAV.2016.014}
+  doi={10.1109/ISAV.2016.014},
+  note = {\url{https://doi.org/10.1109/ISAV.2016.014}}
 }
 
 Citation # 23
 @Inbook{WeatherForcast_HPC_paper,
-author="Michalakes, J.",
-editor="Grama, A.
-and Sameh, A. H.",
-title="{{HPC} for {W}eather {F}orecasting}",
-bookTitle="Parallel Algorithms in Computational Science and Engineering",
-year="2020",
-publisher="Springer International Publishing",
-address="Cham",
-pages="297--323",
-isbn="978-3-030-43736-7",
-doi="10.1007/978-3-030-43736-7_10",
-url="https://doi.org/10.1007/978-3-030-43736-7_10"
+  author="Michalakes, J.",
+  editor="Grama, A.
+  and Sameh, A. H.",
+  title="{{HPC} for {W}eather {F}orecasting}",
+  bookTitle="Parallel Algorithms in Computational Science and Engineering",
+  year="2020",
+  publisher="Springer International Publishing",
+  address="Cham",
+  pages="297--323",
+  isbn="978-3-030-43736-7",
+  doi="10.1007/978-3-030-43736-7_10",
+  url="https://doi.org/10.1007/978-3-030-43736-7_10",
+  note = {\url{https://doi.org/10.1007/978-3-030-43736-7_10}}
 }
 
 Citation # 24
@@ -246,7 +271,8 @@ Citation # 24
   number={4},
   pages={541-580},
   keywords={Petri nets;Mathematical model;Information processing;Stochastic systems;Equations;Power system modeling;Books;History;Stochastic processes;Logic programming},
-  doi={10.1109/5.24143}
+  doi={10.1109/5.24143},
+  note = {\url{http://dx.doi.org/10.1109/5.24143}}
 }
 
 Citation # 25
@@ -257,7 +283,9 @@ Citation # 25
                   {V}ersion 1.3.0-{DEV}},
   year         = {2024},
   url          = {https://www.oscar-system.org},
+  note = {\url{https://www.oscar-system.org}}
 }
+
 
 Citation # 26
 @inproceedings{asteroid_vis_paper,
@@ -267,7 +295,7 @@ url = {http://datascience.dsscale.org/wp-content/uploads/2017/08/VisualizationAn
 year = {2016},
 date = {2016-01-01},
 journal = {2016 ACM/IEEE International Conference for High Performance Computing, Networking, Storage, and Analysis (SC)},
-note = {Winner, Best Scientific Visualization and Data Analytics Showcase; LA-UR-16-26258},
+note = {Winner, Best Scientific Visualization and Data Analytics Showcase; Los Alamos National Laboratory Report LA-UR-16-26258; Copy Available at: \url{https://www.researchgate.net/publication/310747967_Visualization_and_Analysis_of_Threats_from_Asteroid_Ocean_Impacts}},
 keywords = {asteroid, visualization and data analysis},
 pubstate = {published},
 tppubtype = {inproceedings}
@@ -295,6 +323,7 @@ Citation # 28
     volume = {14},
     url = {https://doi.org/10.1371/journal.pone.0217913},
     pages = {1-26},
+    note = {\url{https://doi.org/10.1371/journal.pone.0217913}}
 }
 
 Citation # 29
@@ -305,7 +334,8 @@ Citation # 29
   doi = {10.1007/978-3-642-54420-0_5},
   pages={43--52},
   year={2014},
-  organization={Springer}
+  organization={Springer},
+  note = {\url{http://dx.doi.org/10.1007/978-3-642-54420-0_5}}
 }
 
 Citation # 30
@@ -313,7 +343,8 @@ Citation # 30
   title={{E}fficient {D}ynamic {T}ask {S}cheduling in {H}eterogeneous {E}nvironments with {J}ulia},
   author={Samaroo, J. and Alomairy, R. and Giordano, M. and Edelman, A.},
   year={2024},
-  publisher={MIT Open Access Articles}
+  publisher={MIT Open Access Articles},
+  note = {\url{https://www.juliapackages.com/p/dagger}}
 }
 
 Citation # 31
@@ -328,7 +359,8 @@ Citation # 31
       number = "8",
       doi = "10.1175/JCLI-D-21-0573.1",
       pages=      "2373 - 2390",
-      url = "https://journals.ametsoc.org/view/journals/clim/35/8/JCLI-D-21-0573.1.xml"
+      url = "https://journals.ametsoc.org/view/journals/clim/35/8/JCLI-D-21-0573.1.xml",
+      note = {\url{https://journals.ametsoc.org/view/journals/clim/35/8/JCLI-D-21-0573.1.xml}}
 }
 
 Citation # 32
@@ -341,7 +373,8 @@ Citation # 32
   number={1},
   pages={47-58},
   keywords={Inhibitors;Encoding;Switches;Complexity theory;Petri nets;Indexes;Bi-tag system;complexity;simulation;universal Petri net;universal Turing machine (TM)},
-  doi={10.1109/TSMC.2012.2237549}
+  doi={10.1109/TSMC.2012.2237549},
+  note = {\url{http://dx.doi.org/10.1109/TSMC.2012.2237549}}
 }
 
 =======================================================
