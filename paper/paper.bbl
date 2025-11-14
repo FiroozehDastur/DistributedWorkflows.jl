@@ -38,6 +38,7 @@ R.~Alomairy, F.~Tome, J.~Samaroo, and A.~Edelman.
 {D}ynamic {T}ask {S}cheduling with {D}ata {D}ependency {A}wareness using
   {J}ulia.
 pages 1--6, 2024.
+\url{https://www.juliapackages.com/p/dagger}.
 
 \bibitem{gpispace_paper_singular}
 J.~B\"{o}hm and A.~Fr\"{u}hbis-Kr\"{u}ger.
@@ -170,6 +171,7 @@ J.~Samaroo, R.~Alomairy, M.~Giordano, and A.~Edelman.
 {E}fficient {D}ynamic {T}ask {S}cheduling in {H}eterogeneous {E}nvironments
   with {J}ulia.
 2024.
+\url{https://www.juliapackages.com/p/dagger}.
 
 \bibitem{TheJuly2019EuropeanHeatWaveinaWarmerClimateStorylineScenarioswithaCoupledModelUsingSpectralNudging}
 A.~Sánchez-Benítez, H.~Goessling, F.~Pithan, T.~Semmler, and T.~Jung.

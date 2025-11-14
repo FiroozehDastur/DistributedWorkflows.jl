@@ -93,7 +93,7 @@ In Petri nets, the transitions and places provide a richer representation of par
 This makes Petri nets, as used in \emph{DistributedWorkflows.jl}, a more powerful model for designing distributed applications, as they allow for greater expressiveness and ease in handling complex tasks and synchronization.
 Table \ref{comparison table for distributed, dagger, and distributedworkflows} provides a feature comparison between \emph{Distributed.jl}, \emph{Dagger.jl}, and \emph{DistributedWorkflows.jl}.\vskip 6pt
 
-This package was created out of the need to provide a convenient way to parallelize computations in the Julia package OSCAR \cite{OSCAR}. OSCAR is a computer algebra system that combines the capabilities of its four cornerstones \emph{GAP} \cite{GAP4}, \emph{Polymake} \cite{Polymake}, ANTIC % \cite{Antic} 
+This package was created out of the need to provide a convenient way to parallelize computations in the Julia package OSCAR \cite{OSCAR}. OSCAR is a computer algebra system that combines the capabilities of its four cornerstones GAP \cite{GAP4}, \emph{Polymake} \cite{Polymake}, ANTIC % \cite{Antic} 
 and \emph{Singular} \cite{DGPS_Singular}. Each of these cornerstones come equipped with their own serializer, in addition to OSCAR's own serializer that works from within Julia. Hence, the need of \emph{DistributedWorkflows.jl} to be serializer independent.\vskip 6pt
 
 \emph{Singular} already employs GPI-Space to write parallel applications, for example see \cite{gpispace_paper_singular}. 
