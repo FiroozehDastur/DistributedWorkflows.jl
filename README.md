@@ -158,7 +158,7 @@ t = transition("hello_jl")
 connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
 
 # create input and output ports for information transfer
-connect(pn, [(p1, :in),(p2, :in),(p3, :out),(p4, :out)]
+connect(pn, [(p1, :in),(p2, :in),(p3, :out),(p4, :out)])
 
 # Alternatively, each place and transition can be connected individually, as shown below:
 #
