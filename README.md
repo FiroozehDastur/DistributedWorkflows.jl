@@ -61,7 +61,7 @@ Please cite this package as follows if you use it in your work:
    * [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.2.1/distributedworkflow_rockylinux8)
    * [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.2.1/distributedworkflow_rockylinux9)
 
-3. Once the download is complete, make sure the file is executeable. Then navigate to the directory where you saved your binary file and run the installation in a target location of your choice as follows:
+3. Once the download is complete, make sure the file is executable. Then navigate to the directory where you saved your binary file and run the installation in a target location of your choice as follows:
 
    ```
    ./distributedworkflow_myOS --target zeda
