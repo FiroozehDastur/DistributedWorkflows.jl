@@ -61,7 +61,7 @@ Please cite this package as follows if you use it in your work:
    * [Rocky Linux 8](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.2.1/distributedworkflow_rockylinux8)
    * [Rocky Linux 9](https://github.com/FiroozehDastur/DistributedWorkflows.jl/releases/download/v0.2.1/distributedworkflow_rockylinux9)
 
-3. Once the download is complete, navigate to the directory where you saved your binary file and run the installation in a target location of your choice as follows:
+3. Once the download is complete, make sure the file is executeable. Then navigate to the directory where you saved your binary file and run the installation in a target location of your choice as follows:
 
    ```
    ./distributedworkflow_myOS --target zeda
@@ -99,19 +99,11 @@ Please cite this package as follows if you use it in your work:
 
 ## DistributedWorkflows.jl
 
-Once this package is registered at it can be installed similar to any Julia package by doing:
+1. Installing this package works similar to any Julia package by running:
 
 ```julia
 import Pkg; Pkg.add("DistributedWorkflows")
 ```
-
-For now, doing the following should work:
-
-1. Once you have the Julia REPL open, enter the package mode of julia and add the github repo as follows:
-
-   ```julia
-   ] add https://github.com/FiroozehDastur/DistributedWorkflows.jl.git
-   ```
 
 2. Once the package administrator has installed `DistributedWorkflows`, it can be loaded like any other Julia package by running `using DistributedWorkflows` in the Julia REPL.
 
@@ -151,7 +143,7 @@ The Petri net can now be constructed as follows:
 # A Petri net with 2 input places and 2 output places
 
 # create an empty Petri net called "hello_julia"
-pn = PetriNet("hello_julia") 
+pn = Workflow_PetriNet("hello_julia") 
 
 # create the input and output places
 p1 = place("input_file1") 
@@ -164,6 +156,9 @@ t = transition("hello_jl")
 
 # connect all the places and transitions based on their connection type to the Petri net
 connect(pn,[(p1, :in),(p2, :in),(p3, :out), (p4, :out)], t)
+
+# create input and output ports for information transfer
+connect(pn, [(p1, :in),(p2, :in),(p3, :out),(p4, :out)]
 
 # Alternatively, each place and transition can be connected individually, as shown below:
 #
@@ -216,7 +211,7 @@ To visualise the workflow in one of the other formats and a specific path use `s
 Assuming that you have a workflow Petri net stored in an accessible location, use the following function to compile the workflow:
 
 ```julia
-compile_workflow(<workflow-name>.xpnet, "/path/to/build/location")
+compile_workflow("/path/to/build/location/<workflow-name>.xpnet")
 ```
 
 Next, start the client using
