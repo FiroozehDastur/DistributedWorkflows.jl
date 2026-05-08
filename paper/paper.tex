@@ -10,6 +10,13 @@
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
 
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
 \begin{document}
 
 \input{header}
@@ -204,7 +211,7 @@ The \emph{DistributedWorkflows.jl} package started as an interface to GPI-Space 
 The primary focus being on ease of use and flexibility, this package extends the capabilities of the underlying system.
 Below is a summary of its key features:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Ease of use}\\
           Designed to simplify user interactions, with a fully documented public API, consisting of examples for every method.\vskip 6pt
     \item \textbf{Serializer Independent}\\
@@ -231,7 +238,7 @@ Below is a summary of its key features:
           Supports job submission directly from Julia, streamlining deployment.\vskip 6pt
     \item \textbf{Notebook Support}\\
           Integrates with Jupyter \cite{Jupyter} and Pluto \cite{Plutojl} notebooks, enabling workflow viewing and editing in an interactive environment, see Figure \ref{notebook_examples}.\vskip 6pt
-\end{itemize}
+\end{enumerate}
 
 \begin{figure}[h]
     \centering

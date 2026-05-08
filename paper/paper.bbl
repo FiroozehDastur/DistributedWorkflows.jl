@@ -35,10 +35,11 @@ Pluto.jl — interactive {J}ulia programming environment.
 
 \bibitem{dagger1}
 R.~Alomairy, F.~Tome, J.~Samaroo, and A.~Edelman.
-{D}ynamic {T}ask {S}cheduling with {D}ata {D}ependency {A}wareness using
+Dynamic {T}ask {S}cheduling with {D}ata {D}ependency {A}wareness {U}sing
   {J}ulia.
-pages 1--6, 2024.
-\url{https://www.juliapackages.com/p/dagger}.
+In {\em 2024 IEEE High Performance Extreme Computing Conference (HPEC)}, pages
+  1--7, 2024.
+\url{https://doi.org/10.1109/HPEC62836.2024.10938467}.
 
 \bibitem{gpispace_paper_singular}
 J.~B\"{o}hm and A.~Fr\"{u}hbis-Kr\"{u}ger.
